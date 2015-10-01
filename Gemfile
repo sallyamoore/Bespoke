@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-
+gem 'dotenv-rails', :groups => [:development, :test]
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.4'
 # Use postgres as the database for Active Record
@@ -62,4 +62,8 @@ group :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails', '~> 4.0'
   gem 'simplecov', require: false
+end
+
+group :production do
+  gem 'rails_12factor'
 end
