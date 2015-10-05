@@ -24,6 +24,14 @@ ActiveRecord::Schema.define(version: 20151001223514) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "locations_users", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "location_id"
+  end
+
+  add_index "locations_users", ["location_id"], name: "index_locations_users_on_location_id", using: :btree
+  add_index "locations_users", ["user_id"], name: "index_locations_users_on_user_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "email"
     t.string   "username"
@@ -31,13 +39,5 @@ ActiveRecord::Schema.define(version: 20151001223514) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
-
-  create_table "users_locations", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "location_id"
-  end
-
-  add_index "users_locations", ["location_id"], name: "index_users_locations_on_location_id", using: :btree
-  add_index "users_locations", ["user_id"], name: "index_users_locations_on_user_id", using: :btree
 
 end

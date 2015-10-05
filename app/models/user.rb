@@ -4,5 +4,7 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :locations
 
   # Validations ---------------------
-  # Add email Validation
+  validates :username, :email, :password_digest, presence: true, uniqueness: true
+  validates :email, format: /@+.+\.+./ 
+
 end
