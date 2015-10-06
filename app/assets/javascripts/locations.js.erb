@@ -4,10 +4,30 @@ $(document).ready(function() {
       attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
       maxZoom: 18,
       id: 'sallyamoore.nkikgok3',
-      accessToken: 'pk.eyJ1Ijoic2FsbHlhbW9vcmUiLCJhIjoiY2lmNGVraDA5MDNjOXhka3NkM21ia3ZoNSJ9.uKb3jUc4f4MtZFImsGcWDA'
+      // Token is hidden. Don't push token.
+      accessToken:
   }).addTo(map);
-// L.mapbox.accessToken = 'pk.eyJ1Ijoic2FsbHlhbW9vcmUiLCJhIjoiY2lmNGVraDA5MDNjOXhka3NkM21ia3ZoNSJ9.uKb3jUc4f4MtZFImsGcWDA';
+
+  map.locate({setView: true, maxZoom: 16});
+  map.on('locationfound', onLocationFound);
+  map.on('locationerror', onLocationError);
+
+// L.mapbox.accessToken = 'put_token_here';
 // var map = L.mapbox.map('map', 'mapbox.streets')
 //     .setView([52.37, 4.9], 14);
 // L.tileLayer('http://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png').addTo(map);
 })
+
+// finds current location... but marker isn't working.
+function onLocationFound(e) {
+    var radius = e.accuracy / 2;
+
+    L.marker(e.latlng).addTo(map)
+        .bindPopup("You are within " + radius + " meters from this point").openPopup();
+
+    L.circle(e.latlng, radius).addTo(map);
+}
+
+function onLocationError(e) {
+    alert(e.message);
+}
