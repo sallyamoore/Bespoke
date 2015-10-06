@@ -1,0 +1,6 @@
+$(document).ready(function() {
+  L.mapbox.accessToken = 'pk.eyJ1Ijoic2FsbHlhbW9vcmUiLCJhIjoiY2lmNGVraDA5MDNjOXhka3NkM21ia3ZoNSJ9.uKb3jUc4f4MtZFImsGcWDA';
+  var map = L.mapbox.map('map', 'mapbox.streets')
+      .setView([52.37, 4.9], 14);
+  L.tileLayer('http://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png').addTo(map);
+})
