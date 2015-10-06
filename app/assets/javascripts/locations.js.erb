@@ -1,6 +1,13 @@
 $(document).ready(function() {
-  L.mapbox.accessToken = 'pk.eyJ1Ijoic2FsbHlhbW9vcmUiLCJhIjoiY2lmNGVraDA5MDNjOXhka3NkM21ia3ZoNSJ9.uKb3jUc4f4MtZFImsGcWDA';
-  var map = L.mapbox.map('map', 'mapbox.streets')
-      .setView([52.37, 4.9], 14);
-  L.tileLayer('http://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png').addTo(map);
+  var map = L.map('map').setView([52.37, 4.9], 14);
+  L.tileLayer('http://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png', {
+      attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+      maxZoom: 18,
+      id: 'sallyamoore.nkikgok3',
+      accessToken: 'pk.eyJ1Ijoic2FsbHlhbW9vcmUiLCJhIjoiY2lmNGVraDA5MDNjOXhka3NkM21ia3ZoNSJ9.uKb3jUc4f4MtZFImsGcWDA'
+  }).addTo(map);
+// L.mapbox.accessToken = 'pk.eyJ1Ijoic2FsbHlhbW9vcmUiLCJhIjoiY2lmNGVraDA5MDNjOXhka3NkM21ia3ZoNSJ9.uKb3jUc4f4MtZFImsGcWDA';
+// var map = L.mapbox.map('map', 'mapbox.streets')
+//     .setView([52.37, 4.9], 14);
+// L.tileLayer('http://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png').addTo(map);
 })
