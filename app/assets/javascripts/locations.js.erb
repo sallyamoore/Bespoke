@@ -4,7 +4,7 @@ var overpassPrefix = "http://overpass-api.de/api/interpreter?data=",
 $(document).ready(function() {
   L.mapbox.accessToken = 'pk.eyJ1Ijoic2FsbHlhbW9vcmUiLCJhIjoiY2lmZm53MmlkOHA2YnNka25wd3BmNDB3dyJ9.F5FdTfUY5XLbzWMcWpRp2A';
   map = L.mapbox.map('map', 'sallyamoore.nkikgok3')
-    .setView([52.3081, 4.7642], 13);
+    .setView([52.3081, 4.7642], 12);
 
   L.tileLayer('http://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png')
     .addTo(map);
@@ -34,7 +34,7 @@ $(document).ready(function() {
             opacity: 1.0,
             fill: false,
             weight: 3.5,
-            radius: 11 })
+            radius: 10 })
     			.addTo(map);
         }
       }
