@@ -1,33 +1,53 @@
+var map;
+
 $(document).ready(function() {
-  var map = L.map('map').setView([52.37, 4.9], 14);
-  L.tileLayer('http://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png', {
-      attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-      maxZoom: 18,
-      id: 'sallyamoore.nkikgok3',
-      // Token is hidden. Don't push token.
-      accessToken: ''
-  }).addTo(map);
+  L.mapbox.accessToken = 'pk.eyJ1Ijoic2FsbHlhbW9vcmUiLCJhIjoiY2lmZm53MmlkOHA2YnNka25wd3BmNDB3dyJ9.F5FdTfUY5XLbzWMcWpRp2A';
+  map = L.mapbox.map('map', 'sallyamoore.nkikgok3')
+      .setView([52.3081, 4.7642], 13);
+      L.tileLayer('http://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png').addTo(map);
 
-  map.locate({setView: true, maxZoom: 16});
-  map.on('locationfound', onLocationFound);
-  map.on('locationerror', onLocationError);
+      var bounds = (map.getBounds());
+      // order in api query is south, west, north, east
 
-// L.mapbox.accessToken = 'put_token_here';
-// var map = L.mapbox.map('map', 'mapbox.streets')
-//     .setView([52.37, 4.9], 14);
-// L.tileLayer('http://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png').addTo(map);
+      $.getJSON('http://overpass-api.de/api/interpreter?data=[out:json];(relation["type"="network"]["network"="rcn"]('
+        + bounds._southWest.lat + ','
+        + bounds._southWest.lng + ','
+        + bounds._northEast.lat + ','
+        + bounds._northEast.lng +
+        ');node(r)->.nodes;rel(r);way(r););out body;>;out skel qt;',
+        function(data) {
+          console.log(data.elements);
+          for (var i = 0; i < data.elements.length - 1; i++) {
+            if (data.elements[i].tags && data.elements[i].lat)  {
+              marker = new L.circleMarker([data.elements[i].lat, data.elements[i].lon])
+              marker.setIcon(L.mapbox.marker.icon({
+                "marker-color": "#FF9F1F"
+              }))
+                // add a popup with rcn_ref # to marker:
+              	// .bindPopup(data.elements[i].tags.rcn_ref)
+        				.addTo(map);
+            }
+          }
+      });
+
+  // calls function to find current location. Need to set to occur only with click in nav.
+  // map.locate({setView: true, maxZoom: 16});
+  // map.on('locationfound', onLocationFound);
+  // map.on('locationerror', onLocationError);
 })
 
-// finds current location... but marker isn't working.
-function onLocationFound(e) {
-    var radius = e.accuracy / 2;
 
-    L.marker(e.latlng).addTo(map)
+// finds current location.
+function onLocationFound(event) {
+    var radius = event.accuracy / 2;
+
+    L.marker(event.latlng).addTo(map)
         .bindPopup("You are within " + radius + " meters from this point").openPopup();
 
-    L.circle(e.latlng, radius).addTo(map);
+    L.circle(event.latlng, radius).addTo(map);
 }
 
-function onLocationError(e) {
-    alert(e.message);
+// error if current location can't be found
+function onLocationError(event) {
+    alert(event.message);
 }
