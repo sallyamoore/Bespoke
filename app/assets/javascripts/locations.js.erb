@@ -14,14 +14,6 @@ $(document).ready(function() {
   var neLon = (map.getBounds()._northEast.lng);
   // Note: order of directions in api query is south, west, north, east
 
-  // var rcnLayer = L.mapbox.featureLayer().addTo(map);
-
-  // rcnLayer.on('layeradd', function(event) {
-    // var marker = event.layer,
-    //     feature = marker.feature;
-    //
-    // marker.setIcon(L.icon(feature.properties.icon));
-
   $.getJSON(overpassPrefix + '[out:json];(relation["type"="network"]["network"="rcn"]('
     + swLat + ',' + swLon + ',' + neLat + ',' + neLon +
     ');node(r)->.nodes;rel(r);way(r););out body;>;out skel qt;',
@@ -45,7 +37,6 @@ $(document).ready(function() {
   // map.on('locationfound', onLocationFound);
   // map.on('locationerror', onLocationError);
 })
-
 
 // finds current location.
 function onLocationFound(event) {
