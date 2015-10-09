@@ -9,6 +9,7 @@
     this.startZoom = options.startZoom;
     this.bikeMapLayer = options.bikeMapLayer;
     this.markerFormat = options.markerFormat;
+    this.attribution = options.attribution;
   }
   exports.Map = Map;
 
@@ -18,13 +19,14 @@
       var new_map = L.mapbox.map('map', this.baseMap)
         .setView(this.startLatLon, this.startZoom);
       L.tileLayer(this.bikeMapLayer, {
-        attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest, </a>&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap </a>contributors'
+        attribution: this.attribution
       }).addTo(new_map);
       this.getBounds(new_map);
     },
 
     getBounds: function(map) {
-      var bounds = [ map.getBounds()._southWest.lat,
+      var bounds = [
+        map.getBounds()._southWest.lat,
         map.getBounds()._southWest.lng,
         map.getBounds()._northEast.lat,
         map.getBounds()._northEast.lng

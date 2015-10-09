@@ -12,10 +12,10 @@ $(document).ready(function() {
       fill: false,
       weight: 3.5,
       radius: 10
-    }
+    },
+    attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>'
   });
   map.loadMap();
-
 })
 
 
