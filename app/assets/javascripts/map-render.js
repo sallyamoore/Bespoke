@@ -15,15 +15,16 @@ $(document).ready(function() {
     }
   });
   map.loadMap();
+  
 })
+
+
 
 // FOR CALLING CURRENT LOCATION FUNCTION
 // map.locate({setView: true, maxZoom: 16});
 // map.on('locationfound', onLocationFound);
 // map.on('locationerror', onLocationError);
 
-
-//
 // finds current location.
 // function onLocationFound(event) {
 //     var radius = event.accuracy / 2;

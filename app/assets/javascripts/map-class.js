@@ -17,7 +17,9 @@
       L.mapbox.accessToken = this.mapboxPk;
       var new_map = L.mapbox.map('map', this.baseMap)
         .setView(this.startLatLon, this.startZoom);
-      L.tileLayer(this.bikeMapLayer).addTo(new_map);
+      L.tileLayer(this.bikeMapLayer, {
+        attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest, </a>&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap </a>contributors'
+      }).addTo(new_map);
       this.getBounds(new_map);
     },
 
@@ -36,6 +38,7 @@
         + (bounds.join()) +
         ');node(r)->.nodes;rel(r);way(r););out body;>;out skel qt;',
         function(data) {
+
           // create clickable markers for each bike node in bounds
           for (var i = 0; i < data.elements.length - 1; i++) {
             if (data.elements[i].tags && data.elements[i].lat)  {
