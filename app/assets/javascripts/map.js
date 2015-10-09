@@ -46,6 +46,19 @@
             }
           }
         });
+    },
+
+    onLocationFound: function(event, map) {
+        var radius = event.accuracy / 2;
+
+        L.marker(event.latlng).addTo(map)
+            .bindPopup("You are within " + radius + " meters from this point").openPopup();
+
+        L.circle(event.latlng, radius).addTo(map);
+    },
+
+    onLocationError: function(event) {
+        alert(event.message);
     }
   };
 })(this);

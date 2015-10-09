@@ -1,6 +1,3 @@
-// var overpassPrefix = "http://overpass-api.de/api/interpreter?data=",
-//   map;
-
 $(document).ready(function() {
   var map = new Map({
     overpassPrefix: "http://overpass-api.de/api/interpreter?data=",
@@ -20,17 +17,24 @@ $(document).ready(function() {
   map.loadMap();
 })
 
+// FOR CALLING CURRENT LOCATION FUNCTION
+// map.locate({setView: true, maxZoom: 16});
+// map.on('locationfound', onLocationFound);
+// map.on('locationerror', onLocationError);
+
+
+//
 // finds current location.
-function onLocationFound(event) {
-    var radius = event.accuracy / 2;
-
-    L.marker(event.latlng).addTo(map)
-        .bindPopup("You are within " + radius + " meters from this point").openPopup();
-
-    L.circle(event.latlng, radius).addTo(map);
-}
+// function onLocationFound(event) {
+//     var radius = event.accuracy / 2;
+//
+//     L.marker(event.latlng).addTo(map)
+//         .bindPopup("You are within " + radius + " meters from this point").openPopup();
+//
+//     L.circle(event.latlng, radius).addTo(map);
+// }
 
 // error if current location can't be found
-function onLocationError(event) {
-    alert(event.message);
-}
+// function onLocationError(event) {
+//     alert(event.message);
+// }
