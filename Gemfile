@@ -31,6 +31,9 @@ gem 'bootstrap-sass'
 
 # User Auth
 gem 'omniauth'
+gem "omniauth-github"
+gem "omniauth-twitter"
+gem "omniauth-facebook"
 
 # Use Unicorn as the app server
 # gem 'unicorn'
