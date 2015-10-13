@@ -7,6 +7,15 @@ RSpec.configure do |config|
 
   config.include FactoryGirl::Syntax::Methods
 
+  config.before(:suite) do
+    OmniAuth.config.test_mode = true
+    OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new({
+      :provider => 'github',
+      :uid => '123545',
+      info: {email: "a@b.com", username: "Ada"}
+    })
+  end
+
   config.expect_with :rspec do |expectations|
     # This option will default to `true` in RSpec 4. It makes the `description`
     # and `failure_message` of custom matchers include text for helper methods

@@ -2,9 +2,11 @@ FactoryGirl.define do
   factory :user do
     username "pusheen"
     email "pusheen@kittybloggens.com"
-    password "tosti"
-    password_confirmation "tosti"
+    password "tostij"
+    password_confirmation "tostij"
+    uid "88888"
   end
+
 
   factory :location do
     node_number 34

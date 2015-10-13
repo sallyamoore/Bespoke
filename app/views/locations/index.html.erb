@@ -1,1 +1,13 @@
-<div id='map' ></div>
+<div class='login'>
+  <% if session[:user_id].nil? %>
+    <h3 class="login-header">Login?</h3>
+
+    <div class="login-links"><%= link_to login_path(provider: :github) do %>
+      <span class="fa fa-github fa-3x center ig-icon" aria-hidden="true" data-toggle="tooltip" title="github login"></span>
+    <% end %></div>
+  <% end %>
+</div>
+
+</div><div id='map' >
+
+<!-- add username to view when logged in -->

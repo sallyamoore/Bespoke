@@ -18,6 +18,8 @@ $(document).ready(function() {
   map.loadMap();
 })
 
+// initial view is semi-transparent login box; disappears on login or guest click
+
 
 
 // FOR CALLING CURRENT LOCATION FUNCTION

@@ -8,6 +8,10 @@ Rails.application.routes.draw do
   get '/map' => 'locations#index'
   get '/map/:locale' => 'locations#index'
 
+  get "auth/:provider/callback" => 'sessions#create'
+  get "auth/:provider" => 'sessions#create', as: 'login'
+
+  delete "logout" => 'sessions#destroy'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
