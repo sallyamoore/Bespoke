@@ -4,17 +4,16 @@ require 'simplecov'
 SimpleCov.start 'rails'
 
 RSpec.configure do |config|
-
-  config.include FactoryGirl::Syntax::Methods
-
   config.before(:suite) do
     OmniAuth.config.test_mode = true
     OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new({
       :provider => 'github',
       :uid => '123545',
-      info: {email: "a@b.com", username: "Ada"}
+      info: {email: "ada@ada.com", nickname: "Ada"}
     })
   end
+
+  config.include FactoryGirl::Syntax::Methods
 
   config.expect_with :rspec do |expectations|
     # This option will default to `true` in RSpec 4. It makes the `description`

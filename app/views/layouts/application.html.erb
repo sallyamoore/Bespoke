@@ -20,6 +20,9 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+<% if flash[:error] %>
+  <h5 class="alert alert-danger"><%= flash[:error] %></h5>
+<% end %>
 
 <%= yield %>
 

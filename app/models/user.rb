@@ -4,9 +4,8 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :locations
 
   # Validations ---------------------
-  validates :username, :email, :password_digest, presence: true, uniqueness: true
+  validates :username, :uid, :password_digest, :email, presence: true, uniqueness: true
   validates :email, format: /@+.+\.+./
-  validates :provider, presence: true
 
   def self.find_or_create_from_omniauth(auth_hash)
     uid = auth_hash[:uid]
@@ -14,9 +13,12 @@ class User < ActiveRecord::Base
 
     user = User.where(uid: uid, provider: provider).first_or_initialize
     user.email = auth_hash[:info][:email]
-    user.username = auth_hash[:info][:name]
+    user.username = auth_hash[:info][:nickname]
+    dummy_password = Time.now.to_i.to_s
+    user.password = dummy_password
+    user.password_confirmation = dummy_password
 
-    return user.save ? user : nil
+    user.save ? user : nil
   end
 
 end

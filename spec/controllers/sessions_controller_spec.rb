@@ -1,7 +1,7 @@
 require 'rails_helper'
+require 'pry'
 
 RSpec.describe SessionsController, type: :controller do
-
 
   describe "GET #create" do
     context "logging in via github with valid params" do
@@ -11,7 +11,6 @@ RSpec.describe SessionsController, type: :controller do
 
       it "redirects to root_path" do
         get :create, provider: :github
-
         expect(response).to redirect_to root_path
       end
 
@@ -21,24 +20,20 @@ RSpec.describe SessionsController, type: :controller do
           }.to change(User, :count).by(1)
       end
 
-      it "sets user_id and access token" do
+      it "sets user_id for the session" do
         get :create, provider: :github
         expect(session[:user_id]).to eq(1)
-        expect(session[:access_token]).to eq("token")
       end
     end
 
     context "attempted login via github with invalid params" do
       let(:invalid_params) { {
         :provider => 'github',
-        :uid => '12345',
-        info: {email: "a@b.com", username: "Ada"},
-        credentials: { token: 'token' }
+        :uid => nil,
+        info: {email: "a@b.com", username: "Ada"}
       } }
 
       it "does not create a user" do
-        get :create, invalid_params
-
         expect {
           get :create, invalid_params
           }.to change(User, :count).by(0)
@@ -73,7 +68,7 @@ RSpec.describe SessionsController, type: :controller do
   #     let(:invalid_params) { {
   #       :provider => 'twitter',
   #       :uid => '12345',
-  #       info: {email: "a@b.com", name: "Ada"},
+  #       info: {email: "a@b.com", nickname: "Ada"},
   #       credentials: { token: 'token' }
   #     } }
   #
@@ -105,6 +100,6 @@ RSpec.describe SessionsController, type: :controller do
   #       expect(subject).to redirect_to(root_path)
   #     end
   #   end
-  end 
+  end
 
 end
