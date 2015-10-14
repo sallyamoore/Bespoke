@@ -8,7 +8,7 @@
 
     <h2>or via email:</h2>
 
-    <%= form_for(:session, url: login_path)  do |f| %>
+    <%= form_for(:session, url: email_login_path)  do |f| %>
 			<div class="form-group col-sm-12">
 				<%= f.label :username %>
 				<%= f.text_field :username, class: "form-control" %>
@@ -29,7 +29,14 @@
       <p>or <%= link_to "Continue without logging in", map_path %></p>
     </div>
 
+  <% else %>
+    <div>
+      <p>You're logged in!</p>
+      <%= link_to "Logout", logout_path, method: :delete, class: 'btn btn-default' %>
+
+    </div>
   <% end %>
+
 </div>
 
 </div><div id='map' >

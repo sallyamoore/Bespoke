@@ -20,15 +20,11 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+<% if flash[:error] %>
+  <h5 class="alert alert-danger"><%= flash[:error] %></h5>
+<% end %>
 
-  <div class="container-fluid center-block">
+<%= yield %>
 
-    <% if flash[:error] %>
-      <h5 class="alert alert-danger"><%= flash[:error] %></h5>
-    <% end %>
-
-    <%= yield %>
-
-  </div>
 </body>
 </html>
