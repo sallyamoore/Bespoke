@@ -8,10 +8,9 @@ class SessionsController < ApplicationController
     end
 
     if @user && (auth_hash["uid"] || @user.authenticate(auth_hash[:session][:password]))
-      session[:user_id] = @user.id
-      redirect_to root_path
+      login_user(@user)
     else
-      redirect_to root_path, flash: { error: "Failed to authenticate" }
+      redirect_to root_path, flash: { error: MESSAGES[:failed_authentication] }
     end
   end
 

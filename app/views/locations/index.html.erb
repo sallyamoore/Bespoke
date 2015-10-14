@@ -1,5 +1,5 @@
-<div class='login'>
-  <% if session[:user_id].nil? %>
+<% if session[:user_id].nil? %>
+  <div class='overlay'>
     <h2>Login with:</h2>
 
     <div class="login-links"><%= link_to provider_login_path(provider: :github) do %>
@@ -24,10 +24,11 @@
 
 		<!-- register button -->
     <div class="register">
-      <h2>New to Bespoke?</h2>
-      <%= link_to "Register", new_user_path, class: 'btn btn-default' %>
+      <h4>New to bspoked?</h4>
+      <%= link_to "Register with email", new_user_path, class: 'btn btn-default' %>
       <p>or <%= link_to "Continue without logging in", root_path %></p>
     </div>
+  </div>
 
   <% else %>
     <div>
@@ -37,7 +38,7 @@
     </div>
   <% end %>
 
-</div>
+
 
 </div><div id='map' >
 

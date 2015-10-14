@@ -6,6 +6,12 @@ class ApplicationController < ActionController::Base
   before_action :set_locale
   helper_method :current_user
 
+  MESSAGES = {
+    login_required: "You have to be logged in to do that!",
+    failed_authentication: "Failed to authenticate",
+    logout_first: "You are currently logged in. Log out to create a new account."
+  }
+
   private
 
   def current_user
@@ -18,6 +24,11 @@ class ApplicationController < ActionController::Base
 
   def default_url_options(options = {})
     { locale: I18n.locale }.merge options
+  end
+
+  def login_user(user)
+    session[:user_id] = user.id
+    redirect_to root_path
   end
 
 end
