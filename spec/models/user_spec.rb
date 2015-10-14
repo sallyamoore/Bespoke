@@ -33,7 +33,6 @@ RSpec.describe User, type: :model do
     end
 
     context "email address must contain an '@' followed by a '.'" do
-
       it "does not validate invalid email addresses" do
         invalid_emails = ["hi@com", "hi.hi.com", "roundhouse"]
         invalid_emails.each do |email|
@@ -49,7 +48,7 @@ RSpec.describe User, type: :model do
                         "hi.there@unigoats.edu",
                         "ada.rocks@rock.star"]
         valid_emails.each do |email|
-          user = create :user, username: email, email: email
+          user = create :user, username: email, email: email, uid: email
           expect(user).to be_valid
           expect(user.errors.keys).not_to include(:email)
         end

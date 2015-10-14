@@ -63,6 +63,7 @@ group :development do
 end
 
 group :test do
+  gem 'database_cleaner', '~> 1.5.0'
   gem 'rspec-rails'
   gem 'factory_girl_rails', '~> 4.0'
   gem 'simplecov', require: false
