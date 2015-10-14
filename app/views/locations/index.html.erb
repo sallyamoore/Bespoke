@@ -1,5 +1,5 @@
 <% if session[:user_id].nil? %>
-  <div class='overlay'>
+  <div class='login'>
     <h2>Login with:</h2>
 
     <div class="login-links"><%= link_to provider_login_path(provider: :github) do %>
@@ -26,20 +26,23 @@
     <div class="register">
       <h4>New to bspoked?</h4>
       <%= link_to "Register with email", new_user_path, class: 'btn btn-default' %>
-      <p>or <%= link_to "Continue without logging in", root_path %></p>
+      <p>or <%= link_to "Continue without logging in", root_path, class: "guest-user" %></p>
     </div>
   </div>
 
-  <% else %>
-    <div>
-      <p>You're logged in!</p>
-      <%= link_to "Logout", logout_path, method: :delete, class: 'btn btn-default' %>
+<% else %>
+  <div class="logout">
+    <p><%= "#{@username}" %></p>
+    <%= link_to "Logout", logout_path, method: :delete, class: 'btn btn-default' %>
+  </div>
+<% end %>
 
-    </div>
-  <% end %>
+<div class="nav-bar">
+  <footer>
+    <span class="col-xs-4 fa fa-search fa-3x center ig-icon" aria-hidden="true" data-toggle="tooltip" title="search by address"></span>
+    <span class="col-xs-4 fa fa-map-marker fa-3x center ig-icon" aria-hidden="true" data-toggle="tooltip" title="find my location"></span>
+    <span class="col-xs-4 fa fa-user fa-3x center ig-icon" aria-hidden="true" data-toggle="tooltip" title="account info"></span>
+  </footer>
+</div>
 
-
-
-</div><div id='map' >
-
-<!-- add username to view when logged in -->
+<div id='map' ></div>
