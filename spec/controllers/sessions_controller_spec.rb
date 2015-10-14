@@ -3,25 +3,25 @@ require 'pry'
 
 RSpec.describe SessionsController, type: :controller do
 
-  describe "GET #create_with_provider" do
+  describe "GET #create" do
     context "logging in via github with valid params" do
       before :each do
         request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:github]
       end
 
       it "sets user_id for the session" do
-        get :create_with_provider, provider: :github
+        get :create, provider: :github
         expect(session[:user_id]).to eq(1)
       end
 
       it "creates a user" do
         expect {
-          get :create_with_provider, provider: :github
+          get :create, provider: :github
           }.to change(User, :count).by(1)
       end
 
       it "redirects to root_path" do
-        get :create_with_provider, provider: :github
+        get :create, provider: :github
         expect(response).to redirect_to root_path
       end
     end
@@ -36,7 +36,7 @@ RSpec.describe SessionsController, type: :controller do
       it "does not create a user" do
         request.env['omniauth.auth'] = invalid_params
         expect {
-          get :create_with_provider, provider: :github
+          get :create, provider: :github
           }.to change(User, :count).by(0)
       end
     end

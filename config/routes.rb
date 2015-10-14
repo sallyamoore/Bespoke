@@ -3,18 +3,16 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'users#index'
-
-  get '/map' => 'locations#index'
-  get '/map/:locale' => 'locations#index'
+  get '/:locale' => 'hello#index', as: :switch
+  root 'locations#index'
 
   resources :users, only: [ :show, :new, :create ]
 
   get "auth/github/callback" => 'sessions#create'
 
-  get "auth/:provider" => 'sessions#create_with_provider', as: 'provider_login'
+  get "auth/:provider" => 'sessions#create', as: 'provider_login'
   # get    "/login",  to: 'sessions#new'
-  post   "/login",  to: 'sessions#create_with_email',     as: 'email_login'
+  post   "/login",  to: 'sessions#create', as: 'login'
   delete "/logout", to: 'sessions#destroy'
 
   # Example of regular route:

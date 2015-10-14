@@ -8,7 +8,7 @@
 
     <h2>or via email:</h2>
 
-    <%= form_for(:session, url: email_login_path)  do |f| %>
+    <%= form_for(:session, url: login_path)  do |f| %>
 			<div class="form-group col-sm-12">
 				<%= f.label :username %>
 				<%= f.text_field :username, class: "form-control" %>
@@ -26,7 +26,7 @@
     <div class="register">
       <h2>New to Bespoke?</h2>
       <%= link_to "Register", new_user_path, class: 'btn btn-default' %>
-      <p>or <%= link_to "Continue without logging in", map_path %></p>
+      <p>or <%= link_to "Continue without logging in", root_path %></p>
     </div>
 
   <% else %>

@@ -5,8 +5,8 @@ class User < ActiveRecord::Base
 
   # Validations ---------------------
   validates :username, :password_digest, :email, presence: true, uniqueness: true
-  validates :uid, uniqueness: true
-  validates :email, format: /@+.+\.+./
+  validates :uid, uniqueness: true, allow_blank: true, allow_nil: true
+  validates :email, format: /.+@+.+\.+./
 
   def self.find_or_create_from_omniauth(auth_hash)
     uid = auth_hash[:uid]
