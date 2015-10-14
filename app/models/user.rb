@@ -4,7 +4,8 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :locations
 
   # Validations ---------------------
-  validates :username, :uid, :password_digest, :email, presence: true, uniqueness: true
+  validates :username, :password_digest, :email, presence: true, uniqueness: true
+  validates :uid, uniqueness: true
   validates :email, format: /@+.+\.+./
 
   def self.find_or_create_from_omniauth(auth_hash)

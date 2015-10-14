@@ -1,10 +1,34 @@
 <div class='login'>
   <% if session[:user_id].nil? %>
-    <h3 class="login-header">Login?</h3>
+    <h2>Login with:</h2>
 
-    <div class="login-links"><%= link_to login_path(provider: :github) do %>
+    <div class="login-links"><%= link_to provider_login_path(provider: :github) do %>
       <span class="fa fa-github fa-3x center ig-icon" aria-hidden="true" data-toggle="tooltip" title="github login"></span>
     <% end %></div>
+
+    <h2>or via email:</h2>
+
+    <%= form_for(:session, url: login_path)  do |f| %>
+			<div class="form-group col-sm-12">
+				<%= f.label :username %>
+				<%= f.text_field :username, class: "form-control" %>
+			</div>
+
+			<div class="form-group col-sm-12">
+					<%= f.label :password %>
+					<%= f.password_field :password, class: "form-control"  %>
+			</div>
+
+			<%= f.submit "Log In", class: "btn btn-primary" %>
+		<% end %>
+
+		<!-- register button -->
+    <div class="register">
+      <h2>New to Bespoke?</h2>
+      <%= link_to "Register", new_user_path, class: 'btn btn-default' %>
+      <p>or <%= link_to "Continue without logging in", map_path %></p>
+    </div>
+
   <% end %>
 </div>
 
