@@ -17,6 +17,36 @@ RSpec.describe User, type: :model do
       expect(user.errors.keys).to include(:username)
     end
 
+    it "must have a password" do
+      user = build :user, password: nil
+
+      expect(user).not_to be_valid
+      expect(user.errors.keys).to include(:password)
+    end
+
+    it "password_digest must be unique" do
+      user = create :user
+      user2 = build :user, password_digest: user.password_digest
+
+      expect(user2).not_to be_valid
+      expect(user2.errors.keys).to include(:password_digest)
+    end
+
+    it "uid is not required" do
+      user = build :user, uid: nil
+
+      expect(user).to be_valid
+      expect(user.errors.keys).not_to include(:uid)
+    end
+
+    it "if present, uid must be unique" do
+      create :user
+      user = build :user
+
+      expect(user).not_to be_valid
+      expect(user.errors.keys).to include(:uid)
+    end
+
     it "must have an email address" do
       user = build :user, email: nil
 
@@ -76,6 +106,28 @@ RSpec.describe User, type: :model do
       expect(user.locations).to include(location2)
       expect(user.locations).to include(location3)
       expect(user.locations.count).to be 3
+    end
+  end
+
+  describe "model methods" do
+
+    describe "login with OmniAuth and Github" do
+      let(:user) {
+        User.find_or_create_from_omniauth(OmniAuth.config.mock_auth[:github])
+      }
+
+      it "creates a valid user" do
+        expect(user).to be_valid
+      end
+
+      context "when it's invalid" do
+        it "returns nil" do
+          user = User.find_or_create_from_omniauth({
+            uid: "123", info: { }
+            })
+          expect(user).to be_nil
+        end
+      end
     end
   end
 end
