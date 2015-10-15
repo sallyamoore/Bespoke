@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Bespoke</title>
+  <title>bespoked</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.css" />
   <script src="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.js"></script>
@@ -19,12 +19,16 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
-<body>
-<% if flash[:error] %>
-  <h5 class="alert alert-danger"><%= flash[:error] %></h5>
-<% end %>
+<body data-logged-in-user="<%= session[:user_id] ? true : false %>" >
 
-<%= yield %>
+  <div class="alerts-div">
+    <% if flash[:error] %>
+      <h5 class="alert alert-danger"><%= flash[:error] %></h5>
+    <% end %>
+  </div>
+
+
+  <%= yield %>
 
 </body>
 </html>

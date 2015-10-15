@@ -23,19 +23,5 @@ $(document).ready(function() {
       result.on('locationfound', onLocationFound);
       result.on('locationerror', onLocationError);
     });
-
-    function onLocationFound(event) {
-      var radius = event.accuracy / 2;
-      L.marker(event.latlng).addTo(this)
-        .bindPopup("You are within " + radius + " meters from this point").openPopup();
-
-      L.circle(event.latlng, radius).addTo(this);
-    }
-
-    function onLocationError(event) {
-      alert(event.message);
-    }
   });
-
-
 });

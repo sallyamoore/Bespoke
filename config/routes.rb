@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  get '/:locale' => 'hello#index', as: :switch
+  get '/:locale' => 'locations#index', as: :switch
   root 'locations#index'
 
   resources :users, only: [ :show, :new, :create ]

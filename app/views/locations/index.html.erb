@@ -31,12 +31,18 @@
     </div>
   </div>
 
+  <div class="login-or-register">
+    <%= link_to "Login or Register", root_path, class: 'btn btn-default' %>
+  </div>
+
 <% else %>
   <div class="logout">
     <p><%= "#{@username}" %></p>
     <%= link_to "Logout", logout_path, method: :delete, class: 'btn btn-default' %>
   </div>
 <% end %>
+
+
 
 <div class="nav-bar">
   <footer>

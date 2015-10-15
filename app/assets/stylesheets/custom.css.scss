@@ -10,12 +10,13 @@ body {
   margin-top: 3em;
 }
 
-.nav {
+.alerts-div {
+  z-index: 9999;
   position: absolute;
   bottom: 0;
+  right: 0;
   width: 100%;
-  background-color: rgba(255, 255, 255, 0.7);
-  z-index: 1000;
+  text-align: center;
 }
 
 .login {
@@ -33,7 +34,8 @@ body {
   margin: 0 auto;
 }
 
-.logout {
+.logout, .login-or-register {
+  display: none;
   position: absolute;
   background-color: rgba(255, 255, 255, .7);
   top: 0;
