@@ -51,6 +51,11 @@ body {
   width: 100%;
   bottom: 0;
   z-index: 100;
+  text-align: center;
+}
+
+div.leaflet-control-attribution, div.leaflet-compact-attribution {
+  bottom: 5.8em;
 }
 
 #map {

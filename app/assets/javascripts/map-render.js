@@ -15,31 +15,17 @@ $(document).ready(function() {
     },
     attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>'
   });
-  map.loadMap();
-})
 
-// initial view is semi-transparent login box; disappears on login or guest click
+  map.loadMap(function(result) {
+    $(".my-location").click(function(event){
+      event.preventDefault();
+      result.locate({setView: true, maxZoom: 16});
+      console.log(map);
+      result.on('locationfound', map.onLocationFound());
+      result.on('locationerror', map.onLocationError());
+    });
+
+  });
 
 
-
-// FOR CALLING CURRENT LOCATION FUNCTION
-
-// ON CLICK OF FIND ME:
-// map.locate({setView: true, maxZoom: 16});
-// map.on('locationfound', map.onLocationFound);
-// map.on('locationerror', map.onLocationError);
-
-// finds current location.
-// function onLocationFound(event) {
-//     var radius = event.accuracy / 2;
-//
-//     L.marker(event.latlng).addTo(map)
-//         .bindPopup("You are within " + radius + " meters from this point").openPopup();
-//
-//     L.circle(event.latlng, radius).addTo(map);
-// }
-
-// error if current location can't be found
-// function onLocationError(event) {
-//     alert(event.message);
-// }
+});

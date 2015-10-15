@@ -1,23 +1,25 @@
-<h3>SIGN UP!</h3>
+<div class="container-fluid">
+  <h3>SIGN UP!</h3>
 
-<%= form_for @user, method: :post, class: "user" do |f| %>
+  <%= form_for @user, method: :post, class: "user" do |f| %>
 
-  <fieldset>
-    <div class="form-group">
-    <%= f.label :username %>
-    <%= f.text_field :username, class: "form-control" %>
+    <fieldset>
+      <div class="form-group">
+      <%= f.label :username %>
+      <%= f.text_field :username, class: "form-control" %>
 
-    <%= f.label :email %>
-    <%= f.text_field :email, class: "form-control" %>
+      <%= f.label :email %>
+      <%= f.text_field :email, class: "form-control" %>
 
-    <%= f.label :password %>
-    <%= f.text_field :password, class: "form-control" %>
+      <%= f.label :password %>
+      <%= f.text_field :password, class: "form-control" %>
 
-    <%= f.label :password_confirmation, "Password Confirmation" %>
-    <%= f.text_field :password_confirmation, class: "form-control" %>
-    </div>
-  </fieldset>
+      <%= f.label :password_confirmation, "Password Confirmation" %>
+      <%= f.text_field :password_confirmation, class: "form-control" %>
+      </div>
+    </fieldset>
 
-  <%= f.submit "Create", class: "btn btn-success" %>
+    <%= f.submit "Create", class: "btn btn-success" %>
 
-<% end %>
+  <% end %>
+</div>

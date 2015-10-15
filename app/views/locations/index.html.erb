@@ -1,3 +1,4 @@
+<div id='map' ></div>
 <% if session[:user_id].nil? %>
   <div class='login'>
     <h2>Login with:</h2>
@@ -39,10 +40,28 @@
 
 <div class="nav-bar">
   <footer>
-    <span class="col-xs-4 fa fa-search fa-3x center ig-icon" aria-hidden="true" data-toggle="tooltip" title="search by address"></span>
-    <span class="col-xs-4 fa fa-map-marker fa-3x center ig-icon" aria-hidden="true" data-toggle="tooltip" title="find my location"></span>
-    <span class="col-xs-4 fa fa-user fa-3x center ig-icon" aria-hidden="true" data-toggle="tooltip" title="account info"></span>
+    <%= link_to root_path do %>
+      <span class="search-address col-xs-4 fa fa-search fa-3x center ig-icon" aria-hidden="true" data-toggle="tooltip" title="search by address"></span>
+    <% end %>
+
+    <%= link_to root_path do %>
+      <span class="my-location col-xs-4 fa fa-map-marker fa-3x center ig-icon" aria-hidden="true" data-toggle="tooltip" title="find my location"></span>
+    <% end %>
+
+    <%= link_to root_path do %>
+      <span class="my-account col-xs-4 fa fa-user fa-3x center ig-icon" aria-hidden="true" data-toggle="tooltip" title="account info"></span>
+    <% end %>
   </footer>
 </div>
 
-<div id='map' ></div>
+<!-- <div class="address-search">
+
+</div> -->
+
+<div class="my-location">
+
+</div>
+
+<!-- <div class="my-account">
+
+</div> -->
