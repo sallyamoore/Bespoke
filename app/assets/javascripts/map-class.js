@@ -54,17 +54,16 @@
       });
     },
 
-    onLocationFound: function() {
-      console.log(event);
-      var radius = event.accuracy / 2;
-      L.marker(event.latlng).addTo(this)
-          .bindPopup("You are within " + radius + " meters from this point").openPopup();
-
-      L.circle(event.latlng, radius).addTo(this);
-    },
-
-    onLocationError: function() {
-      alert(event.message);
-    }
+    // onLocationFound: function() {
+    //   var radius = event.accuracy / 2;
+    //   L.marker(event.latlng).addTo(this)
+    //     .bindPopup("You are within " + radius + " meters from this point").openPopup();
+    //
+    //   L.circle(event.latlng, radius).addTo(this);
+    // },
+    //
+    // onLocationError: function() {
+    //   alert(event.message);
+    // }
   };
 })(this);

@@ -20,11 +20,21 @@ $(document).ready(function() {
     $(".my-location").click(function(event){
       event.preventDefault();
       result.locate({setView: true, maxZoom: 16});
-      console.log(map);
-      result.on('locationfound', map.onLocationFound());
-      result.on('locationerror', map.onLocationError());
+      result.on('locationfound', onLocationFound);
+      result.on('locationerror', onLocationError);
     });
 
+    function onLocationFound(event) {
+      var radius = event.accuracy / 2;
+      L.marker(event.latlng).addTo(this)
+        .bindPopup("You are within " + radius + " meters from this point").openPopup();
+
+      L.circle(event.latlng, radius).addTo(this);
+    }
+
+    function onLocationError(event) {
+      alert(event.message);
+    }
   });
 
 
