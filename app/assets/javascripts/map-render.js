@@ -14,11 +14,21 @@ $(document).ready(function() {
   });
 
   map.loadMap(function(result) {
-    $(".my-location").click(function(event){
+    $(".my-location").click(function(event) {
       event.preventDefault();
       result.locate({setView: true, maxZoom: 16});
       result.on('locationfound', onLocationFound);
       result.on('locationerror', onLocationError);
+
     });
+    result.on('zoomend', function(e) {
+      result.loadMap;
+    });
+
   });
+
+
+
+
+
 });

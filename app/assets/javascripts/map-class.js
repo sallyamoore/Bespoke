@@ -21,6 +21,7 @@
       L.mapbox.accessToken = this.mapboxPk;
 
       var new_map = L.mapbox.map('map', this.baseMap, {
+        scrollWheelZoom: false,
         minZoom: this.minZoom,
         maxZoom: this.maxZoom }).setView(this.startLatLon, this.startZoom);
 
@@ -50,7 +51,7 @@
 
       $.getJSON(this.overpassPrefix + '[out:json];(relation["type"="network"]["network"="rcn"]('
         + (bounds.join()) +
-        ');node(r)->.nodes;rel(r);way(r););out body;>;out skel qt;',
+        ');node(r)->.nodes;);out body;>;out skel qt;',
         function(data) {
 
         // create clickable markers for each bike node in bounds
@@ -59,7 +60,8 @@
             var nodeNum = "node-" + data.elements[i].tags.rcn_ref;
             var cssIcon = L.divIcon({
               className: nodeNum,
-              iconSize: iconSize
+              iconSize: iconSize,
+              html: data.elements[i].tags.rcn_ref
             });
 
             new L.marker([data.elements[i].lat, data.elements[i].lon], {
@@ -67,7 +69,6 @@
             }).addTo(map);
 
             $( "." + nodeNum ).addClass(iconClassName);
-            $( "." + nodeNum ).text(data.elements[i].tags.rcn_ref);
           }
         }
       });
