@@ -10,7 +10,8 @@
     this.maxZoom = options.maxZoom;
     this.startZoom = options.startZoom;
     this.bikeMapLayer = options.bikeMapLayer;
-    this.markerFormat = options.markerFormat;
+    this.iconClassName = options.iconClassName;
+    this.iconSize = options.iconSize;
     this.attribution = options.attribution;
   }
   exports.Map = Map;
@@ -44,7 +45,9 @@
     },
 
     apiCall: function(map, bounds) {
-      var markerFormat = this.markerFormat;
+      var iconClassName = this.iconClassName;
+      var iconSize = this.iconSize;
+
       $.getJSON(this.overpassPrefix + '[out:json];(relation["type"="network"]["network"="rcn"]('
         + (bounds.join()) +
         ');node(r)->.nodes;rel(r);way(r););out body;>;out skel qt;',
@@ -53,16 +56,18 @@
         // create clickable markers for each bike node in bounds
         for (var i = 0; i < data.elements.length - 1; i++) {
           if (data.elements[i].tags && data.elements[i].lat)  {
-            new L.circleMarker(
-              [data.elements[i].lat, data.elements[i].lon],
-              markerFormat)
-            .bindLabel(data.elements[i].tags.rcn_ref, {
-              noHide: true,
-              clickable: true,
-              offset: [-17, -15],
-              className: "node-marker"
-            })
-            .addTo(map);
+            var nodeNum = "node-" + data.elements[i].tags.rcn_ref;
+            var cssIcon = L.divIcon({
+              className: nodeNum,
+              iconSize: iconSize
+            });
+
+            new L.marker([data.elements[i].lat, data.elements[i].lon], {
+              icon: cssIcon
+            }).addTo(map);
+
+            $( "." + nodeNum ).addClass(iconClassName);
+            $( "." + nodeNum ).text(data.elements[i].tags.rcn_ref);
           }
         }
       });

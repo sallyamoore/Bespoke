@@ -6,6 +6,27 @@ body {
   padding: 0;
 }
 
+.css-icon {
+  display: block;
+  height: 50px;
+  width: 50px;
+  line-height: 50px;
+
+  border: 4px solid #01D298;
+  -moz-border-radius: 40px;
+  -webkit-border-radius: 40px;
+  -ms-border-radius: 40px;
+  -o-border-radius: 40px;
+  border-radius: 40px;
+
+  box-shadow: 0 0 3px #888;
+  background-color: #E7FEF8;
+  color: black;
+  top: 0;
+  text-align: center;
+  font-size: 2em;
+  }
+
 .register {
   margin-top: 3em;
 }

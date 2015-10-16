@@ -8,13 +8,8 @@ $(document).ready(function() {
     maxZoom: 18,
     startZoom: 13,
     bikeMapLayer: 'http://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png',
-    markerFormat: {
-      color: "#01D298",
-      opacity: 1.0,
-      fill: false,
-      weight: 3.5,
-      radius: 10
-    },
+    iconClassName: 'css-icon',
+    iconSize: [ 60, 60 ],
     attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>'
   });
 
