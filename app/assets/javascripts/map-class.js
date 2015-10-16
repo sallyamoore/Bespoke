@@ -6,6 +6,8 @@
     this.mapboxPk = options.mapboxPk;
     this.baseMap = options.baseMap;
     this.startLatLon = options.startLatLon;
+    this.minZoom = options.minZoom;
+    this.maxZoom = options.maxZoom;
     this.startZoom = options.startZoom;
     this.bikeMapLayer = options.bikeMapLayer;
     this.markerFormat = options.markerFormat;
@@ -16,24 +18,29 @@
   Map.prototype = {
     loadMap: function(callback) {
       L.mapbox.accessToken = this.mapboxPk;
-      var new_map = L.mapbox.map('map', this.baseMap)
-        .setView(this.startLatLon, this.startZoom);
+
+      var new_map = L.mapbox.map('map', this.baseMap, {
+        minZoom: this.minZoom,
+        maxZoom: this.maxZoom }).setView(this.startLatLon, this.startZoom);
+
       L.tileLayer(this.bikeMapLayer, {
         attribution: this.attribution
       }).addTo(new_map);
-      this.getBounds(new_map);
+
+      this.findBounds(new_map);
       callback(new_map);
     },
 
-    getBounds: function(map) {
+    findBounds: function(map) {
       var bounds = [
         map.getBounds()._southWest.lat,
         map.getBounds()._southWest.lng,
         map.getBounds()._northEast.lat,
         map.getBounds()._northEast.lng
       ];
+      console.log(bounds);
       // comment out to avoid making too many requests to overpass api. Need to limit or cache this query.
-      // this.apiCall(map, bounds);
+      this.apiCall(map, bounds);
     },
 
     apiCall: function(map, bounds) {
@@ -49,6 +56,12 @@
             new L.circleMarker(
               [data.elements[i].lat, data.elements[i].lon],
               markerFormat)
+            .bindLabel(data.elements[i].tags.rcn_ref, {
+              noHide: true,
+              clickable: true,
+              offset: [-17, -15],
+              className: "node-marker"
+            })
             .addTo(map);
           }
         }

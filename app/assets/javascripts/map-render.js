@@ -4,7 +4,9 @@ $(document).ready(function() {
     mapboxPk: "pk.eyJ1Ijoic2FsbHlhbW9vcmUiLCJhIjoiY2lmZm53MmlkOHA2YnNka25wd3BmNDB3dyJ9.F5FdTfUY5XLbzWMcWpRp2A",
     baseMap: 'sallyamoore.nkikgok3',
     startLatLon: [52.3081, 4.7642],
-    startZoom: 12,
+    minZoom: 10,
+    maxZoom: 18,
+    startZoom: 13,
     bikeMapLayer: 'http://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png',
     markerFormat: {
       color: "#01D298",
