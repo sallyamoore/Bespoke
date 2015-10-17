@@ -21,7 +21,7 @@ $(document).ready(function() {
       result.on('locationerror', onLocationError);
     });
 
-    result.on('zoomend', function(event) {
+    result.on('zoomend, moveend', function(event) {
       $('.zoom-alert').remove();
       var zoom = result.getZoom();
       if (zoom > 11) {
@@ -34,10 +34,6 @@ $(document).ready(function() {
         $(zoomAlert).text("Zoom in to view clickable nodes.");
       }
 
-    });
-
-    result.on('moveend', function(event) {
-      map.findBounds(map.osm_map);
     });
   });
 

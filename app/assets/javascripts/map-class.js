@@ -56,8 +56,10 @@
 
         // create clickable markers for each bike node in bounds
         for (var i = 0; i < data.elements.length - 1; i++) {
-          if (data.elements[i].tags && data.elements[i].lat)  {
-            var nodeNum = "node-" + data.elements[i].tags.rcn_ref;
+          var nodeNum = "node-" + data.elements[i].id;
+          var notPresent = $("." + nodeNum).closest(document.documentElement).length === 0;
+
+          if (data.elements[i].tags && data.elements[i].lat && notPresent) {
             var cssIcon = L.divIcon({
               className: nodeNum,
               iconSize: iconSize,
