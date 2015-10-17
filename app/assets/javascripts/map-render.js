@@ -14,7 +14,6 @@ $(document).ready(function() {
   });
 
   map.loadMap(function(result) {
-    console.log(this);
     $(".my-location").click(function(event) {
       event.preventDefault();
       result.locate({setView: true, maxZoom: 16});
@@ -25,7 +24,6 @@ $(document).ready(function() {
     result.on('zoomend', function(event) {
       $('.zoom-alert').remove();
       var zoom = result.getZoom();
-      console.log(zoom);
       if (zoom > 11) {
         map.findBounds(map.osm_map);
       } else {
