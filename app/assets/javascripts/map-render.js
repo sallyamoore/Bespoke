@@ -31,11 +31,15 @@ $(document).ready(function() {
       } else {
         $('.css-icon').remove();
         var zoomAlert = document.createElement('div');
-        zoomAlert.className = 'alert alert-danger zoom-alert';
+        zoomAlert.className = 'alert alert-warning zoom-alert';
         document.getElementsByClassName('alerts-div')[0].appendChild(zoomAlert);
         $(zoomAlert).text("Zoom in to view clickable nodes.");
       }
 
+    });
+
+    result.on('moveend', function(event) {
+      map.findBounds(map.osm_map);
     });
   });
 
