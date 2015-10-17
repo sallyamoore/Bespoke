@@ -47,7 +47,7 @@
 <div class="nav-bar">
   <footer>
     <%= link_to root_path do %>
-      <span class="search-address col-xs-4 fa fa-search fa-3x center ig-icon" aria-hidden="true" data-toggle="tooltip" title="search by address"></span>
+      <span class="find-location col-xs-4 fa fa-search fa-3x center ig-icon" aria-hidden="true" data-toggle="tooltip" title="search by address"></span>
     <% end %>
 
     <%= link_to root_path do %>
@@ -60,12 +60,16 @@
   </footer>
 </div>
 
-<!-- <div class="address-search">
-
-</div> -->
-
-<div class="my-location">
-
+<div class="container-fluid location-search">
+  <form class="form-inline">
+    <div class="form-group">
+      <label for="location-search"><h5>Start Location: </h5></label>
+      <input type="text" name="location-search", class="form-control">
+      <button class="btn btn-default location-submit" type="submit">
+        <span class="find-location col-xs-4 fa fa-search ig-icon" aria-hidden="true" data-toggle="tooltip" title="go"></span>
+      </button>
+    </div>
+  </form>
 </div>
 
 <!-- <div class="my-account">

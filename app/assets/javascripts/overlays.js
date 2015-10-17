@@ -26,5 +26,4 @@ function changeOverlay() {
   $("div.login-or-register").slideToggle();
 
   logged_in_user = false;
-
 }

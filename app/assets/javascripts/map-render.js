@@ -14,6 +14,16 @@ $(document).ready(function() {
   });
 
   map.loadMap(function(result) {
+    $(".find-location").click(function(event) {
+      event.preventDefault();
+      toggleSearchForm();
+    });
+
+    $(".location-submit").click(function(event) {
+      event.preventDefault();
+      // https://api.mapbox.com/v4/geocode/{dataset}/{query}.json?proximity={longitude},{latitude}&access_token=<your access token>https://api.mapbox.com/v4/geocode/{dataset}/{query}.json?proximity={longitude},{latitude}&access_token=<your access token>
+    });
+
     $(".my-location").click(function(event) {
       event.preventDefault();
       result.locate({setView: true, maxZoom: 16});
@@ -33,8 +43,12 @@ $(document).ready(function() {
         document.getElementsByClassName('alerts-div')[0].appendChild(zoomAlert);
         $(zoomAlert).text("Zoom in to view clickable nodes.");
       }
-
     });
+
   });
 
 });
+
+function toggleSearchForm() {
+  $(".location-search").slideToggle();
+}

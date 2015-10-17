@@ -66,6 +66,17 @@ body {
   z-index: 100;
 }
 
+.location-search {
+  display: none;
+  position: absolute;
+  background-color: rgba(0, 0, 0, .7);
+  color: white;
+  // padding-top: 0.5em;
+  bottom: 70px;
+  width: 100%;
+  z-index: 100;
+}
+
 .nav-bar {
   display: none;
   position: absolute;
