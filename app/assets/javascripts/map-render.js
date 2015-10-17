@@ -4,7 +4,7 @@ $(document).ready(function() {
     mapboxPk: "pk.eyJ1Ijoic2FsbHlhbW9vcmUiLCJhIjoiY2lmZm53MmlkOHA2YnNka25wd3BmNDB3dyJ9.F5FdTfUY5XLbzWMcWpRp2A",
     baseMap: 'sallyamoore.nkikgok3',
     startLatLon: [52.3081, 4.7642],
-    minZoom: 10,
+    minZoom: 9,
     maxZoom: 18,
     startZoom: 13,
     bikeMapLayer: 'http://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png',
@@ -14,21 +14,29 @@ $(document).ready(function() {
   });
 
   map.loadMap(function(result) {
+    console.log(this);
     $(".my-location").click(function(event) {
       event.preventDefault();
       result.locate({setView: true, maxZoom: 16});
       result.on('locationfound', onLocationFound);
       result.on('locationerror', onLocationError);
-
-    });
-    result.on('zoomend', function(e) {
-      result.loadMap;
     });
 
+    result.on('zoomend', function(event) {
+      $('.zoom-alert').remove();
+      var zoom = result.getZoom();
+      console.log(zoom);
+      if (zoom > 11) {
+        map.findBounds(map.osm_map);
+      } else {
+        $('.css-icon').remove();
+        var zoomAlert = document.createElement('div');
+        zoomAlert.className = 'alert alert-danger zoom-alert';
+        document.getElementsByClassName('alerts-div')[0].appendChild(zoomAlert);
+        $(zoomAlert).text("Zoom in to view clickable nodes.");
+      }
+
+    });
   });
-
-
-
-
 
 });

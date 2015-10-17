@@ -13,6 +13,7 @@
     this.iconClassName = options.iconClassName;
     this.iconSize = options.iconSize;
     this.attribution = options.attribution;
+    this.osm_map;
   }
   exports.Map = Map;
 
@@ -29,6 +30,7 @@
         attribution: this.attribution
       }).addTo(new_map);
 
+      this.osm_map = new_map;
       this.findBounds(new_map);
       callback(new_map);
     },
@@ -40,7 +42,6 @@
         map.getBounds()._northEast.lat,
         map.getBounds()._northEast.lng
       ];
-      console.log(bounds);
       // comment out to avoid making too many requests to overpass api. Need to limit or cache this query.
       this.apiCall(map, bounds);
     },
@@ -49,9 +50,8 @@
       var iconClassName = this.iconClassName;
       var iconSize = this.iconSize;
 
-      $.getJSON(this.overpassPrefix + '[out:json];(relation["type"="network"]["network"="rcn"]('
-        + (bounds.join()) +
-        ');node(r)->.nodes;);out body;>;out skel qt;',
+      $.getJSON(this.overpassPrefix + '[out:json][bbox:' + (bounds.join()) +
+      '];(relation["type"="network"]["network"="rcn"];node["rcn_ref"~"^[0-9][0-9]$"];);out body;>;out skel qt;',
         function(data) {
 
         // create clickable markers for each bike node in bounds
