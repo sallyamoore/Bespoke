@@ -20,8 +20,30 @@ $(document).ready(function() {
     });
 
     $(".location-submit").click(function(event) {
+      $('.bad-query').remove();
       event.preventDefault();
-      // https://api.mapbox.com/v4/geocode/{dataset}/{query}.json?proximity={longitude},{latitude}&access_token=<your access token>https://api.mapbox.com/v4/geocode/{dataset}/{query}.json?proximity={longitude},{latitude}&access_token=<your access token>
+      var locationQuery = $("input.location-query").val();
+      // var geocoder = L.mapbox.geocoder('mapbox.places');
+      // geocoder.query(locationQuery, function(res){
+      //   console.log(res);
+      // });
+
+      var latlng = map.startLatLon.join(",");
+      var geocodeQuery = "https://api.mapbox.com/v4/geocode/mapbox.places/"
+        + locationQuery + ".json?proximity=" + latlng + "&access_token="
+        + map.mapboxPk
+      $.getJSON(geocodeQuery, function(data) {
+        if (data && data.features.length !== 0) {
+          console.log(data.features); // returns array of place objects
+          // each object has bbox, center [lat,lon], id, place_name and other attrs
+        } else {
+          var badQueryAlert = document.createElement('div');
+          badQueryAlert.className = 'alert alert-danger bad-query';
+          document.getElementsByClassName('alerts-div')[0].appendChild(badQueryAlert);
+          $(badQueryAlert).text("No results. Try a different query.");
+        }
+      });
+
     });
 
     $(".my-location").click(function(event) {
@@ -50,5 +72,11 @@ $(document).ready(function() {
 });
 
 function toggleSearchForm() {
+  $('.bad-query').remove();
   $(".location-search").slideToggle();
+}
+
+function showPlaceResults() {
+  // slide up .location-search just a little to show options below
+  //
 }

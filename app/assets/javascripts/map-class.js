@@ -35,6 +35,7 @@
       callback(new_map);
     },
 
+
     findBounds: function(map) {
       var bounds = [
         map.getBounds()._southWest.lat,
