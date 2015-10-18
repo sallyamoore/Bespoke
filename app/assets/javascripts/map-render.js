@@ -69,15 +69,11 @@ $(document).ready(function() {
   function showMap(err, data) {
     var featuresFound = data.results.features.length === 0 ? false :true;
     if (featuresFound) {
+      map.osm_map.setView(data.latlng, 13);
       L.marker(data.latlng).addTo(map.osm_map)
         .bindPopup(data.results.features[0].place_name);
       toggleSearchForm();
-    }
 
-    if (featuresFound && data.results.features[0].address) {
-      map.osm_map.setView(data.latlng, 13);
-    } else if (featuresFound && data.lbounds) {
-        map.osm_map.fitBounds(data.lbounds);
     } else {
       var badQueryAlert = document.createElement('div');
       badQueryAlert.className = 'alert alert-danger ' + alertContent.badQuery.class;
