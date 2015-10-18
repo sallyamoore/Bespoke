@@ -35,39 +35,39 @@ $(document).ready(function() {
       event.preventDefault();
       collectTrash(trashToCollect);
       var locationQuery = $("input.location-query").val();
-      // var geocoder = L.mapbox.geocoder('mapbox.places');
-      // geocoder.query(locationQuery, function(res){
-      //   console.log(res);
-      // })
-      var latlng = map.startLatLon.join(",");
-      var geocodeQuery = "https://api.mapbox.com/v4/geocode/mapbox.places/"
-        + locationQuery + ".json?proximity=" + latlng + "&access_token="
-        + map.mapboxPk
+      var geocoder = L.mapbox.geocoder('mapbox.places');
 
-      $.getJSON(geocodeQuery, function(data) {
-        // returns array of place objects
-        // each object has bbox, center [lat,lon], id, place_name and other attrs
-        // For now, I map to first one (closest match to startLatLon).
-        // Possible refactor: Show list of place objects and user selects.
-        if (data && data.features.length !== 0) {
-          toggleSearchForm();
+      geocoder.query(locationQuery, showMap);
 
-          // returns 'center' in format [lon, lat], so must reverse
-          var dataLatLng = data.features[0].center.reverse();
+      // var latlng = map.startLatLon.join(",");
+      // var geocodeQuery = "https://api.mapbox.com/v4/geocode/mapbox.places/"
+      //   + locationQuery + ".json?proximity=" + latlng + "&access_token="
+      //   + map.mapboxPk
 
-          // for first object, add clickable marker (display place name as popup)
-          L.marker(dataLatLng).addTo(map.osm_map)
-            .bindPopup(data.features[0].place_name);
-
-          // move center of map to location
-           map.osm_map.setView(dataLatLng, map.startZoom);
-        } else {
-          var badQueryAlert = document.createElement('div');
-          badQueryAlert.className = 'alert alert-danger ' + alertContent.badQuery.class;
-          document.getElementsByClassName('alerts-div')[0].appendChild(badQueryAlert);
-          $(badQueryAlert).text(alertContent.badQuery.text);
-        }
-      });
+      // $.getJSON(geocodeQuery, function(data) {
+      //   // returns array of place objects
+      //   // each object has bbox, center [lat,lon], id, place_name and other attrs
+      //   // For now, I map to first one (closest match to startLatLon).
+      //   // Possible refactor: Show list of place objects and user selects.
+      //   if (data && data.features.length !== 0) {
+      //     toggleSearchForm();
+      //
+      //     // returns 'center' in format [lon, lat], so must reverse
+      //     var dataLatLng = data.features[0].center.reverse();
+      //
+      //     // for first object, add clickable marker (display place name as popup)
+      //     L.marker(dataLatLng).addTo(map.osm_map)
+      //       .bindPopup(data.features[0].place_name);
+      //
+      //     // move center of map to location
+      //      map.osm_map.setView(dataLatLng, map.startZoom);
+      //   } else {
+      //     var badQueryAlert = document.createElement('div');
+      //     badQueryAlert.className = 'alert alert-danger ' + alertContent.badQuery.class;
+      //     document.getElementsByClassName('alerts-div')[0].appendChild(badQueryAlert);
+      //     $(badQueryAlert).text(alertContent.badQuery.text);
+      //   }
+      // });
 
     });
 
@@ -95,7 +95,30 @@ $(document).ready(function() {
 
   });
 
+  function showMap(err, data) {
+    console.log(data);
+    var featuresFound = data.results.features.length === 0 ? false :true;
+    if (featuresFound) {
+      L.marker(data.latlng).addTo(map.osm_map)
+        .bindPopup(data.results.features[0].place_name);
+      toggleSearchForm();
+    }
+
+    if (featuresFound && data.results.features[0].address) {
+      map.osm_map.setView(data.latlng, 13);
+    } else if (featuresFound && data.lbounds) {
+        map.osm_map.fitBounds(data.lbounds);
+    } else {
+      var badQueryAlert = document.createElement('div');
+      badQueryAlert.className = 'alert alert-danger ' + alertContent.badQuery.class;
+      document.getElementsByClassName('alerts-div')[0].appendChild(badQueryAlert);
+      $(badQueryAlert).text(alertContent.badQuery.text);
+    }
+  }
+
 });
+
+
 
 function toggleSearchForm() {
   $(".location-search").slideToggle();
