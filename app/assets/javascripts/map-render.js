@@ -50,22 +50,6 @@ $(document).ready(function() {
       result.on('locationerror', onLocationError);
     });
 
-    $(".css-icon").click(function(event) {
-      console.log("hi!");
-      var directions = L.mapbox.directions({
-          profile: 'mapbox.cycling'
-      });
-
-      directions.setOrigin([52.3081, 4.7642]);
-      directions.setDestination([52.3667, 4.9000]);
-      console.log(directions);
-      // directions.query();
-      var directionsLayer = L.mapbox.directions.layer(directions)
-        .addTo(map.osm_map);
-      var directionsRoutesControl = L.mapbox.directions.routesControl('routes', directions)
-        .addTo(map.osm_map);
-    });
-
     result.on('zoomend, moveend', function(event) {
       collectTrash(trashToCollect);
       var zoom = result.getZoom();
@@ -107,3 +91,20 @@ function toggleSearchForm() {
 function collectTrash(trashToCollect) {
   $(trashToCollect).remove();
 }
+
+$(document).on("click",".css-icon",function(event){
+// $(".css-icon").click(function(event) {
+  console.log(event);
+  var directions = L.mapbox.directions({
+      profile: 'mapbox.cycling'
+  });
+
+  directions.setOrigin([52.3081, 4.7642]);
+  directions.setDestination([52.3667, 4.9000]);
+  console.log(directions);
+  // directions.query();
+  var directionsLayer = L.mapbox.directions.layer(directions)
+    .addTo(map.osm_map);
+  var directionsRoutesControl = L.mapbox.directions.routesControl('routes', directions)
+    .addTo(map.osm_map);
+});
