@@ -34,9 +34,11 @@ $(document).ready(function() {
     $(".location-submit").click(function(event) {
       event.preventDefault();
       collectTrash(trashToCollect);
+
       var locationQuery = $("input.location-query").val();
       var geocoder = L.mapbox.geocoder('mapbox.places');
 
+      // API query -- leaflet geocoder
       geocoder.query(locationQuery, showMap);
     });
 
@@ -65,7 +67,6 @@ $(document).ready(function() {
   });
 
   function showMap(err, data) {
-    console.log(data);
     var featuresFound = data.results.features.length === 0 ? false :true;
     if (featuresFound) {
       L.marker(data.latlng).addTo(map.osm_map)
