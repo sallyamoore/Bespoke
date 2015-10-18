@@ -32,12 +32,16 @@ body {
 }
 
 .alerts-div {
-  z-index: 9999;
+  z-index: 99;
   position: absolute;
-  bottom: 0;
+  bottom: 50px;
   right: 0;
   width: 100%;
   text-align: center;
+}
+
+div.alert.bad-query {
+  margin-bottom: 9.5em;
 }
 
 .login {
