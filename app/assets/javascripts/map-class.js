@@ -57,21 +57,29 @@
 
         // create clickable markers for each bike node in bounds
         for (var i = 0; i < data.elements.length - 1; i++) {
-          var nodeNum = "node-" + data.elements[i].id;
-          var notPresent = $("." + nodeNum).closest(document.documentElement).length === 0;
+          var nodeIdTag = "node-" + data.elements[i].id;
+          var notPresent = $("." + nodeIdTag).closest(document.documentElement).length === 0;
 
           if (data.elements[i].tags && data.elements[i].lat && notPresent) {
+            var nodeData = {
+              node_id: data.elements[i].id,
+              node_number: data.elements[i].tags.rcn_ref,
+              latitude: data.elements[i].lat,
+              longitude: data.elements[i].lon,
+            };
+
             var cssIcon = L.divIcon({
-              className: nodeNum,
+              className: nodeIdTag,
               iconSize: iconSize,
-              html: data.elements[i].tags.rcn_ref
+              html: nodeData.node_number,
             });
 
-            new L.marker([data.elements[i].lat, data.elements[i].lon], {
+            new L.marker([nodeData.latitude, nodeData.longitude], {
               icon: cssIcon
             }).addTo(map);
 
-            $( "." + nodeNum ).addClass(iconClassName);
+            $( "." + nodeIdTag ).addClass(iconClassName);
+            $( "." + nodeIdTag ).data(nodeData);
           }
         }
       });
