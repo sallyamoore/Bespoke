@@ -82,6 +82,24 @@ $(document).ready(function() {
     }
   }
 
+  // WIP - route to clicked bike node.
+  $(document).on( "click", ".css-icon", function(event) {
+    var directions = L.mapbox.directions({
+        profile: 'mapbox.cycling'
+    })
+
+    directions
+      .setOrigin(52.3081, 4.7642)
+      .setDestination(52.3667, 4.9000);
+
+    console.log(directions);
+    // directions.query();
+    var directionsLayer = L.mapbox.directions.layer(directions)
+      .addTo(map.osm_map);
+    var directionsRoutesControl = L.mapbox.directions.routesControl('routes', directions)
+      .addTo(map.osm_map);
+  });
+
 });
 
 function toggleSearchForm() {
@@ -91,20 +109,3 @@ function toggleSearchForm() {
 function collectTrash(trashToCollect) {
   $(trashToCollect).remove();
 }
-
-$(document).on("click",".css-icon",function(event){
-// $(".css-icon").click(function(event) {
-  console.log(event);
-  var directions = L.mapbox.directions({
-      profile: 'mapbox.cycling'
-  });
-
-  directions.setOrigin([52.3081, 4.7642]);
-  directions.setDestination([52.3667, 4.9000]);
-  console.log(directions);
-  // directions.query();
-  var directionsLayer = L.mapbox.directions.layer(directions)
-    .addTo(map.osm_map);
-  var directionsRoutesControl = L.mapbox.directions.routesControl('routes', directions)
-    .addTo(map.osm_map);
-});
