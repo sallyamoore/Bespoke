@@ -1,21 +1,21 @@
-email, username, password, password_confirmation, provider, uid
-pusheen@pusheen.com, kittybloggens, miauw, miauw, github, 121212
-stormy@pusheen.com, stormy, tinetine, tinetine, github, 232323
-one@cylon.org, one, cylon1, cylon1, github, 343434
-two@cylon.org, two, cylon2, cylon2, github, 454545
-three@cylon.org, three, cylon3, cylon3, github, 565656
-four@cylon.org, four, cylon4, cylon4, github, 676767
-five@cylon.org, five, cylon5, cylon5, github, 787878
-six@cylon.org, six, <3gaius, <3gaius, github, 898989
-seven@cylon.org, seven, cylon7, cylon7, github, 909090
-eight@cylon.org, eight, cylon8, cylon8, github, 010101
-kthrace@bsg.gov, starbuck, cylon?, cylon?
-adama@bsg.gov, husker, earth, earth
-ladama@bsg.gov, apollo, star$, star$
-lroslin@bsg.gov, roslin, pres, pres
-gbaltar@bsg.gov, gaius, iamawesome, iamawesome
-tigh@bsg.gov, tigh, lost_eye, lost_eye
-svalerii@bsg.gov, boomer, doppelganger, doppelganger
-kagathon@bsg.gov, helo, confu$ed, confu$ed
-gtyrol@bsg.gov, chief, muusick, muusick
-etigh@bsg.gov, ellen, wassup, wassup
+email,username,password,password_confirmation,provider,uid
+pusheen@pusheen.com,kittybloggens,miauw,miauw,github,121212
+stormy@pusheen.com,stormy,tinetine,tinetine,github,232323
+one@cylon.org,one,cylon1,cylon1,github,343434
+two@cylon.org,two,cylon2,cylon2,github,454545
+three@cylon.org,three,cylon3,cylon3,github,565656
+four@cylon.org,four,cylon4,cylon4,github,676767
+five@cylon.org,five,cylon5,cylon5,github,787878
+six@cylon.org,six,<3gaius,<3gaius,github,898989
+seven@cylon.org,seven,cylon7,cylon7,github,909090
+eight@cylon.org,eight,cylon8,cylon8,github,010101
+kthrace@bsg.gov,starbuck,cylon?,cylon?
+adama@bsg.gov,husker,earth,earth
+ladama@bsg.gov,apollo,star$,star$
+lroslin@bsg.gov,roslin,pres,pres
+gbaltar@bsg.gov,gaius,iamawesome,iamawesome
+tigh@bsg.gov,tigh,lost_eye,lost_eye
+svalerii@bsg.gov,boomer,doppelganger,doppelganger
+kagathon@bsg.gov,helo,confu$ed,confu$ed
+gtyrol@bsg.gov,chief,muusick,muusick
+etigh@bsg.gov,ellen,wassup,wassup

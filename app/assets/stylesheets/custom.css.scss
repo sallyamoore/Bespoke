@@ -32,7 +32,7 @@ body {
 }
 
 .alerts-div {
-  z-index: 99;
+  z-index: 101;
   position: absolute;
   bottom: 50px;
   right: 0;
@@ -75,7 +75,6 @@ div.alert.alert-danger {
   position: absolute;
   background-color: rgba(0, 0, 0, .7);
   color: white;
-  // padding-top: 0.5em;
   bottom: 70px;
   width: 100%;
   z-index: 100;

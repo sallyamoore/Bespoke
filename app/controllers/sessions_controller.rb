@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
   def create
     auth_hash = request.env['omniauth.auth'] || params
 
-    unless auth_hash == nil || auth_hash["uid"] == nil
+    unless auth_hash == nil
       @user = auth_hash["uid"] ? User.find_or_create_from_omniauth(auth_hash) : User.find_by(username: auth_hash[:session][:username])
     end
 
