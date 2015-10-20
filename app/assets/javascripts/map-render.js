@@ -9,7 +9,7 @@ $(document).ready(function() {
     startZoom: 13,
     bikeMapLayer: 'http://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png',
     iconClassName: 'css-icon',
-    iconSize: [ 60, 60 ],
+    iconSize: [ 50, 50 ],
     attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>'
   });
 
@@ -56,10 +56,12 @@ $(document).ready(function() {
       if (featuresFound) {
         map.osm_map.setView(data.latlng, 13);
 
-        marker = new L.marker(data.latlng);
+        marker = new L.marker(data.latlng, {
+          zIndexOffset: 1000
+        });
+        
         map.osm_map.addLayer(marker);
         marker.bindPopup(data.results.features[0].place_name);
-
         toggleSearchForm();
 
       } else {
@@ -75,7 +77,7 @@ $(document).ready(function() {
 
       result.locate({setView: true, maxZoom: 16});
     });
-    // Listener: When location found/error, execute function in my-location.js
+    // Listeners: When location found/error, execute function in my-location.js
     result.on('locationfound', onLocationFound);
     result.on('locationerror', onLocationError);
 
