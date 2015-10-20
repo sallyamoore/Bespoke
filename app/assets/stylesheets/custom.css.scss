@@ -40,7 +40,7 @@ body {
   text-align: center;
 }
 
-div.alert.bad-query {
+div.alert.alert-danger {
   margin-bottom: 9.5em;
 }
 
@@ -93,7 +93,7 @@ div.alert.bad-query {
 }
 
 div.leaflet-control-attribution, div.leaflet-compact-attribution {
-  bottom: 5.8em;
+  bottom: 70px;
 }
 
 #map {

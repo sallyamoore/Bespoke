@@ -13,15 +13,20 @@ $(document).ready(function() {
     attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>'
   });
 
-  var trashToCollect = '.bad-query, .zoom-alert';
+  var trashToCollect = '.alert-danger, .zoom-alert';
   var alertContent = {
     badQuery:  {
-      class: 'bad-query',
+      class: 'alert-danger',
       text: 'No matching locations! Check your query and try again.'
     },
     zoomAlert: {
-      class: 'zoom-alert',
-      text: 'Zoom in to view clickable nodes.' }
+      class: 'zoom-alert alert-warning',
+      text: 'Zoom in to view clickable nodes.'
+    },
+    noStart: {
+      class: 'alert-danger',
+      text: "No origin has been selected for your route. Please use 'find my location' or 'search for a location' to set an origin."
+    }
   };
 
   map.loadMap(function(result) {
@@ -58,10 +63,7 @@ $(document).ready(function() {
         toggleSearchForm();
 
       } else {
-        var badQueryAlert = document.createElement('div');
-        badQueryAlert.className = 'alert alert-danger ' + alertContent.badQuery.class;
-        document.getElementsByClassName('alerts-div')[0].appendChild(badQueryAlert);
-        $(badQueryAlert).text(alertContent.badQuery.text);
+        showAlert(alertContent.badQuery);
       }
     }
 
@@ -85,10 +87,7 @@ $(document).ready(function() {
         map.findBounds(map.osm_map);
       } else {
         $('.css-icon').remove();
-        var zoomAlert = document.createElement('div');
-        zoomAlert.className = 'alert alert-warning ' + alertContent.zoomAlert.class;
-        document.getElementsByClassName('alerts-div')[0].appendChild(zoomAlert);
-        $(zoomAlert).text(alertContent.zoomAlert.text);
+        showAlert(alertContent.zoomAlert);
       }
     });
 
@@ -96,6 +95,7 @@ $(document).ready(function() {
 
   // Route to clicked bike node.
   $(document).on( "click", ".css-icon", function(event) {
+    collectTrash(trashToCollect);
     var nodeData = $( this ).data(),
       directions = L.mapbox.directions({
         profile: 'mapbox.cycling'
@@ -111,14 +111,14 @@ $(document).ready(function() {
       originLatLng;
 
     if ($(".user-location").data()) {
-      originLatLng = L.latLng($(".user-location").data().lat, $(".user-location").data().lng)
-    } else {
+      originLatLng = L.latLng($(".user-location").data().lat, $(".user-location").data().lng);
+    } else if (typeof(marker) !== 'undefined') {
       originLatLng = marker.getLatLng();
+    } else {
+      showAlert(alertContent.noStart);
     }
 
-    console.log(originLatLng);
-
-    // WIP Origin is current location OR searched location
+    // Origin is current location OR searched location
     directions.setOrigin(originLatLng);
     // Destination is clicked node
     directions.setDestination(L.latLng(nodeData.latitude, nodeData.longitude));
@@ -149,4 +149,11 @@ function collectTrash(trashToCollect) {
 function collectLocationTrash() {
   $(".user-location").parent().remove();
   $("img.leaflet-marker-icon img.leaflet-marker-shadow").remove();
+}
+
+function showAlert(whichAlert) {
+  var alert = document.createElement('div');
+  alert.className = 'alert ' + whichAlert.class;
+  document.getElementsByClassName('alerts-div')[0].appendChild(alert);
+  $(alert).text(whichAlert.text);
 }
