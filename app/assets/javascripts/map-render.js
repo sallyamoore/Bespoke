@@ -24,7 +24,7 @@ $(document).ready(function() {
       text: 'Zoom in to view clickable nodes.'
     },
     noStart: {
-      class: 'alert-danger',
+      class: 'alert-danger no-origin',
       text: "No origin has been selected for your route. Please use 'find my location' or 'search for a location' to set an origin."
     }
   };
@@ -59,7 +59,7 @@ $(document).ready(function() {
         marker = new L.marker(data.latlng, {
           zIndexOffset: 1000
         });
-        
+
         map.osm_map.addLayer(marker);
         marker.bindPopup(data.results.features[0].place_name);
         toggleSearchForm();

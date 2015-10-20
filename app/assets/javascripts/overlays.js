@@ -7,6 +7,7 @@ $(document).ready(function() {
   $(".guest-user").click(function(event){
     event.preventDefault();
     changeOverlay();
+    $(".alert").remove();
   });
 
   $(".logout").click(function(event) {

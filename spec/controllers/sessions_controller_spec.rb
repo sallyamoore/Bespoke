@@ -38,8 +38,54 @@ RSpec.describe SessionsController, type: :controller do
           get :create, provider: :github
           }.to change(User, :count).by(0)
       end
+
+      it "displays an error message" do
+        get :create, provider: :github
+        expect(flash[:error]).to_not be nil
+      end
     end
 
+    context "logging in via username with valid params" do
+      before :each do
+        create :user
+      end
+
+      let(:params) do
+        { session: { username: "pusheen", password: "tostij" } }
+      end
+
+      it "sets user_id for the session" do
+        get :create, params
+        expect(session[:user_id])
+      end
+
+      it "redirects to root_path" do
+        get :create
+        expect(response).to redirect_to root_path
+      end
+    end
+
+    context "attempted login via username with invalid params" do
+      let(:params) do
+        { session: { username: "pusheen", password: "tostij" } }
+      end
+
+      it "does not set user_id for the session" do
+        get :create, params
+        expect(session[:user_id]).to be_nil
+      end
+
+      it "displays an error message" do
+        get :create, params
+        expect(flash[:error]).to_not be nil
+      end
+
+      it "redirects to root_path" do
+        get :create
+        expect(response).to redirect_to root_path
+      end
+    end
+  end
   #   context "logging in via twitter - valid params" do
   #     before :each do
   #       request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:twitter]
@@ -82,24 +128,24 @@ RSpec.describe SessionsController, type: :controller do
   #   end
   # end # GET #create
   #
-  # describe "DELETE #destroy" do
-  #   context "valid params" do
-  #     before :each do
-  #       @user = create :user
-  #       session[:user_id] = @user.id
-  #     end
-  #
-  #     it "resets the session" do
-  #       delete :destroy
-  #
-  #       expect(session[:user_id]).to eq(nil)
-  #     end
-  #
-  #     it "redirects to the home page" do
-  #       delete :destroy
-  #       expect(subject).to redirect_to(root_path)
-  #     end
-  #   end
+  describe "DELETE #destroy" do
+    context "valid params" do
+      before :each do
+        @user = create :user
+        session[:user_id] = @user.id
+      end
+
+      it "resets the session" do
+        delete :destroy
+
+        expect(session[:user_id]).to eq(nil)
+      end
+
+      it "redirects to the home page" do
+        delete :destroy
+        expect(subject).to redirect_to(root_path)
+      end
+    end
   end
 
 end

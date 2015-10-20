@@ -32,14 +32,18 @@ body {
 .alerts-div {
   z-index: 101;
   position: absolute;
-  bottom: 50px;
+  bottom: 0;
   right: 0;
   width: 100%;
   text-align: center;
 }
 
 div.alert.alert-danger {
-  margin-bottom: 9.5em;
+  margin-bottom: 0;
+}
+
+div.alert.no-origin {
+  margin-bottom: 15em;
 }
 
 .login {
@@ -85,7 +89,7 @@ div.alert.alert-danger {
   padding: 1em;
   width: 100%;
   bottom: 0;
-  z-index: 100;
+  z-index: 1000;
   text-align: center;
 }
 
