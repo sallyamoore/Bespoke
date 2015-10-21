@@ -4,22 +4,21 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :set_locale
-  # helper_method :current_user
+  helper_method :current_user
 
   MESSAGES = {
     login_required: "You have to be logged in to do that!",
-    failed_authentication: "Sign in failed. :( Please try again.",
+    failed_authentication: "Invalid username/password combination. :( Please try again.",
     logout_first: "You are currently logged in. Log out to create a new account.",
     activation_email: "Please check your email to activate your account.",
-    registration_error: "Registration failed. Please check your entries and try again."
+    registration_error: "Registration failed. Please check your entries and try again.",
+    bad_link: "Invalid activation link.",
+    user_activated: "Account activated!",
+    success: "Success!",
+    not_activated: "Account not activated. Check your email for the activation link.",
   }
 
   private
-
-  # NOTE: Not using this currently, but may want it later.
-  # def current_user
-  #   @current_user ||= User.find(session[:user_id]) if session[:user_id]
-  # end
 
   def set_locale
     I18n.locale = params[:locale] || I18n.default_locale
@@ -31,7 +30,6 @@ class ApplicationController < ActionController::Base
 
   def login_user(user)
     session[:user_id] = user.id
-    redirect_to root_path
   end
 
 end

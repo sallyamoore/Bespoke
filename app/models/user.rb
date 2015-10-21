@@ -13,6 +13,21 @@ class User < ActiveRecord::Base
   before_create :create_activation_digest
   before_save :downcase_email
 
+  def authenticated?(attribute, token)
+    digest = send("#{attribute}_digest")
+    return false if digest.nil?
+    BCrypt::Password.new(digest).is_password?(token)
+  end
+
+  def activate
+    update_attribute(:activated,    true)
+    update_attribute(:activated_at, Time.zone.now)
+  end
+
+  def send_activation_email
+    UserMailer.account_activation(self).deliver_now
+  end
+
   private
 
   def self.find_or_create_from_omniauth(auth_hash)

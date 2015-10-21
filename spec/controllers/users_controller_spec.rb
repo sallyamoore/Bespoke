@@ -16,21 +16,29 @@ RSpec.describe UsersController, type: :controller do
     end
   end
 
-  describe "#create" do
-    context "valid User params" do
+  describe "#create registers new user through app, not third party)" do
+    context "valid User params with account activation" do
       it "creates a User" do
-        build :user
-        post :create, user: attributes_for(:user)
+        expect {
+          post :create, user: attributes_for(:user)
+        }.to change(User, :count).by(1)
         expect(User.count).to eq 1
       end
 
       it "sends an email" do
-        build :user
-
         expect {
           post :create, user: attributes_for(:user)
         }.to change { ActionMailer::Base.deliveries.count }.by(1)
       end
+
+      it "does not activate before email link is clicked" do
+        user = build :user
+        post :create, user: attributes_for(:user)
+
+        expect(user.activated?).to be(false)
+        expect(session[:user_id]).to be(nil)
+      end
+
     end
 
     context "invalid User params" do
@@ -44,9 +52,14 @@ RSpec.describe UsersController, type: :controller do
         expect(User.count).to eq 0
       end
 
-      it "renders the new User page save is unsuccessful" do
+      it "renders the new User page when save is unsuccessful" do
         post :create, user: @user
         expect(subject).to render_template(:new)
+      end
+
+      it "displays an error message" do
+        get :create, user: @user
+        expect(flash[:error]).to_not be nil
       end
     end
   end

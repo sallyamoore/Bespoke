@@ -17,13 +17,18 @@ class UsersController < ApplicationController
 
     if @user.save
       # login_user(@user)
-      UserMailer.account_activation(@user).deliver_now
+      @user.send_activation_email
+      # UserMailer.account_activation(@user).deliver_now
       flash[:alert] = MESSAGES[:activation_email]
       redirect_to root_path
     else
       flash[:error] = MESSAGES[:registration_error]
       render :new
     end
+  end
+
+  def edit
+    @user = User.find(params[:id])
   end
 
   private
