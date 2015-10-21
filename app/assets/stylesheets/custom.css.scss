@@ -29,7 +29,7 @@ body {
   margin-top: 3em;
 }
 
-.alerts-div {
+.alert {
   z-index: 101;
   position: absolute;
   bottom: 0;
@@ -38,12 +38,14 @@ body {
   text-align: center;
 }
 
-div.alert.alert-danger {
+div.alert.zoom-alert {
+  bottom: 6em;
   margin-bottom: 0;
 }
 
-div.alert.no-origin {
-  margin-bottom: 15em;
+div.alert.alert-danger {
+  bottom: 15em;
+  margin-bottom: 0;
 }
 
 .login {

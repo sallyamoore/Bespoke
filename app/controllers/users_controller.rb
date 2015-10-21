@@ -12,11 +12,16 @@ class UsersController < ApplicationController
     end
   end
 
-  def create # create a new logged in user
+  def create # create a new user and log in
     @user = User.new(user_params)
+
     if @user.save
-      login_user(@user)
+      # login_user(@user)
+      UserMailer.account_activation(@user).deliver_now
+      flash[:alert] = MESSAGES[:activation_email]
+      redirect_to root_path
     else
+      flash[:error] = MESSAGES[:registration_error]
       render :new
     end
   end

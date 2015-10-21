@@ -1,0 +1,15 @@
+<h1>bspoked.bike</h1>
+
+<p>Hi <%= @user.username %>,</p>
+
+<p>
+  Welcome to bspoked.bike!
+  We can't wait to help you with bike touring in the Netherlands, Belgium, and Germany!
+</p>
+
+<p>
+  Click on the link below to activate your account:
+</p>
+
+<%= link_to "Activate", edit_account_activation_url(@user.activation_token,
+                                                    email: @user.email) %>

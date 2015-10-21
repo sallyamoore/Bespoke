@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  attr_accessor :activation_token
   # Associations --------------------
   has_secure_password
   has_and_belongs_to_many :locations
@@ -7,6 +8,12 @@ class User < ActiveRecord::Base
   validates :username, :password_digest, :email, presence: true, uniqueness: true
   validates :uid, uniqueness: true, allow_blank: true, allow_nil: true
   validates :email, format: /.+@+.+\.+./
+
+  # Callbacks ----------------------
+  before_create :create_activation_digest
+  before_save :downcase_email
+
+  private
 
   def self.find_or_create_from_omniauth(auth_hash)
     uid = auth_hash[:uid]
@@ -20,6 +27,27 @@ class User < ActiveRecord::Base
     user.password_confirmation = dummy_password
 
     user.save ? user : nil
+  end
+
+  def create_activation_digest
+    self.activation_token  = User.new_token
+    self.activation_digest = User.digest(activation_token)
+  end
+
+  # Returns the hash digest of the given string.
+  def User.digest(string)
+    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
+                                                  BCrypt::Engine.cost
+    BCrypt::Password.create(string, cost: cost)
+  end
+
+  # Returns a random token.
+  def User.new_token
+    SecureRandom.urlsafe_base64
+  end
+
+  def downcase_email
+    self.email = email.downcase
   end
 
 end

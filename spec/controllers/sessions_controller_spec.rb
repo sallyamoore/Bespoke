@@ -13,7 +13,7 @@ RSpec.describe SessionsController, type: :controller do
         expect(session[:user_id]).to eq(1)
       end
 
-      it "creates a user" do
+      it "creates a user if not already created" do
         expect {
           get :create, provider: :github
           }.to change(User, :count).by(1)

@@ -7,7 +7,9 @@ CSV.foreach("db/users.csv", headers: true) do |row|
     password: row[2],
     password_confirmation: row[3],
     provider: row[4],
-    uid: row[5]
+    uid: row[5],
+    activated: row[6],
+    activated_at: Time.now
   )
 end
 

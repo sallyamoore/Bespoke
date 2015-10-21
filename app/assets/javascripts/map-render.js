@@ -13,7 +13,7 @@ $(document).ready(function() {
     attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>'
   });
 
-  var trashToCollect = '.alert-danger, .zoom-alert';
+  var trashToCollect = '.alert';
   var alertContent = {
     badQuery:  {
       class: 'alert-danger',

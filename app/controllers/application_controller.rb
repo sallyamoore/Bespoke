@@ -9,7 +9,9 @@ class ApplicationController < ActionController::Base
   MESSAGES = {
     login_required: "You have to be logged in to do that!",
     failed_authentication: "Sign in failed. :( Please try again.",
-    logout_first: "You are currently logged in. Log out to create a new account."
+    logout_first: "You are currently logged in. Log out to create a new account.",
+    activation_email: "Please check your email to activate your account.",
+    registration_error: "Registration failed. Please check your entries and try again."
   }
 
   private
