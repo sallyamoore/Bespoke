@@ -21,6 +21,8 @@ $(document).ready(function() {
 });
 
 function changeOverlay() {
+  collectTrash('.alert');
+  $(".location-search").slideUp();
   $("div.login").slideToggle();
   $("div.nav-bar").slideToggle();
   $("div.logout").slideToggle();
