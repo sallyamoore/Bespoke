@@ -26,6 +26,10 @@ $(document).ready(function() {
     noStart: {
       class: 'alert-danger no-origin',
       text: "No origin has been selected for your route. Please use 'find my location' or 'search for a location' to set an origin."
+    },
+    nodeSaved: {
+      class: 'alert-success node-saved',
+      text: "Success! Location saved to your account."
     }
   };
 

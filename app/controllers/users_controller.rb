@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  # get_user_by_id is in ApplicationController
+  before_action :get_user_by_id, only: [:edit]
 
   def index; end
 
@@ -25,9 +27,7 @@ class UsersController < ApplicationController
     end
   end
 
-  def edit
-    @user = User.find(params[:id])
-  end
+  def edit; end
 
   private
 

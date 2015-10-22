@@ -23,6 +23,10 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def get_user_by_id
+    @user = User.find(params[:id])
+  end
+
   def set_locale
     I18n.locale = params[:locale] || I18n.default_locale
   end
@@ -33,6 +37,15 @@ class ApplicationController < ActionController::Base
 
   def login_user(user)
     session[:user_id] = user.id
+  end
+
+  # Confirms a valid user.
+  def valid_user
+    unless (@user && @user.activated? &&
+            @user.authenticated?(:reset, params[:id]))
+      flash.now[:error] = MESSAGES[:not_activated]
+      redirect_to root_url
+    end
   end
 
 end
