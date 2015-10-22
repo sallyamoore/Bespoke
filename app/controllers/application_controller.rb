@@ -16,6 +16,9 @@ class ApplicationController < ActionController::Base
     user_activated: "Account activated!",
     success: "Success!",
     not_activated: "Account not activated. Check your email for the activation link.",
+    password_reset: "Please check your email for password reset instructions.",
+    no_email: "Email address not found."
+
   }
 
   private

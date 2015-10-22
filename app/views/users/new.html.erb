@@ -6,16 +6,16 @@
     <fieldset>
       <div class="form-group">
       <%= f.label :username %>
-      <%= f.text_field :username, class: "form-control" %>
+      <%= f.text_field :username, class: "form-control", required: true %>
 
       <%= f.label :email %>
-      <%= f.text_field :email, class: "form-control" %>
+      <%= f.text_field :email, class: "form-control", required: true %>
 
       <%= f.label :password %>
-      <%= f.text_field :password, class: "form-control" %>
+      <%= f.text_field :password, class: "form-control", required: true %>
 
       <%= f.label :password_confirmation, "Password Confirmation" %>
-      <%= f.text_field :password_confirmation, class: "form-control" %>
+      <%= f.text_field :password_confirmation, class: "form-control", required: true %>
       </div>
     </fieldset>
 

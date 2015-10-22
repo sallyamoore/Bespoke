@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
+
   get '/:locale' => 'locations#index', as: :switch
   root 'locations#index'
 
-  resources :users, only: [ :show, :new, :create ]
+  resources :users,               only: [ :show, :new, :create ]
   resources :account_activations, only: [:edit]
+  resources :password_resets,     only: [:new, :create, :edit, :update]
 
   get "auth/github/callback" => 'sessions#create'
 

@@ -22,6 +22,5 @@ RSpec.describe AccountActivationsController, type: :controller do
     get :edit, id: @user.activation_token, email: @user.email
     expect(session[:user_id])
     expect(@user.activated?)
-
   end
 end

@@ -16,9 +16,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      # login_user(@user)
       @user.send_activation_email
-      # UserMailer.account_activation(@user).deliver_now
       flash[:alert] = MESSAGES[:activation_email]
       redirect_to root_path
     else

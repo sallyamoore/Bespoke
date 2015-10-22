@@ -1,11 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe UsersController, type: :controller do
-  describe "#new" do
 
+  describe "#new" do
     it "responds successfully with an HTTP 200 status code" do
       get :new
-
       expect(response).to be_success
       expect(response).to have_http_status(200)
     end
@@ -43,22 +42,22 @@ RSpec.describe UsersController, type: :controller do
 
     context "invalid User params" do
       before :each do
-        @user = {}
-        @user[:user] = build :user, email: "blah"
+        @user = create :user, email: "blah"
+        # @user[:user] = build :user, email: "blah"
       end
 
       it "does not create a User" do
-        post :create, user: @user
+        post :create, user: attributes_for(@user)
         expect(User.count).to eq 0
       end
 
       it "renders the new User page when save is unsuccessful" do
-        post :create, user: @user
+        post :create, user: attributes_for(@user)
         expect(subject).to render_template(:new)
       end
 
       it "displays an error message" do
-        get :create, user: @user
+        get :create, user: attributes_for(@user)
         expect(flash[:error]).to_not be nil
       end
     end
