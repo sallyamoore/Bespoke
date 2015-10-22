@@ -14,11 +14,16 @@ CSV.foreach("db/users.csv", headers: true) do |row|
 end
 
 CSV.foreach("db/locations.csv", headers: true) do |row|
-  Location.create!(node_number: row[0], latitude: row[1], longitude: row[2])
+  Location.create!(
+    node_number: row[0],
+    latitude: row[1],
+    longitude: row[2],
+    node_id: row[3]
+  )
 end
 
 users = User.all
 locations = Location.all
 users.each do |user|
-  user.locations << locations.sample([*0..20].sample)
+  user.locations << locations.sample([*0..locations.length].sample)
 end
