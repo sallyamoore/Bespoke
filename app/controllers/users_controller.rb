@@ -10,8 +10,7 @@ class UsersController < ApplicationController
       @user = User.new
       render :new
     else
-      flash[:error] = MESSAGES[:logout_first]
-      redirect_to root_path
+      redirect_to root_path, flash: { error: MESSAGES[:logout_first] }
     end
   end
 

@@ -13,6 +13,15 @@ RSpec.describe UsersController, type: :controller do
       get :new
       expect(subject).to render_template :new
     end
+
+    it "displays an error message if user is already logged in" do
+      user = create :user, activated: true
+      session[:user_id] = user.id
+      get :new
+
+      expect(flash[:error]).to_not be_nil
+      expect(subject).to redirect_to(root_path)
+    end
   end
 
   describe "POST #create registers new user (through app, not third party)" do
@@ -59,10 +68,10 @@ RSpec.describe UsersController, type: :controller do
     end
   end
 
-  describe "GET #show" do
+  describe "GET #show, active user" do
     before :each do
       @user = create :user, activated: true
-      session[:user_id] = 1
+      session[:user_id] = @user.id
     end
 
     it "responds successfully with an HTTP 200 status code" do
@@ -80,9 +89,30 @@ RSpec.describe UsersController, type: :controller do
     it "shows the selected user" do
       get :show, id: @user
       expect { assigns(:user).to eq(@user) }
+      expect(User.find(@user.id).username).to eq(@user.username)
     end
   end
 
+  describe "GET #show, invalid user param" do
+    it "will not show a user who has not activated their account" do
+      @user = create :user, activated: false
+      get :show, id: @user
+
+      expect(subject).to redirect_to(root_path)
+      expect(flash[:error]).to_not be nil
+    end
+
+    it "will not show a user who is not logged in" do
+      @user1 = create :user
+      @user2 = create :user, username: "me", email: "me@me.com", uid: "394023"
+      session[:user_id] = @user2.id
+
+      get :show, id: @user1.id
+
+      expect(subject).to redirect_to(root_path)
+      expect(flash[:error]).to_not be nil
+    end
+  end
 
   describe "PATCH #update" do
 
@@ -90,13 +120,14 @@ RSpec.describe UsersController, type: :controller do
       @user = create :user, activated: true
       session[:user_id] = @user.id
 
-      put :update, user_id: @user.id, user: { username: "not-pusheen"}
+      put :update, id: @user.id, user: { username: "not-pusheen"}
       @user.reload
     end
 
     it "updates the user record" do
       expect(response).to redirect_to(@user)
 
+      expect(User.find(@user.id).username).to eq("not-pusheen")
       expect(@user.username).to eq("not-pusheen")
     end
 
@@ -105,12 +136,33 @@ RSpec.describe UsersController, type: :controller do
     end
   end
 
-  xdescribe "GET #edit" do
+  describe "PATCH #update, user not active" do
+    it "will not update a user who has not activated their account" do
+      @user = create :user, activated: false
+      put :update, id: @user.id, user: { username: "not-pusheen"}
 
+      expect(subject).to redirect_to(root_path)
+      expect(flash[:error]).to_not be nil
+    end
   end
 
-  xdescribe "DELETE #destroy" do
+  describe "DELETE #destroy" do
+    before :each do
+      user = create :user, activated: true
+      delete :destroy, id: user.id
+    end
 
+    it "deletes the user" do
+      expect(User.count).to eq 0
+    end
+
+    it "redirects to the root path" do
+      expect(subject).to redirect_to root_path
+    end
+
+    it "flashes an alert" do
+      expect(flash[:info]).to_not be_nil
+    end
   end
 
 end

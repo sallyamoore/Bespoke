@@ -47,7 +47,7 @@ RSpec.describe SessionsController, type: :controller do
 
     context "logging in via username with valid params" do
       before :each do
-        create :user
+        @user = create :user, activated: true
       end
 
       let(:params) do
@@ -55,8 +55,8 @@ RSpec.describe SessionsController, type: :controller do
       end
 
       it "sets user_id for the session" do
-        get :create, params
-        expect(session[:user_id])
+        get :create, params # creates session
+        expect(session[:user_id]).to eq(@user.id)
       end
 
       it "redirects to root_path" do
