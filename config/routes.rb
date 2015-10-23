@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   get '/:locale' => 'locations#index', as: :switch
   root 'locations#index'
+  post "/locations/create", to: 'locations#create'
 
   resources :users,               only: [ :show, :new, :create ]
   resources :account_activations, only: [:edit]
@@ -13,6 +14,5 @@ Rails.application.routes.draw do
   post   "/login",  to: 'sessions#create', as: 'login'
   delete "/logout", to: 'sessions#destroy'
 
-  post "/locations/create", to: 'locations#create'
 
 end

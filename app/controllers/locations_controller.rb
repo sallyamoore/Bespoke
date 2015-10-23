@@ -1,8 +1,4 @@
 class LocationsController < ApplicationController
-  # valid_user and get_user_by_id are in ApplicationController
-  before_action :get_user_by_id, only: [:create]
-  before_action :valid_user, only: [:create]
-  before_action :login_user, only: [:create]
 
   def index
     # if user_id is in session, get user; otherwise, set user to nil.
@@ -13,14 +9,32 @@ class LocationsController < ApplicationController
   end
 
   def create # before_actions: valid_user, get_user_by_id, login_user
-    if @user
-      raise
-    else
-      flash[:error] = MESSAGES[:login_required]
+    if logged_in?
+      user = User.find(session[:user_id])
     end
+
+    # params format should be "node_id"=>"297907053", "node_number"=>"82", "latitude"=>"52.323305", "longitude"=>"4.7945451"
+    location = Location.find_or_create_by(node_id: params[:node_id])
+    location.node_number = params[:node_number]
+    location.latitude = params[:latitude]
+    location.longitude = params[:longitude]
+    if location.save
+      user.locations << location
+      render :text => "", status: 200
+    else
+      render :text => "", status: 400
+    end
+
   end
 
+  private
 
+  def logged_in?
+    session[:user_id] ? true : false
+  end
 
+  def location_params
+    params.require(:location).permit(:node_id, :node_number, :latitude, :longitude)
+  end
 
 end

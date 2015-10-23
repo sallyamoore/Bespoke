@@ -74,7 +74,7 @@
               html: nodeData.node_number,
             });
 
-            new L.marker([nodeData.latitude, nodeData.longitude], {
+            var nodeMarker = new L.marker([nodeData.latitude, nodeData.longitude], {
               icon: cssIcon
             }).addTo(map);
 
@@ -82,7 +82,11 @@
             $( "." + nodeIdTag ).data(nodeData);
           }
         }
+
+        // this function is in save-location.js
+        addLocationSave();
       });
-    },
+    }
+
   };
 })(this);

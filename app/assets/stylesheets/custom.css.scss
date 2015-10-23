@@ -43,7 +43,7 @@ div.alert.zoom-alert {
   margin-bottom: 0;
 }
 
-div.alert.alert-danger {
+div.alert.alert-danger, div.alert.node-saved, {
   bottom: 190px;
   margin-bottom: 0;
 }
@@ -97,6 +97,15 @@ div.alert.alert-danger {
 
 div.leaflet-control-attribution, div.leaflet-compact-attribution {
   bottom: 70px;
+}
+
+.save-location {
+  display: none;
+  position:absolute;
+  text-align: right;
+  margin-top: 20px;
+  margin-left: 50px;
+  z-index: 99;
 }
 
 #map {
