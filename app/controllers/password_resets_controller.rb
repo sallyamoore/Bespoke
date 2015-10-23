@@ -54,4 +54,13 @@ class PasswordResetsController < ApplicationController
       redirect_to new_password_reset_url
     end
   end
+
+  # Confirms a valid user for password reset.
+  def valid_user
+    unless (@user && @user.activated? &&
+            @user.authenticated?(:reset, params[:id]))
+      flash[:error] = MESSAGES[:not_activated]
+      redirect_to root_url
+    end
+  end
 end

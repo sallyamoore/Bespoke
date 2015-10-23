@@ -99,7 +99,7 @@ $(document).ready(function() {
 
   });
 
-  // Route to clicked bike node.
+  // Route to clicked bike node or searched location.
   $(document).on( "click", ".css-icon", function(event) {
     collectTrash(trashToCollect);
     var nodeData = $( this ).data(),
@@ -117,7 +117,9 @@ $(document).ready(function() {
       originLatLng;
 
     if ($(".user-location").data()) {
-      originLatLng = L.latLng($(".user-location").data().lat, $(".user-location").data().lng);
+      originLatLng = L.latLng(
+        $(".user-location").data().lat, $(".user-location").data().lng
+      );
     } else if (typeof(marker) !== 'undefined') {
       originLatLng = marker.getLatLng();
     } else {

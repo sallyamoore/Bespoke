@@ -58,6 +58,8 @@ class User < ActiveRecord::Base
     dummy_password = Time.now.to_i.to_s
     user.password = dummy_password
     user.password_confirmation = dummy_password
+    user.activated = true
+    user.activated_at = Time.now
 
     user.save ? user : nil
   end

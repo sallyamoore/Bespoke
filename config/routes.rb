@@ -4,7 +4,10 @@ Rails.application.routes.draw do
   root 'locations#index'
   post "/locations/create", to: 'locations#create'
 
-  resources :users,               only: [ :show, :new, :create ]
+  resources :users do
+    resources :locations,         only: [:destroy]
+  end
+
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
 

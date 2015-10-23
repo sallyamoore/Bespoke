@@ -32,10 +32,6 @@
     </div>
   </div>
 
-  <div class="login-or-register">
-    <%= link_to "Login or Register", root_path, class: 'btn btn-default' %>
-  </div>
-
 <% else %>
   <div class="logout">
     <p><%= "#{@username}" %></p>
@@ -53,8 +49,14 @@
       <span class="my-location col-xs-4 fa fa-map-marker fa-3x center ig-icon" aria-hidden="true" data-toggle="tooltip" title="find my location"></span>
     <% end %>
 
-    <%= link_to root_path do %>
-      <span class="my-account col-xs-4 fa fa-user fa-3x center ig-icon" aria-hidden="true" data-toggle="tooltip" title="account info"></span>
+    <% if session[:user_id] %>
+      <%= link_to user_path(@user) do %>
+        <span class="my-account col-xs-4 fa fa-user fa-3x center ig-icon" aria-hidden="true" data-toggle="tooltip" title="account info"></span>
+      <% end %>
+    <% else %>
+      <%= link_to root_path do %>
+        <span class="login-or-register col-xs-4 fa fa-user fa-3x center ig-icon" aria-hidden="true" data-toggle="tooltip" title="login or register"></span>
+      <% end %>
     <% end %>
   </footer>
 </div>
@@ -74,6 +76,3 @@
 <div class="save-location">
   <span class="fa fa-user-plus fa-2x"></span>
 </div>
-<!-- <div class="my-account">
-
-</div> -->
