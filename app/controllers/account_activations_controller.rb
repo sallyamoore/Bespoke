@@ -7,11 +7,9 @@ class AccountActivationsController < ApplicationController
       # user.update_attribute(:activated_at, Time.zone.now)
       user.activate
       login_user(user)
-      flash[:success] = MESSAGES[:user_activated]
-      redirect_to root_path
+      redirect_to root_path, flash: { success: MESSAGES[:user_activated] }
     else
-      flash[:error] = MESSAGES[:bad_link]
-      redirect_to root_path
+      redirect_to root_path, flash: { error: MESSAGES[:bad_link] }
     end
   end
 

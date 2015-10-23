@@ -18,7 +18,8 @@ class ApplicationController < ActionController::Base
     not_activated: "Account not activated. Check your email for the activation link.",
     password_reset: "Please check your email for password reset instructions.",
     no_email: "Email address not found.",
-    wrong_login: "That's not your login! You can't change another cyclist's routes."
+    failed_save: "Error: Profile not updated.",
+    wrong_login: "That's not your login! You access another cyclist's profile."
   }
 
   private
@@ -39,12 +40,10 @@ class ApplicationController < ActionController::Base
     session[:user_id] = user.id
   end
 
-
-  # Confirms a valid user for password reset.
+  # Confirms a valid user.
   def active_user
     unless (@user && @user.activated?)
-      flash[:error] = MESSAGES[:not_activated]
-      redirect_to root_url
+      redirect_to root_url, flash: { error: MESSAGES[:not_activated] }
     end
   end
 

@@ -1,6 +1,8 @@
 <div class="jumbotron title">
   <div class="container">
-    <h1><i class="fa fa-bicycle"></i> bspoked <i class="fa fa-bicycle"></i></h1>
+    <%= link_to root_path, method: :get, class: 'title' do %>
+      <h1><i class="fa fa-bicycle"></i> bspoked <i class="fa fa-bicycle"></i></h1>
+    <% end %>
   </div>
 </div>
 
@@ -10,11 +12,11 @@
     <h3><%= @user.username %></h3>
     <p class="user-info">Email: <%= @user.email %></p>
     <p class="user-info">bspoked since:
-      <% if @user.provider %>
-        <%= @user.created_at.strftime("%A, %B %m, %Y") %></p>
-      <% else %>
-        <%= @user.activated_at.strftime("%A, %B %m, %Y") %></p>
-      <% end %>
+      <%= @user.activated_at.strftime("%A, %B %d, %Y") %>
+    </p>
+    <%= link_to edit_user_path(session[:user_id]), class: 'btn btn-default' do %>
+      <span class="glyphicon glyphicon-pencil" aria-hidden="true" data-toggle="tooltip" title="Edit Profile"></span>
+    <% end %>
     <%= link_to "Logout", logout_path, method: :delete, class: 'btn btn-default' %>
     <%= link_to "Delete Account", user_path, method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure?' } %>
 

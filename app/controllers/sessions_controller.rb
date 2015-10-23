@@ -36,8 +36,7 @@ class SessionsController < ApplicationController
       # params[:session][:remember_me] == '1' ? remember(user) : forget(user)
       redirect_to root_path, flash: { success: MESSAGES[:success] }
     elsif user && !user.activated?
-      flash[:alert] = MESSAGES[:not_activated]
-      redirect_to root_url
+      redirect_to root_url, flash: { alert: MESSAGES[:not_activated] }
     else
       redirect_to root_path, flash: { error: MESSAGES[:failed_authentication] }
     end

@@ -6,9 +6,18 @@ body {
   padding: 0;
 }
 
-.title {
+a, a:hover, a:active, a:visited {
+  text-decoration: none;
+}
+
+a.title {
   text-align: center;
   color: #01D298;
+}
+
+a.title:hover {
+  text-align: center;
+  color: #00AE7E;
 }
 
 .user-info-title {

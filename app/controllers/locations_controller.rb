@@ -47,7 +47,7 @@ class LocationsController < ApplicationController
 
   def correct_login(object)
     unless session[:user_id] == object.user_id
-      redirect_to user_path(session[:user_id]), alert: ERRORS[:wrong_login]
+      redirect_to user_path(session[:user_id]), flash: { error: MESSAGES[:wrong_login] }
     end
   end
 

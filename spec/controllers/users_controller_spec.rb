@@ -61,7 +61,7 @@ RSpec.describe UsersController, type: :controller do
 
   describe "GET #show" do
     before :each do
-      @user = create :user
+      @user = create :user, activated: true
       session[:user_id] = 1
     end
 
@@ -84,11 +84,28 @@ RSpec.describe UsersController, type: :controller do
   end
 
 
-  xdescribe "GET #edit" do
+  describe "PATCH #update" do
 
+    before :each do
+      @user = create :user, activated: true
+      session[:user_id] = @user.id
+
+      put :update, user_id: @user.id, user: { username: "not-pusheen"}
+      @user.reload
+    end
+
+    it "updates the user record" do
+      expect(response).to redirect_to(@user)
+
+      expect(@user.username).to eq("not-pusheen")
+    end
+
+    it "redirects to the user show page" do
+      expect(subject).to redirect_to user_path(@user)
+    end
   end
 
-  xdescribe "POST #update" do
+  xdescribe "GET #edit" do
 
   end
 

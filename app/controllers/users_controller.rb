@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   # get_user_by_id is in ApplicationController
-  before_action :get_user_by_id, only: [ :edit, :show, :destroy ]
+  before_action :get_user_by_id, only: [ :edit, :update, :show, :destroy ]
   before_action :active_user, only: [ :show, :edit, :update ]
 
   def index; end
@@ -29,17 +29,34 @@ class UsersController < ApplicationController
   end
 
   def show
-    @locations = Location.where(user_id: session[:user_id])
+    if !@user
+      flash[:error] = MESSAGES[:login_required]
+      redirect_to root_path
+    elsif @user.id != session[:user_id]
+      flash[:error] = MESSAGES[:wrong_login]
+      redirect_to root_path
+    else
+      @locations = Location.where(user_id: session[:user_id])
+    end
   end
 
   def edit; end
 
-  def update; end
+  def update
+    @user.update(user_params)
+
+    if @user.save
+      redirect_to user_path(@user.id), flash: { success: MESSAGES[:success] }
+    else
+      redirect_to user_path(@user.id), flash: { error: MESSAGES[:failed_save] }
+    end
+
+  end
 
   def destroy
     reset_session
     @user.destroy
-    redirect_to root_path
+    redirect_to root_path, flash: { info: "Account deleted."}
   end
 
   private

@@ -44,7 +44,7 @@
         map.getBounds()._northEast.lng
       ];
       // comment out to avoid making too many requests to overpass api. Need to limit or cache this query.
-      this.apiCall(map, bounds);
+      // this.apiCall(map, bounds);
     },
 
     apiCall: function(map, bounds) {
