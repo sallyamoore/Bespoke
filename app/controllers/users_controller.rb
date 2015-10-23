@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   # get_user_by_id is in ApplicationController
-  before_action :get_user_by_id, only: [ :edit, :show ]
+  before_action :get_user_by_id, only: [ :edit, :show, :destroy ]
   before_action :active_user, only: [ :show, :edit, :update ]
 
   def index; end
@@ -29,7 +29,6 @@ class UsersController < ApplicationController
   end
 
   def show
-
     @locations = Location.where(user_id: session[:user_id])
   end
 
@@ -37,7 +36,11 @@ class UsersController < ApplicationController
 
   def update; end
 
-  def destroy; end
+  def destroy
+    reset_session
+    @user.destroy
+    redirect_to root_path
+  end
 
   private
 

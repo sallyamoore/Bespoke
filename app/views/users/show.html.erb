@@ -15,6 +15,9 @@
       <% else %>
         <%= @user.activated_at.strftime("%A, %B %m, %Y") %></p>
       <% end %>
+    <%= link_to "Logout", logout_path, method: :delete, class: 'btn btn-default' %>
+    <%= link_to "Delete Account", user_path, method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure?' } %>
+
   </div>
 
   <div class="col-sm-6">
