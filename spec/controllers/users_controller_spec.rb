@@ -39,6 +39,11 @@ RSpec.describe UsersController, type: :controller do
         }.to change { ActionMailer::Base.deliveries.count }.by(1)
       end
 
+      # it "creates a password_digest" do
+      #   post :create, user: attributes_for(:user)
+      #
+      # end
+
       it "does not activate before email link is clicked" do
         user = build :user
         post :create, user: attributes_for(:user)
@@ -102,12 +107,22 @@ RSpec.describe UsersController, type: :controller do
       expect(flash[:error]).to_not be nil
     end
 
-    it "will not show a user who is not logged in" do
-      @user1 = create :user
-      @user2 = create :user, username: "me", email: "me@me.com", uid: "394023"
+    it "will not show a user other than the logged in user" do
+      @user1 = create :user, activated: true
+      @user2 = create :user, activated: true, username: "me", email: "me@me.com", uid: "394023"
       session[:user_id] = @user2.id
 
       get :show, id: @user1.id
+
+      expect(subject).to redirect_to(root_path)
+      expect(flash[:error]).to_not be nil
+    end
+
+    it "will not show a user when no one is logged in" do
+      @user = create :user, activated: true
+      session[:user_id] = nil
+
+      get :show, id: @user.id
 
       expect(subject).to redirect_to(root_path)
       expect(flash[:error]).to_not be nil
