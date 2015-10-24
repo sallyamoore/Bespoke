@@ -20,8 +20,8 @@ $(document).ready(function() {
   });
 
   $(".directions-icon").click( function(event) {
-    $(".directions-icon").toggleClass("fa-flip-horizontal");
-    $(".directions").slideToggle();
+    $(".directions-icon").toggleClass("fa-flip-vertical");
+    $("#directions").slideToggle();
   });
 });
 

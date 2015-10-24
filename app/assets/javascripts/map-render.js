@@ -57,7 +57,7 @@ if ($("#map")) {
 
       // show queried location on map
       function showMap(err, data) {
-        $('.directions-icon').hide('fast');
+        $('.directions-icon #directions').hide('fast');
 
         var featuresFound = data.results.features.length === 0 ? false :true;
         if (featuresFound) {
@@ -138,6 +138,8 @@ if ($("#map")) {
       var directionsLayer = L.mapbox.directions.layer(directions, routeFormat)
         .addTo(map.osm_map);
       var directionsRoutesControl = L.mapbox.directions.routesControl('routes', directions)
+        .addTo(map.osm_map);
+      var directionsInstructionsControl = L.mapbox.directions.instructionsControl('instructions', directions)
         .addTo(map.osm_map);
 
       // Remove layers if another bike node (.css-icon) is clicked
