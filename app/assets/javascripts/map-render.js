@@ -64,7 +64,8 @@ if ($("#map")) {
           map.osm_map.setView(data.latlng, 13);
 
           marker = new L.marker(data.latlng, {
-            zIndexOffset: 1000
+            zIndexOffset: 1000,
+            alt: "Queried location"
           });
 
           map.osm_map.addLayer(marker);
@@ -114,7 +115,7 @@ if ($("#map")) {
             color: '#F60131',
             weight: 7,
             opacity: 0.75,
-            className: "route"
+            className: "route",
           }
         },
         originLatLng;
@@ -125,6 +126,7 @@ if ($("#map")) {
         );
       } else if (typeof(marker) !== 'undefined') {
         originLatLng = marker.getLatLng();
+        // map.osm_map.removeLayer(marker); // to remove the location marker
       } else {
         showAlert(alertContent.noStart);
       }
