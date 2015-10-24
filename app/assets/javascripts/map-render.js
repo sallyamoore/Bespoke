@@ -57,6 +57,8 @@ if ($("#map")) {
 
       // show queried location on map
       function showMap(err, data) {
+        $('.directions-icon').hide('fast');
+
         var featuresFound = data.results.features.length === 0 ? false :true;
         if (featuresFound) {
           map.osm_map.setView(data.latlng, 13);
@@ -138,14 +140,21 @@ if ($("#map")) {
       var directionsRoutesControl = L.mapbox.directions.routesControl('routes', directions)
         .addTo(map.osm_map);
 
-      // Remove layers if another .css-icon is clicked
+      // Remove layers if another bike node (.css-icon) is clicked
       $(document).on( "click", ".css-icon", function() {
         map.osm_map.removeLayer(directionsLayer);
         map.osm_map.removeLayer(directionsRoutesControl);
       });
+
+      showDirectionsIcon();
     });
   });
 }
+
+function showDirectionsIcon() {
+  $('.directions-icon').show('fast');
+}
+
 function toggleSearchForm() {
   $(".location-search").slideToggle();
 }

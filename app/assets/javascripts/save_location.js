@@ -1,7 +1,6 @@
 function addLocationSave() {
   // Show/hide save icon
   $(".css-icon").on("mouseenter", function(event){
-    // console.log($(event.target).css("top", event.target.));
     var position = $(event.target).offset();
     var nodeData = $(event.target).data();
 
@@ -13,7 +12,6 @@ function addLocationSave() {
 
   $(".css-icon").on("mouseleave", function(){
     $(".save-location").delay(2000).fadeOut('fast');
-    // console.log($(".save-location"));
   });
 }
 

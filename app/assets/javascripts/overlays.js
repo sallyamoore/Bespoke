@@ -18,6 +18,11 @@ $(document).ready(function() {
     event.preventDefault();
     changeOverlay();
   });
+
+  $(".directions-icon").click( function(event) {
+    $(".directions-icon").toggleClass("fa-flip-horizontal");
+    $(".directions").slideToggle();
+  });
 });
 
 function changeOverlay() {

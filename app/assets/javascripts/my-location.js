@@ -1,4 +1,6 @@
 function onLocationFound(event) {
+  $('.directions-icon').hide('fast');
+
   var radius = event.accuracy / 2;
   L.circleMarker(event.latlng, {
     className: 'user-location',

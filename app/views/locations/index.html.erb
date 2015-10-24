@@ -11,12 +11,12 @@
     <h2>or via email:</h2>
 
     <%= form_for(:session, url: login_path)  do |f| %>
-			<div class="form-group col-sm-12">
+			<div class="form-group col-sm-6">
 				<%= f.label :username %>
 				<%= f.text_field :username, class: "form-control" %>
 			</div>
 
-			<div class="form-group col-sm-12">
+			<div class="form-group col-sm-6">
 					<%= f.label :password %>
           <%= link_to "(forgot password)", new_password_reset_path %>
 					<%= f.password_field :password, class: "form-control"  %>
@@ -35,8 +35,9 @@
 
 <% else %>
   <div class="logout">
-    <p><%= "#{@username}" %></p>
-    <%= link_to "Logout", logout_path, method: :delete, class: 'btn btn-default' %>
+    <p><%= "#{@username}" %>
+      <%= link_to "Logout", logout_path, method: :delete, class: 'btn btn-default' %>
+    </p>
   </div>
 <% end %>
 
@@ -76,4 +77,11 @@
 
 <div class="save-location">
   <span class="fa fa-user-plus fa-2x"></span>
+</div>
+
+<div>
+  <div class="directions-icon">
+    <span class="fa fa-arrow-circle-right fa-2x"></span>
+  </div>
+  <div class="directions"></div>
 </div>
