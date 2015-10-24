@@ -84,7 +84,9 @@
         }
 
         // this function is in save-location.js
-        addLocationSave();
+        if ($("body").data("logged-in-user")) {
+          addLocationSave();
+        }
       });
     }
 
