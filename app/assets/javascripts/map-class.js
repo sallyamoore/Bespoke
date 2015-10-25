@@ -47,16 +47,16 @@
       this.apiCall(map, bounds);
     },
 
-    getNodesFromDB: function(map, bounds) {
-      // query db for these bounds
-      var nodeData = data,
-          bounds = bounds;
-      $.get( "/locations/retrieve_nodes", bounds, function(data) {
-          console.log("Bike nodes retrieved from database");
-        }, 'json'
-      });
-      // save those within bounds to data var
-      // call for loop for data
+    // WIP getNodesFromDB: function(map, bounds) {
+      // FIRST query db for these bounds
+      // var nodeData = data,
+      //     bounds = bounds;
+      // $.get( "/locations/retrieve_nodes", bounds, function(data) {
+      //     console.log("Bike nodes retrieved from database");
+      //   }, 'json'
+      // });
+      // SECOND save those within bounds to data var
+      // THIRD call for-loop to show markers
     },
 
     apiCall: function(map, bounds) {
