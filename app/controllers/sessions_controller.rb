@@ -21,9 +21,12 @@ class SessionsController < ApplicationController
 
   def login_by_provider(auth_hash)
     user = User.find_or_create_from_omniauth(auth_hash)
+
     if user
       login_user(user)
       redirect_to root_path, flash: { success: MESSAGES[:success] }
+    else
+      redirect_to root_path, flash: { error: MESSAGES[:registration_error] }
     end
   end
 

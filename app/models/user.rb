@@ -51,12 +51,17 @@ class User < ActiveRecord::Base
   def self.find_or_create_from_omniauth(auth_hash)
     uid = auth_hash[:uid]
     provider = auth_hash[:provider]
-
     user = User.where(uid: uid, provider: provider).first_or_initialize
-    user.email = auth_hash[:info][:email]
+
+    if auth_hash[:info][:email]
+      user.email = auth_hash[:info][:email]
+    else
+      flash[:error] = "Email is required, but no email address was provided. Please log in a different way or allow access to your email address."
+    end
+
     if auth_hash[:provider] == "github"
       user.username = auth_hash[:info][:nickname]
-    elsif auth_hash[:provider] == "google_oauth2"
+    elsif auth_hash[:provider] == "google_oauth2" || auth_hash[:provider] == "facebook"
       user.username = auth_hash[:info][:name]
     end
 

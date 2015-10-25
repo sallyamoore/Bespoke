@@ -6,10 +6,13 @@
 
     <div class="login-links center">
       <%= link_to provider_login_path(provider: :google_oauth2) do %>
-        <span class="fa fa-google-plus-square fa-3x" aria-hidden="true" data-toggle="tooltip" title="github login"></span>
+        <span class="fa fa-google-plus-square fa-3x" aria-hidden="true" data-toggle="tooltip" title="Google+ login"></span>
       <% end %>
       <%= link_to provider_login_path(provider: :github) do %>
-        <span class="fa fa-github fa-3x" aria-hidden="true" data-toggle="tooltip" title="github login"></span>
+        <span class="fa fa-github fa-3x" aria-hidden="true" data-toggle="tooltip" title="Github login"></span>
+      <% end %>
+      <%= link_to provider_login_path(provider: :facebook) do %>
+        <span class="fa fa-facebook-square fa-3x" aria-hidden="true" data-toggle="tooltip" title="Facebook login"></span>
       <% end %>
     </div>
 
