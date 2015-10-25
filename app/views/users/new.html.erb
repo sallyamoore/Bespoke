@@ -1,4 +1,4 @@
-<div class="container-fluid col-sm-6">
+<div class="container-fluid col-sm-6 col-sm-offset-3">
   <h3>SIGN UP!</h3>
 
   <%= form_for @user, method: :post, class: "user" do |f| %>
@@ -19,7 +19,7 @@
       </div>
     </fieldset>
 
-    <%= f.submit "Create", class: "btn btn-success" %>
+    <%= f.submit "Create", class: "btn btn-success form-group" %>
 
   <% end %>
 </div>

@@ -2,23 +2,18 @@
 
 <% if session[:user_id].nil? %>
   <div class='login col-sm-6 col-sm-offset-3'>
-    <div>
-      <h2>Login with:</h2>
-    </div>
+    <h2>Login with:</h2>
 
     <div class="login-links center">
       <%= link_to provider_login_path(provider: :google_oauth2) do %>
-        <span class="fa fa-google-plus-square fa-3x center" aria-hidden="true" data-toggle="tooltip" title="github login"></span>
+        <span class="fa fa-google-plus-square fa-3x" aria-hidden="true" data-toggle="tooltip" title="github login"></span>
       <% end %>
       <%= link_to provider_login_path(provider: :github) do %>
-        <span class="fa fa-github fa-3x center" aria-hidden="true" data-toggle="tooltip" title="github login"></span>
+        <span class="fa fa-github fa-3x" aria-hidden="true" data-toggle="tooltip" title="github login"></span>
       <% end %>
     </div>
 
-    <div class='row'>
-      <h2>or via email:</h2>
-    </div>
-
+    <h2>or via email:</h2>
     <div class="form-group">
       <%= form_for(:session, url: login_path)  do |f| %>
   			<%= f.label :username %>
@@ -31,8 +26,6 @@
   			<%= f.submit "Log In", class: "btn btn-primary form-group" %>
       <% end %>
     </div>
-
-
 
 		<!-- register button -->
     <div class="register">
@@ -53,20 +46,20 @@
 <div class="nav-bar">
   <footer>
     <%= link_to root_path do %>
-      <span class="find-location col-xs-4 fa fa-search fa-3x center ig-icon" aria-hidden="true" data-toggle="tooltip" title="search by address"></span>
+      <span class="find-location col-xs-4 fa fa-search fa-3x center" aria-hidden="true" data-toggle="tooltip" title="search by address"></span>
     <% end %>
 
     <%= link_to root_path do %>
-      <span class="my-location col-xs-4 fa fa-map-marker fa-3x center ig-icon" aria-hidden="true" data-toggle="tooltip" title="find my location"></span>
+      <span class="my-location col-xs-4 fa fa-map-marker fa-3x center" aria-hidden="true" data-toggle="tooltip" title="find my location"></span>
     <% end %>
 
     <% if session[:user_id] %>
       <%= link_to user_path(@user) do %>
-        <span class="my-account col-xs-4 fa fa-user fa-3x center ig-icon" aria-hidden="true" data-toggle="tooltip" title="account info"></span>
+        <span class="my-account col-xs-4 fa fa-user fa-3x center" aria-hidden="true" data-toggle="tooltip" title="account info"></span>
       <% end %>
     <% else %>
       <%= link_to root_path do %>
-        <span class="login-or-register col-xs-4 fa fa-user fa-3x center ig-icon" aria-hidden="true" data-toggle="tooltip" title="login or register"></span>
+        <span class="login-or-register col-xs-4 fa fa-user fa-3x center" aria-hidden="true" data-toggle="tooltip" title="login or register"></span>
       <% end %>
     <% end %>
   </footer>
@@ -76,11 +69,11 @@
   <form class="form-inline">
     <div class="form-group">
       <label for="location-search"><h5>Start Location: </h5></label>
-      <input type="text" name="location-search", class="form-control location-query">
-      <button class="btn btn-default location-submit" type="submit">
-        <span class="find-location col-xs-4 fa fa-search ig-icon" aria-hidden="true" data-toggle="tooltip" title="go"></span>
-      </button>
+      <input type="text" name="location-search", class="form-control location-query", placeholder="address, city, postcode, etc.">
     </div>
+    <button class="btn btn-default location-submit" type="submit">
+      <span class="find-location col-xs-4 fa fa-search" aria-hidden="true" data-toggle="tooltip" title="go"></span>
+    </button>
   </form>
 </div>
 
