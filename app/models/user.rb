@@ -54,7 +54,12 @@ class User < ActiveRecord::Base
 
     user = User.where(uid: uid, provider: provider).first_or_initialize
     user.email = auth_hash[:info][:email]
-    user.username = auth_hash[:info][:nickname]
+    if auth_hash[:provider] == "github"
+      user.username = auth_hash[:info][:nickname]
+    elsif auth_hash[:provider] == "google_oauth2"
+      user.username = auth_hash[:info][:name]
+    end
+
     dummy_password = Time.now.to_i.to_s
     user.password = dummy_password
     user.password_confirmation = dummy_password
