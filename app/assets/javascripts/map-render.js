@@ -80,10 +80,12 @@ if ($("#map")) {
       // Find user's current location
       $(".my-location").click(function(event) {
         event.preventDefault();
+        map.osm_map.stopLocate();
+        $('.directions-icon').hide('fast');
         collectTrash(trashToCollect);
         collectLocationTrash();
 
-        result.locate({setView: true, maxZoom: 16});
+        result.locate({ setView: true, maxZoom: map.startZoom });
       });
       // Listeners: When location found/error, execute function in my-location.js
       result.on('locationfound', onLocationFound);
@@ -124,6 +126,8 @@ if ($("#map")) {
         originLatLng = L.latLng(
           $(".user-location").data().lat, $(".user-location").data().lng
         );
+        map.osm_map.locate( { watch: true, maxZoom: 16 } );
+
       } else if (typeof(marker) !== 'undefined') {
         originLatLng = marker.getLatLng();
         // map.osm_map.removeLayer(marker); // to remove the location marker
@@ -146,6 +150,7 @@ if ($("#map")) {
 
       // Remove layers if another bike node (.css-icon) is clicked
       $(document).on( "click", ".css-icon", function() {
+        map.osm_map.stopLocate();
         map.osm_map.removeLayer(directionsLayer);
         map.osm_map.removeLayer(directionsRoutesControl);
       });
