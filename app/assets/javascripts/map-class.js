@@ -47,6 +47,18 @@
       this.apiCall(map, bounds);
     },
 
+    getNodesFromDB: function(map, bounds) {
+      // query db for these bounds
+      var nodeData = data,
+          bounds = bounds;
+      $.get( "/locations/retrieve_nodes", bounds, function(data) {
+          console.log("Bike nodes retrieved from database");
+        }, 'json'
+      });
+      // save those within bounds to data var
+      // call for loop for data
+    },
+
     apiCall: function(map, bounds) {
       var iconClassName = this.iconClassName;
       var iconSize = this.iconSize;
@@ -68,6 +80,9 @@
               longitude: data.elements[i].lon,
             };
 
+            // save_location.js: populate DB with nodeData collected.
+            populateDB(nodeData);
+
             var cssIcon = L.divIcon({
               className: nodeIdTag,
               iconSize: iconSize,
@@ -88,7 +103,7 @@
           addLocationSave();
         }
       });
-    }
+    },
 
   };
 })(this);

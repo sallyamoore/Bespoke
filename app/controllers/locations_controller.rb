@@ -9,17 +9,21 @@ class LocationsController < ApplicationController
   end
 
   def create
-    if logged_in?
-      user = User.find(session[:user_id])
-    end
+    # if logged_in?
+    #   user = User.find(session[:user_id])
+    # end
 
     location = Location.find_or_create_by(node_id: params[:node_id])
     location.node_number = params[:node_number]
     location.latitude = params[:latitude]
     location.longitude = params[:longitude]
 
-    if location.save
+    if location.save && logged_in?
+      user = User.find(session[:user_id])
+
       user.locations << location
+      render :text => "", status: 200
+    elsif location.save
       render :text => "", status: 200
     else
       render :text => "", status: 400
