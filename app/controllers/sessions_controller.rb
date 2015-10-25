@@ -2,6 +2,7 @@ class SessionsController < ApplicationController
 
   def create
     auth_hash = request.env['omniauth.auth'] || params
+    raise
     if auth_hash["uid"]
       login_by_provider(auth_hash)
     elsif auth_hash[:session] && auth_hash[:session][:username]

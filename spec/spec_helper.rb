@@ -16,6 +16,11 @@ RSpec.configure do |config|
       :uid => '123545',
       info: {email: "ada@ada.com", nickname: "Ada"}
     })
+    OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new({
+      :provider => 'google',
+      :uid => '123545',
+      info: {email: "ada@ada.com", nickname: "Ada"}
+    })
   end
 
   config.around(:each) do |example|
