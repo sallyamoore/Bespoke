@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   get '/:locale' => 'locations#index', as: :switch
   root 'locations#index'
   post "/locations/create", to: 'locations#create'
+  get "/locations/nodes", to: 'locations#retrieve_nodes'
+
 
   resources :users do
     resources :locations,         only: [:destroy]

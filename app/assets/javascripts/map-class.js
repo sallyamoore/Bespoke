@@ -14,6 +14,7 @@
     this.iconSize = options.iconSize;
     this.attribution = options.attribution;
     this.osm_map;
+    this.bounds;
   }
   exports.Map = Map;
 
@@ -43,23 +44,29 @@
         map.getBounds()._northEast.lat,
         map.getBounds()._northEast.lng
       ];
-      // comment out to avoid making too many requests to overpass api. Need to limit or cache this query.
+      this.bounds = bounds;
+      this.getNodesFromDB(map);
+      // comment out next to avoid making too many requests to overpass api. Need to limit or cache this query.
       this.apiCall(map, bounds);
     },
 
-    // WIP getNodesFromDB: function(map, bounds) {
+    // WIP
+    getNodesFromDB: function(map) {
       // FIRST query db for these bounds
-      // var nodeData = data,
-      //     bounds = bounds;
-      // $.get( "/locations/retrieve_nodes", bounds, function(data) {
-      //     console.log("Bike nodes retrieved from database");
-      //   }, 'json'
-      // });
+      var bounds = { swLat: this.bounds[0], swLng: this.bounds[1], neLat: this.bounds[2], neLng: this.bounds[3] };
+      $.get( "/locations/nodes", bounds, function(data, textStatus, xhr) {
+          console.log("Bike nodes retrieved from database");
+          console.log(data);
+          console.log(textStatus); // string version of response code
+          console.log(xhr);
+        }, 'json'
+      ).done();//query api);
       // SECOND save those within bounds to data var
       // THIRD call for-loop to show markers
     },
 
-    apiCall: function(map, bounds) {
+    apiCall: function(map) {
+      var bounds = this.bounds;
       var iconClassName = this.iconClassName;
       var iconSize = this.iconSize;
 
