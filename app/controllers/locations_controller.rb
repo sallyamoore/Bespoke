@@ -1,25 +1,50 @@
 class LocationsController < ApplicationController
 
   def index
-    # if user_id is in session, get user; otherwise, set user to nil.
-    @user = session[:user_id] ? User.find(session[:user_id]) : nil
+    # if user_id is in session, get user.
+    @user = session[:user_id]
+  end
 
-    # if user, set @username to user.username; else, set username to guest.
-    @username = @user ? @user.username : "guest"
+  def retrieve_nodes
+    sw_lat = params[:swLat]
+    sw_lng = params[:swLng]
+    ne_lat = params[:neLat]
+    ne_lng = params[:neLng]
+    locations = Location.where( 'latitude >= ' + sw_lat +
+      ' AND latitude <= '  + ne_lat +
+      ' AND longitude >= ' + sw_lng +
+      ' AND longitude <= ' + ne_lng )
+
+    elements = []
+    locations.each do |location|
+      loc_hash =
+      {
+        id: location.node_id,
+        tags: { rcn_ref: location.node_number },
+        lat: location.latitude,
+        lon: location.longitude,
+      }
+      elements << loc_hash
+    end
+    render json: { data: elements, status: 200 }
   end
 
   def create
-    if logged_in?
-      user = User.find(session[:user_id])
-    end
+    # if logged_in?
+    #   user = User.find(session[:user_id])
+    # end
 
     location = Location.find_or_create_by(node_id: params[:node_id])
     location.node_number = params[:node_number]
     location.latitude = params[:latitude]
     location.longitude = params[:longitude]
 
-    if location.save
+    if location.save && logged_in?
+      user = User.find(session[:user_id])
+
       user.locations << location
+      render :text => "", status: 200
+    elsif location.save
       render :text => "", status: 200
     else
       render :text => "", status: 400

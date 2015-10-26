@@ -1,3 +1,15 @@
+function populateDB(data) {
+  var nodeData = data;
+  $.ajax({
+    type: "POST",
+    url: "/locations/create",
+    data: nodeData,
+    success: function(data) {
+      console.log("Bike node location saved to database");
+    }
+  });
+}
+
 function addLocationSave() {
   // Show/hide save icon
   $(".css-icon").on("mouseenter", function(event){

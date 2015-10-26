@@ -34,7 +34,7 @@ if ($("#map")) {
       }
     };
 
-    map.loadMap(function(result) {
+    map.loadMap( function(result) {
       // Show location search input
       $(".find-location").click(function(event) {
         event.preventDefault();
