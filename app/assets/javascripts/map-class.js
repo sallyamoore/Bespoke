@@ -53,16 +53,58 @@
     // WIP
     getNodesFromDB: function(map) {
       // FIRST query db for these bounds
+      var this_map = this;
       var bounds = { swLat: this.bounds[0], swLng: this.bounds[1], neLat: this.bounds[2], neLng: this.bounds[3] };
       $.get( "/locations/nodes", bounds, function(data, textStatus, xhr) {
           console.log("Bike nodes retrieved from database");
-          console.log(data);
-          console.log(textStatus); // string version of response code
-          console.log(xhr);
+          // console.log(data);
+          this_map.createNodeMarkers(data);
+          // call function to populate nodes
         }, 'json'
-      ).done();//query api);
+      ).done(console.log('done!'));
+
+      //query api);
       // SECOND save those within bounds to data var
       // THIRD call for-loop to show markers
+    },
+
+    createNodeMarkers: function(data) {
+      // create clickable markers for each bike node in bounds
+      var bounds = this.bounds;
+      var iconClassName = this.iconClassName;
+      var iconSize = this.iconSize;
+
+      for (var i = 0; i < data.length - 1; i++) {
+        var nodeIdTag = "node-" + data[i].node_id;
+        var notPresent = $("." + nodeIdTag).closest(document.documentElement).length === 0;
+
+        if (data[i].tags && data[i].lat && notPresent) {
+          var nodeData = {
+            node_id: data[i].id,
+            node_number: data[i].tags.rcn_ref,
+            latitude: data[i].lat,
+            longitude: data[i].lon,
+          };
+
+          var cssIcon = L.divIcon({
+            className: nodeIdTag,
+            iconSize: iconSize,
+            html: nodeData.node_number,
+          });
+
+          var nodeMarker = new L.marker([nodeData.latitude, nodeData.longitude], {
+            icon: cssIcon
+          }).addTo(map);
+
+          $( "." + nodeIdTag ).addClass(iconClassName);
+          $( "." + nodeIdTag ).data(nodeData);
+        }
+
+        if ($("body").data("logged-in-user")) {
+          addLocationSave();
+        }
+      }
+
     },
 
     apiCall: function(map) {
@@ -73,43 +115,44 @@
       $.getJSON(this.overpassPrefix + '[out:json][bbox:' + (bounds.join()) +
       '];(relation["type"="network"]["network"="rcn"];node["rcn_ref"~"^[0-9][0-9]$"];);out body;>;out skel qt;',
         function(data) {
-
-        // create clickable markers for each bike node in bounds
-        for (var i = 0; i < data.elements.length - 1; i++) {
-          var nodeIdTag = "node-" + data.elements[i].id;
-          var notPresent = $("." + nodeIdTag).closest(document.documentElement).length === 0;
-
-          if (data.elements[i].tags && data.elements[i].lat && notPresent) {
-            var nodeData = {
-              node_id: data.elements[i].id,
-              node_number: data.elements[i].tags.rcn_ref,
-              latitude: data.elements[i].lat,
-              longitude: data.elements[i].lon,
-            };
-
-            // save_location.js: populate DB with nodeData collected.
-            populateDB(nodeData);
-
-            var cssIcon = L.divIcon({
-              className: nodeIdTag,
-              iconSize: iconSize,
-              html: nodeData.node_number,
-            });
-
-            var nodeMarker = new L.marker([nodeData.latitude, nodeData.longitude], {
-              icon: cssIcon
-            }).addTo(map);
-
-            $( "." + nodeIdTag ).addClass(iconClassName);
-            $( "." + nodeIdTag ).data(nodeData);
-          }
-        }
+          this.createNodeMarkers(data.elements);
+      });
+        // // create clickable markers for each bike node in bounds
+        // for (var i = 0; i < data.elements.length - 1; i++) {
+        //   var nodeIdTag = "node-" + data.elements[i].id;
+        //   var notPresent = $("." + nodeIdTag).closest(document.documentElement).length === 0;
+        //
+        //   if (data.elements[i].tags && data.elements[i].lat && notPresent) {
+        //     var nodeData = {
+        //       node_id: data.elements[i].id,
+        //       node_number: data.elements[i].tags.rcn_ref,
+        //       latitude: data.elements[i].lat,
+        //       longitude: data.elements[i].lon,
+        //     };
+        //
+        //     // save_location.js: populate DB with nodeData collected.
+        //     populateDB(nodeData); // NOTE: move if switching this part to fx call
+        //
+        //     var cssIcon = L.divIcon({
+        //       className: nodeIdTag,
+        //       iconSize: iconSize,
+        //       html: nodeData.node_number,
+        //     });
+        //
+        //     var nodeMarker = new L.marker([nodeData.latitude, nodeData.longitude], {
+        //       icon: cssIcon
+        //     }).addTo(map);
+        //
+        //     $( "." + nodeIdTag ).addClass(iconClassName);
+        //     $( "." + nodeIdTag ).data(nodeData);
+        //   }
+        // }
+        // save_location.js: populate DB with nodeData collected.
+          populateDB(nodeData);
 
         // this function is in save-location.js
-        if ($("body").data("logged-in-user")) {
-          addLocationSave();
-        }
-      });
+
+      // });
     },
 
   };
