@@ -10,11 +10,11 @@ class LocationsController < ApplicationController
     sw_lng = params[:swLng]
     ne_lat = params[:neLat]
     ne_lng = params[:neLng]
-
     locations = Location.where( 'latitude >= ' + sw_lat +
       ' AND latitude <= '  + ne_lat +
       ' AND longitude >= ' + sw_lng +
       ' AND longitude <= ' + ne_lng )
+
     elements = []
     locations.each do |location|
       loc_hash =
@@ -26,7 +26,6 @@ class LocationsController < ApplicationController
       }
       elements << loc_hash
     end
-
     render json: { data: elements, status: 200 }
   end
 
