@@ -1,0 +1,10 @@
+branch-defaults:
+  master:
+    environment: bspoked-prod
+global:
+  application_name: bspoked
+  default_ec2_keyname: aws-eb-bspoked
+  default_platform: Ruby 2.2 (Puma)
+  default_region: us-west-2
+  profile: eb-cli
+  sc: git

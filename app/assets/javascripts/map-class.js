@@ -54,11 +54,12 @@
     getNodesFromDB: function(map) {
       // FIRST query db for these bounds
       var this_map = this;
+      var from_api = false;
       var bounds = { swLat: this.bounds[0], swLng: this.bounds[1], neLat: this.bounds[2], neLng: this.bounds[3] };
       $.get( "/locations/nodes", bounds, function(data, textStatus, xhr) {
           console.log("Bike nodes retrieved from database");
           // console.log(data);
-          this_map.createNodeMarkers(data);
+          this_map.createNodeMarkers(data, from_api);
           // call function to populate nodes
         }, 'json'
       ).done(console.log('done!'));
@@ -68,7 +69,7 @@
       // THIRD call for-loop to show markers
     },
 
-    createNodeMarkers: function(data) {
+    createNodeMarkers: function(data, source) {
       // create clickable markers for each bike node in bounds
       var bounds = this.bounds;
       var iconClassName = this.iconClassName;
@@ -85,6 +86,8 @@
             latitude: data[i].lat,
             longitude: data[i].lon,
           };
+
+          if (from_api) { populateDB(nodeData); }
 
           var cssIcon = L.divIcon({
             className: nodeIdTag,
@@ -104,18 +107,18 @@
           addLocationSave();
         }
       }
-
     },
 
     apiCall: function(map) {
       var bounds = this.bounds;
       var iconClassName = this.iconClassName;
       var iconSize = this.iconSize;
+      var from_api = true;
 
       $.getJSON(this.overpassPrefix + '[out:json][bbox:' + (bounds.join()) +
       '];(relation["type"="network"]["network"="rcn"];node["rcn_ref"~"^[0-9][0-9]$"];);out body;>;out skel qt;',
         function(data) {
-          this.createNodeMarkers(data.elements);
+          this.createNodeMarkers(data.elements, from_api);
       });
         // // create clickable markers for each bike node in bounds
         // for (var i = 0; i < data.elements.length - 1; i++) {
@@ -148,7 +151,7 @@
         //   }
         // }
         // save_location.js: populate DB with nodeData collected.
-          populateDB(nodeData);
+          // populateDB(nodeData);
 
         // this function is in save-location.js
 
