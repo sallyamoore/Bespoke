@@ -129,5 +129,43 @@ RSpec.describe User, type: :model do
         end
       end
     end
+
+    describe "login with OmniAuth and google_oauth2" do
+      let(:user) {
+        User.find_or_create_from_omniauth(OmniAuth.config.mock_auth[:google_oauth2])
+      }
+
+      it "creates a valid user" do
+        expect(user).to be_valid
+      end
+
+      context "when it's invalid" do
+        it "returns nil" do
+          user = User.find_or_create_from_omniauth({
+            uid: "123", info: { }
+            })
+          expect(user).to be_nil
+        end
+      end
+    end
+
+    describe "login with OmniAuth and Facebook" do
+      let(:user) {
+        User.find_or_create_from_omniauth(OmniAuth.config.mock_auth[:facebook])
+      }
+
+      it "creates a valid user" do
+        expect(user).to be_valid
+      end
+
+      context "when it's invalid" do
+        it "returns nil" do
+          user = User.find_or_create_from_omniauth({
+            uid: "123", info: { }
+            })
+          expect(user).to be_nil
+        end
+      end
+    end
   end
 end

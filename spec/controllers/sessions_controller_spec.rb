@@ -45,6 +45,90 @@ RSpec.describe SessionsController, type: :controller do
       end
     end
 
+    context "logging in via google_oauth2 with valid params" do
+      before :each do
+        request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:google_oauth2]
+      end
+
+      it "sets user_id for the session" do
+        get :create, provider: :google_oauth2
+        expect(session[:user_id]).to eq(1)
+      end
+
+      it "creates a user if not already created" do
+        expect {
+          get :create, provider: :google_oauth2
+          }.to change(User, :count).by(1)
+      end
+
+      it "redirects to root_path" do
+        get :create, provider: :google_oauth2
+        expect(response).to redirect_to root_path
+      end
+    end
+
+    context "attempted login via google_oauth2 with invalid params" do
+      let(:invalid_params) { {
+        :provider => 'google_oauth2',
+        :uid => nil,
+        info: {email: "a@b.com", username: "Ada"}
+      } }
+
+      it "does not create a user" do
+        request.env['omniauth.auth'] = invalid_params
+        expect {
+          get :create, provider: :google_oauth2
+          }.to change(User, :count).by(0)
+      end
+
+      it "displays an error message" do
+        get :create, provider: :google_oauth2
+        expect(flash[:error]).to_not be nil
+      end
+    end
+
+    context "logging in via facebook with valid params" do
+      before :each do
+        request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:facebook]
+      end
+
+      it "sets user_id for the session" do
+        get :create, provider: :facebook
+        expect(session[:user_id]).to eq(1)
+      end
+
+      it "creates a user if not already created" do
+        expect {
+          get :create, provider: :facebook
+          }.to change(User, :count).by(1)
+      end
+
+      it "redirects to root_path" do
+        get :create, provider: :facebook
+        expect(response).to redirect_to root_path
+      end
+    end
+
+    context "attempted login via facebook with invalid params" do
+      let(:invalid_params) { {
+        :provider => 'facebook',
+        :uid => nil,
+        info: {email: "a@b.com", username: "Ada"}
+      } }
+
+      it "does not create a user" do
+        request.env['omniauth.auth'] = invalid_params
+        expect {
+          get :create, provider: :facebook
+          }.to change(User, :count).by(0)
+      end
+
+      it "displays an error message" do
+        get :create, provider: :facebook
+        expect(flash[:error]).to_not be nil
+      end
+    end
+
     context "logging in via username with valid params" do
       before :each do
         @user = create :user, activated: true

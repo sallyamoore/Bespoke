@@ -6,7 +6,7 @@ SimpleCov.start 'rails'
 RSpec.configure do |config|
   config.before(:suite) do
     # DatabaseCleaner makes sure db gets reset after tests.
-    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.strategy = :truncation 
     DatabaseCleaner.clean_with(:truncation)
 
     # OmniAuth for mock third party logins.
@@ -17,9 +17,14 @@ RSpec.configure do |config|
       info: {email: "ada@ada.com", nickname: "Ada"}
     })
     OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new({
-      :provider => 'google',
+      :provider => 'google_oauth2',
       :uid => '123545',
-      info: {email: "ada@ada.com", nickname: "Ada"}
+      info: {email: "ada@ada.com", name: "Ada"}
+    })
+    OmniAuth.config.mock_auth[:facebook] = OmniAuth::AuthHash.new({
+      :provider => 'facebook',
+      :uid => '123545',
+      info: {email: "ada@ada.com", name: "Ada"}
     })
   end
 
