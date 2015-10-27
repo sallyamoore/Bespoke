@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>bespoked</title>
+  <title>bspoked</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.css" />
   <script src="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.js"></script>
@@ -26,6 +26,7 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <%= favicon_link_tag 'bikefavicon.ico' %>
 </head>
 <body data-logged-in-user="<%= session[:user_id] ? true : false %>" >
 
