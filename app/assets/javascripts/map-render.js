@@ -27,7 +27,7 @@ if ($("#map")) {
       nodeSaved: {
         class: 'alert-success node-saved',
         text: "Success! Location saved to your account."
-      }
+      },
     };
 
     map.loadMap( function(result) {
@@ -117,18 +117,19 @@ if ($("#map")) {
         },
         originLatLng;
 
-      if ($(".user-location").data()) {
+      if (typeof(marker) !== 'undefined') {
+        originLatLng = marker.getLatLng();
+        createRoute();
+
+      } else if ($(".user-location").data()) {
         originLatLng = L.latLng(
           $(".user-location").data().lat, $(".user-location").data().lng
         );
         createRoute();
-      } else if (typeof(marker) !== 'undefined') {
-        originLatLng = marker.getLatLng();
-        createRoute();
       }
 
       function createRoute() {
-        map.osm_map.locate( { setView: false, watch: true, maxZoom: 16 } );
+        map.osm_map.locate( { setView: false, watch: true, maximumAge: 5000, maxZoom: 16 } );
 
         // Origin is current location OR searched location
         directions.setOrigin(originLatLng);

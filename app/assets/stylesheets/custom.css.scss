@@ -60,12 +60,12 @@ a.title:hover {
   text-align: center;
 }
 
-div.alert.zoom-alert {
+div.alert.zoom-alert, div.alert.no-geoloc {
   bottom: 6em;
   margin-bottom: 0;
 }
 
-div.alert.alert-danger, div.alert.node-saved, {
+div.alert.alert-danger, div.alert.node-saved {
   bottom: 190px;
   margin-bottom: 0;
 }

@@ -15,5 +15,11 @@ function onLocationFound(event) {
 }
 
 function onLocationError(event) {
-  alert(event.message);
+  var alert = document.createElement('div');
+  alert.className = 'alert alert-warning no-geoloc'
+  document.getElementsByClassName('alerts-div')[0].appendChild(alert);
+  $(alert).text(event.message);
+  setTimeout(function() {
+    $('.alert').fadeOut('fast');
+  }, 3000);
 }
