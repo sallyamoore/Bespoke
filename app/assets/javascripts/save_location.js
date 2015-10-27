@@ -12,7 +12,7 @@ function populateDB(data) {
 
 function addLocationSave() {
   // Show/hide save icon
-  $(".css-icon").on("mouseenter", function(event){
+  $(".css-icon").on("click", function(event){
     var position = $(event.target).offset();
     var nodeData = $(event.target).data();
 
@@ -20,10 +20,9 @@ function addLocationSave() {
     $(".save-location").css("left", position.left);
     $(".save-location").data(nodeData);
     $(".save-location").show();
-  });
-
-  $(".css-icon").on("mouseleave", function(){
-    $(".save-location").delay(2000).fadeOut('fast');
+    setTimeout(function() {
+      $('.save-location').fadeOut('fast');
+    }, 2000);
   });
 }
 

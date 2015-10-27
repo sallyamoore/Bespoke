@@ -24,10 +24,6 @@ if ($("#map")) {
         class: 'zoom-alert alert-warning',
         text: 'Zoom in to view clickable nodes.'
       },
-      noStart: {
-        class: 'alert-danger no-origin',
-        text: "No origin has been selected for your route. Please use 'find my location' or 'search for a location' to set an origin."
-      },
       nodeSaved: {
         class: 'alert-success node-saved',
         text: "Success! Location saved to your account."
@@ -102,7 +98,6 @@ if ($("#map")) {
           showAlert(alertContent.zoomAlert);
         }
       });
-
     });
 
     // Route to clicked bike node or searched location.
@@ -126,38 +121,37 @@ if ($("#map")) {
         originLatLng = L.latLng(
           $(".user-location").data().lat, $(".user-location").data().lng
         );
-        map.osm_map.locate( { setView: false, watch: true, maxZoom: 16 } );
-
+        createRoute();
       } else if (typeof(marker) !== 'undefined') {
         originLatLng = marker.getLatLng();
-        map.osm_map.locate( { setView: false, watch: true, maxZoom: 16 } );
-
-        // map.osm_map.removeLayer(marker); // to remove the location marker
-      } else {
-        showAlert(alertContent.noStart);
+        createRoute();
       }
 
-      // Origin is current location OR searched location
-      directions.setOrigin(originLatLng);
-      // Destination is clicked node
-      directions.setDestination(L.latLng(nodeData.latitude, nodeData.longitude));
+      function createRoute() {
+        map.osm_map.locate( { setView: false, watch: true, maxZoom: 16 } );
 
-      directions.query();
-      var directionsLayer = L.mapbox.directions.layer(directions, routeFormat)
-        .addTo(map.osm_map);
-      var directionsRoutesControl = L.mapbox.directions.routesControl('routes', directions)
-        .addTo(map.osm_map);
-      var directionsInstructionsControl = L.mapbox.directions.instructionsControl('instructions', directions)
-        .addTo(map.osm_map);
+        // Origin is current location OR searched location
+        directions.setOrigin(originLatLng);
+        // Destination is clicked node
+        directions.setDestination(L.latLng(nodeData.latitude, nodeData.longitude));
 
-      // Remove layers if another bike node (.css-icon) is clicked
-      $(document).on( "click", ".css-icon", function() {
-        map.osm_map.stopLocate();
-        map.osm_map.removeLayer(directionsLayer);
-        map.osm_map.removeLayer(directionsRoutesControl);
-      });
+        directions.query();
+        var directionsLayer = L.mapbox.directions.layer(directions, routeFormat)
+          .addTo(map.osm_map);
+        var directionsRoutesControl = L.mapbox.directions.routesControl('routes', directions)
+          .addTo(map.osm_map);
+        var directionsInstructionsControl = L.mapbox.directions.instructionsControl('instructions', directions)
+          .addTo(map.osm_map);
 
-      showDirectionsIcon();
+        // Remove layers if another bike node (.css-icon) is clicked
+        $(document).on( "click", ".css-icon", function() {
+          map.osm_map.stopLocate();
+          map.osm_map.removeLayer(directionsLayer);
+          map.osm_map.removeLayer(directionsRoutesControl);
+        });
+
+        showDirectionsIcon();
+      }
     });
   });
 }
@@ -184,4 +178,7 @@ function showAlert(whichAlert) {
   alert.className = 'alert ' + whichAlert.class;
   document.getElementsByClassName('alerts-div')[0].appendChild(alert);
   $(alert).text(whichAlert.text);
+  setTimeout(function() {
+    $('.alert').fadeOut('fast');
+  }, 3000);
 }
