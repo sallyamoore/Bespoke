@@ -31,8 +31,17 @@ Rails.application.configure do
   # ActionMailer::Base.deliveries array.
 
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.delivery_method = :test
+  # config.action_mailer.delivery_method = :test
   host = 'example.com'
+  config.action_mailer.smtp_settings = {
+    address: ENV.fetch("SMTP_ADDRESS"),
+    authentication: 'login',
+    domain: ENV.fetch("SMTP_DOMAIN"),
+    enable_starttls_auto: true,
+    password: ENV.fetch("SMTP_TEST_KEY"),
+    port: "587",
+    user_name: ENV.fetch("SMTP_USERNAME")
+  }
   config.action_mailer.default_url_options = { host: host }
 
   # Randomize the order test cases are executed.

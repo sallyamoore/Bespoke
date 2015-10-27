@@ -36,11 +36,8 @@ gem "omniauth-twitter"
 gem "omniauth-facebook"
 gem "omniauth-google-oauth2"
 
-# Use Unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
+# # User mandrill for mailing
+# gem 'mandrill-api'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

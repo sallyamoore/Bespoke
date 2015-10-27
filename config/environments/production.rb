@@ -76,4 +76,17 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+
+  # Mandrill settings for email.
+  config.action_mailer.smtp_settings = {
+    address: ENV.fetch("SMTP_ADDRESS"),
+    authentication: :plain,
+    domain: 'bspoked.bike',
+    enable_starttls_auto: true,
+    password: ENV.fetch("SMTP_KEY"),
+    port: "587",
+    user_name: ENV.fetch("SMTP_USERNAME")
+  }
+  config.action_mailer.default_url_options = { host: 'bspoked.bike' }
 end

@@ -14,9 +14,21 @@ Rails.application.configure do
   config.action_controller.perform_caching = false
 
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.delivery_method = :test
+  # config.action_mailer.delivery_method = :test
   host = 'localhost:3000'
-  config.action_mailer.default_url_options = { host: host }
+
+  config.action_mailer.smtp_settings = {
+    address: ENV.fetch("SMTP_ADDRESS"),
+    authentication: :plain,
+    domain: ENV.fetch("SMTP_DOMAIN"),
+    enable_starttls_auto: true,
+    password: ENV.fetch("SMTP_TEST_KEY"),
+    port: "587",
+    user_name: ENV.fetch("SMTP_USERNAME")
+  }
+  config.action_mailer.default_url_options = { host: ENV["SMTP_DOMAIN"] }
+
+
   config.action_mailer.preview_path = "#{Rails.root}/lib/mailer_previews"
 
   # Print deprecation notices to the Rails logger.
