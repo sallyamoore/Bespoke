@@ -2,7 +2,9 @@ class LocationsController < ApplicationController
 
   def index
     # if user_id is in session, get user.
-    @user = session[:user_id]
+    if session[:user_id]
+      @user = User.find(session[:user_id])
+    end
   end
 
   def retrieve_nodes

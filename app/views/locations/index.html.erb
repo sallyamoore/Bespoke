@@ -2,7 +2,7 @@
 
 <% if session[:user_id].nil? %>
   <div class='login col-sm-6 col-sm-offset-3'>
-    <h2>Login with:</h2>
+    <h3>Login with:</h3>
 
     <div class="login-links center">
       <%= link_to provider_login_path(provider: :google_oauth2) do %>
@@ -16,7 +16,7 @@
       <% end %>
     </div>
 
-    <h2>or via email:</h2>
+    <h3>or via email:</h3>
     <div class="form-group">
       <%= form_for(:session, url: login_path)  do |f| %>
   			<%= f.label :username %>
@@ -40,7 +40,7 @@
 
 <% else %>
   <div class="logout">
-    <p><%= "#{@user.username}" %>
+    <p><%= @user.username %>
       <%= link_to "Logout", logout_path, method: :delete, class: 'btn btn-default' %>
     </p>
   </div>

@@ -80,10 +80,10 @@ if ($("#map")) {
       // Find user's current location
       $(".my-location").click(function(event) {
         event.preventDefault();
+        collectTrash(trashToCollect);
+        // collectLocationTrash is called in 'onLocationFound'... but doesn't seem to be working.
         map.osm_map.stopLocate();
         $('.directions-icon').hide('fast');
-        collectTrash(trashToCollect);
-        collectLocationTrash();
 
         result.locate({ setView: true, maxZoom: map.startZoom });
       });
@@ -126,10 +126,12 @@ if ($("#map")) {
         originLatLng = L.latLng(
           $(".user-location").data().lat, $(".user-location").data().lng
         );
-        map.osm_map.locate( { watch: true, maxZoom: 16 } );
+        map.osm_map.locate( { setView: false, watch: true, maxZoom: 16 } );
 
       } else if (typeof(marker) !== 'undefined') {
         originLatLng = marker.getLatLng();
+        map.osm_map.locate( { setView: false, watch: true, maxZoom: 16 } );
+
         // map.osm_map.removeLayer(marker); // to remove the location marker
       } else {
         showAlert(alertContent.noStart);
