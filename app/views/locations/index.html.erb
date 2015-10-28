@@ -17,9 +17,9 @@
     </div>
 
     <h3>or via email:</h3>
-    <div class="form-group">
+    <div class="form-group row col-sm-6 col-sm-offset-3">
       <%= form_for(:session, url: login_path)  do |f| %>
-  			<%= f.label :username %>
+  			<%= f.label "Username or Email" %>
   			<%= f.text_field :username, class: "form-control form-group" %>
 
   			<%= f.label :password %>
@@ -31,7 +31,7 @@
     </div>
 
 		<!-- register button -->
-    <div class="register">
+    <div class="register row col-sm-6 col-sm-offset-3">
       <h4>New to bspoked?</h4>
       <%= link_to "Register with email", new_user_path, class: 'btn btn-default' %>
       <p>or <%= link_to "Continue without logging in", root_path, class: "guest-user" %></p>
