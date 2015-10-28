@@ -51,6 +51,11 @@ a.title:hover {
   margin-top: 2em;
 }
 
+.tagline {
+  color: #8A848A;
+  text-align: center;
+}
+
 .alert {
   z-index: 101;
   position: absolute;
@@ -60,7 +65,7 @@ a.title:hover {
   text-align: center;
 }
 
-div.alert.zoom-alert, div.alert.no-geoloc {
+div.alert.zoom-alert, div.alert.no-geoloc, div.alert.alert-success {
   bottom: 6em;
   margin-bottom: 0;
 }
