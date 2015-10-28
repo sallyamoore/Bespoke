@@ -31,9 +31,8 @@ class SessionsController < ApplicationController
   end
 
   def login_by_username(auth_hash)
-    user = User.find_by(username: auth_hash[:session][:username])
-    # Add email option?
-    # || User.find_by(email: auth_hash[:session][:email])
+    user = User.find_by(username: auth_hash[:session][:username]) ||
+           User.find_by(email: auth_hash[:session][:username])
     if user && user.activated? && user.authenticate(auth_hash[:session][:password])
       login_user(user)
       # params[:session][:remember_me] == '1' ? remember(user) : forget(user)
