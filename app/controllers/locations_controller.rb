@@ -32,10 +32,6 @@ class LocationsController < ApplicationController
   end
 
   def create
-    # if logged_in?
-    #   user = User.find(session[:user_id])
-    # end
-
     location = Location.find_or_create_by(node_id: params[:node_id])
     location.node_number = params[:node_number]
     location.latitude = params[:latitude]
@@ -54,12 +50,12 @@ class LocationsController < ApplicationController
   end
 
   def destroy
-    location = Location.find(params[:location_id])
+    location = Location.find(params[:id])
     correct_login(location)
-    user = params[:user_id]
+    user = User.find(params[:user_id])
     user.locations.delete(location)
 
-    redirect_to user_path(session[:user_id]), alert: "Location deleted."
+    redirect_to user_path(session[:user_id]), flash: { alert: "Location deleted." }
   end
 
   private
@@ -73,7 +69,7 @@ class LocationsController < ApplicationController
   end
 
   def correct_login(object)
-    unless session[:user_id] == object.user_id
+    unless object.users.include?(User.find(session[:user_id]))
       redirect_to user_path(session[:user_id]), flash: { error: MESSAGES[:wrong_login] }
     end
   end
