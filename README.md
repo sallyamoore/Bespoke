@@ -1,5 +1,3 @@
-== README
-
 # bspoked
 Bike Junction Locator for the Netherlands, Belgium, and Germany.
 Find your path at [bspoked.bike](https://www.bspoked.bike)!

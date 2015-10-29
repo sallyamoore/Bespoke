@@ -46,7 +46,6 @@
       ];
       this.bounds = bounds;
       this.getNodesFromDB(map);
-      // comment out next to avoid making too many requests to overpass api. Need to limit or cache this query.
       this.apiCall(map);
     },
 
@@ -55,8 +54,7 @@
       var this_map = this;
       var from_api = false;
       var bounds = { swLat: this.bounds[0], swLng: this.bounds[1], neLat: this.bounds[2], neLng: this.bounds[3] };
-      var response = $.get( "/locations/nodes", bounds, function(nodeData, textStatus, xhr) {
-          console.log("Bike nodes retrieved from database");
+      $.get( "/locations/nodes", bounds, function(nodeData) {
           // populate node markers using DB info
           this_map.createNodeMarkers(leaflet_map, nodeData.data, from_api);
         }, 'json'
@@ -66,8 +64,6 @@
     apiCall: function(leaflet_map) {
       var this_map = this;
       var bounds = this.bounds;
-      var iconClassName = this.iconClassName;
-      var iconSize = this.iconSize;
       var from_api = true;
 
       $.getJSON(this.overpassPrefix + '[out:json][bbox:' + (bounds.join()) +
@@ -80,7 +76,6 @@
 
     createNodeMarkers: function(leaflet_map, data, from_api) {
       // create clickable markers for each bike node in bounds
-      var bounds = this.bounds;
       var iconClassName = this.iconClassName;
       var iconSize = this.iconSize;
 

@@ -10,7 +10,7 @@ $(document).ready(function() {
     $(".alert").remove();
   });
 
-  $(".logout").click(function(event) {
+  $(".logout").click(function() {
     changeOverlay();
   });
 
@@ -19,7 +19,7 @@ $(document).ready(function() {
     changeOverlay();
   });
 
-  $(".directions-icon").click( function(event) {
+  $(".directions-icon").click( function() {
     $(".directions-icon").toggleClass("fa-flip-vertical");
     $("#directions").slideToggle();
   });
