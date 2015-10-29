@@ -1,0 +1,8 @@
+<% if @user.errors.any? %>
+  <h4 class="form-errors">Errors:</h4>
+  <ul class="form-errors">
+  <% @user.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+  <% end %>
+  </ul>
+<% end %>

@@ -2,6 +2,7 @@
   <h3>SIGN UP!</h3>
 
   <%= form_for @user, method: :post, class: "user" do |f| %>
+    <%= render 'shared/error_messages' %>
 
     <fieldset>
       <div class="form-group">

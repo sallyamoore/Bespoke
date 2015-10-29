@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   validates :username, :password_digest, :email, presence: true, uniqueness: true
   validates :uid, uniqueness: true, allow_blank: true, allow_nil: true
   validates :email, format: /.+@+.+\.+./
+  validates :password, length: { minimum: 6 }
 
   # Callbacks ----------------------
   before_create :create_activation_digest
@@ -19,6 +20,7 @@ class User < ActiveRecord::Base
     BCrypt::Password.new(digest).is_password?(token)
   end
 
+  # Set activation information for user.
   def activate
     update_attribute(:activated,    true)
     update_attribute(:activated_at, Time.zone.now)
@@ -87,6 +89,7 @@ class User < ActiveRecord::Base
     SecureRandom.urlsafe_base64
   end
 
+  # Normalize email entries
   def downcase_email
     self.email = email.downcase
   end

@@ -47,7 +47,9 @@ class UsersController < ApplicationController
     if @user.save
       redirect_to user_path(@user.id), flash: { success: MESSAGES[:success] }
     else
-      redirect_to user_path(@user.id), flash: { error: MESSAGES[:failed_save] }
+      flash[:error] = MESSAGES[:failed_save]
+
+      render :edit
     end
 
   end
