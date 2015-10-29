@@ -4,7 +4,7 @@ function populateDB(data) {
     type: "POST",
     url: "/locations/create",
     data: nodeData,
-    success: function(data) {
+    success: function() {
       console.log("Bike node location saved to database");
     }
   });
