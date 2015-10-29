@@ -52,10 +52,7 @@ class User < ActiveRecord::Base
     uid = auth_hash[:uid]
     provider = auth_hash[:provider]
     user = User.where(uid: uid, provider: provider).first_or_initialize
-
-    if auth_hash[:info][:email]
-      user.email = auth_hash[:info][:email]
-    end
+    user.email = auth_hash[:info][:email]
 
     if auth_hash[:provider] == "github"
       user.username = auth_hash[:info][:nickname]

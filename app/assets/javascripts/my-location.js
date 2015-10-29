@@ -2,7 +2,7 @@ function onLocationFound(event) {
   collectLocationTrash();
   var radius = event.accuracy / 2;
   L.circleMarker(event.latlng, {
-    className: 'user-location',
+    className: 'user-location'
   })
   .addTo(this)
   .bindPopup("You are within " + radius + " meters from this point");
@@ -10,7 +10,7 @@ function onLocationFound(event) {
   $( ".user-location" ).data(event.latlng);
 
   L.circle(event.latlng, radius, {
-    className: 'user-location',
+    className: 'user-location'
   }).addTo(this);
 }
 

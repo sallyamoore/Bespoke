@@ -88,7 +88,7 @@
             node_id: data[i].id,
             node_number: data[i].tags.rcn_ref,
             latitude: data[i].lat,
-            longitude: data[i].lon,
+            longitude: data[i].lon
           };
 
           if (from_api) { populateDB(nodeData); }
@@ -96,7 +96,7 @@
           var cssIcon = L.divIcon({
             className: nodeIdTag,
             iconSize: iconSize,
-            html: nodeData.node_number,
+            html: nodeData.node_number
           });
 
           var nodeMarker = new L.marker([nodeData.latitude, nodeData.longitude], {

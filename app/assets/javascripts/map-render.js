@@ -27,7 +27,7 @@ if ($("#map")) {
       nodeSaved: {
         class: 'alert-success node-saved',
         text: "Success! Location saved to your account."
-      },
+      }
     };
 
     map.loadMap( function(result) {
@@ -119,7 +119,7 @@ if ($("#map")) {
             color: '#F60131',
             weight: 7,
             opacity: 0.75,
-            className: "route",
+            className: "route"
           }
         },
         originLatLng = null;
