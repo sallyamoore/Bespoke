@@ -4,7 +4,7 @@ if ($("#map")) {
       overpassPrefix: "https://overpass-api.de/api/interpreter?data=",
       mapboxPk: "pk.eyJ1Ijoic2FsbHlhbW9vcmUiLCJhIjoiY2lmZm53MmlkOHA2YnNka25wd3BmNDB3dyJ9.F5FdTfUY5XLbzWMcWpRp2A",
       baseMap: 'sallyamoore.nkikgok3',
-      startLatLon: [52.3081, 4.7642],
+      startLatLon: [52.2884, 4.7446],
       minZoom: 9,
       maxZoom: 18,
       startZoom: 13,
@@ -99,8 +99,10 @@ if ($("#map")) {
         if (zoom > 11) {
           map.findBounds(map.osm_map);
         } else {
-          $('.css-icon').remove();
-          showAlert(alertContent.zoomAlert);
+          setTimeout(function() {
+            $('.css-icon').remove();
+            showAlert(alertContent.zoomAlert);
+          }, 250);
         }
       });
     });
@@ -152,7 +154,6 @@ if ($("#map")) {
 
         // Remove layers if another bike node (.css-icon) is clicked
         $(document).on( "click", ".css-icon, .my-location, .find-location", function() {
-          // map.osm_map.stopLocate();
           map.osm_map.removeLayer(directionsLayer);
           map.osm_map.removeLayer(directionsRoutesControl);
         });
