@@ -53,17 +53,23 @@ if ($("#map")) {
 
       // show queried location on map
       function showMap(err, data) {
+        queryMarker = L.Marker.extend({
+          options: {
+            type: ''
+          }
+        });
+
         $('.directions-icon #directions').hide('fast');
 
         var featuresFound = data.results.features.length === 0 ? false :true;
         if (featuresFound) {
           map.osm_map.setView(data.latlng, 13);
 
-          marker = new L.marker(data.latlng, {
+          marker = new queryMarker(data.latlng, {
             zIndexOffset: 1000,
-            alt: "Queried location"
+            alt: "Queried location",
+            type: "locationSearch"
           });
-
           map.osm_map.addLayer(marker);
           marker.bindPopup(data.results.features[0].place_name);
           toggleSearchForm();
@@ -77,11 +83,10 @@ if ($("#map")) {
       $(".my-location").click(function(event) {
         event.preventDefault();
         collectTrash(trashToCollect);
-        // collectLocationTrash is called in 'onLocationFound'... but doesn't seem to be working.
-        map.osm_map.stopLocate();
         $('.directions-icon').hide('fast');
+        if (typeof(marker) !== 'undefined') { map.osm_map.removeLayer(marker); }
 
-        result.locate({ setView: true, maxZoom: map.startZoom });
+        result.locate( { setView: true, maxZoom: map.startZoom } );
       });
       // Listeners: When location found/error, execute function in my-location.js
       result.on('locationfound', onLocationFound);
@@ -115,21 +120,22 @@ if ($("#map")) {
             className: "route",
           }
         },
-        originLatLng;
+        originLatLng = null;
 
-      if (typeof(marker) !== 'undefined') {
-        originLatLng = marker.getLatLng();
-        createRoute();
-
-      } else if ($(".user-location").data()) {
+      if ($(".user-location").data()) {
         originLatLng = L.latLng(
           $(".user-location").data().lat, $(".user-location").data().lng
         );
         createRoute();
+        map.osm_map.locate( { setView: false, watch: true, maximumAge: 5000, maxZoom: 16 } );
+      } else if (typeof(marker) !== 'undefined') {
+        map.osm_map.stopLocate();
+        originLatLng = marker.getLatLng();
+        createRoute();
       }
 
       function createRoute() {
-        map.osm_map.locate( { setView: false, watch: true, maximumAge: 5000, maxZoom: 16 } );
+        // map.osm_map.locate( { setView: false, watch: true, maximumAge: 5000, maxZoom: 16 } );
 
         // Origin is current location OR searched location
         directions.setOrigin(originLatLng);
@@ -145,8 +151,8 @@ if ($("#map")) {
           .addTo(map.osm_map);
 
         // Remove layers if another bike node (.css-icon) is clicked
-        $(document).on( "click", ".css-icon", function() {
-          map.osm_map.stopLocate();
+        $(document).on( "click", ".css-icon, .my-location, .find-location", function() {
+          // map.osm_map.stopLocate();
           map.osm_map.removeLayer(directionsLayer);
           map.osm_map.removeLayer(directionsRoutesControl);
         });
@@ -171,7 +177,8 @@ function collectTrash(trashToCollect) {
 
 function collectLocationTrash() {
   $(".user-location").parent().remove();
-  $("img.leaflet-marker-icon img.leaflet-marker-shadow").remove();
+  $("img.leaflet-marker-icon").remove();
+  $("img.leaflet-marker-shadow").remove();
 }
 
 function showAlert(whichAlert) {
