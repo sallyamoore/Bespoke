@@ -12,4 +12,12 @@ RSpec.describe LocationsController, type: :controller do
       expect(response).to render_template(:index)
     end
   end
+
+  # describe "GET #retrieve_nodes" do
+  #   before :each do
+  #     create :location
+  #     build :location, node_number: 1, latitude: 52.01, longitude: 5.01
+  #     get :retrieve_nodes
+  #   end
+  # end
 end
