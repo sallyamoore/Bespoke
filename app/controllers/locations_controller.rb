@@ -28,7 +28,7 @@ class LocationsController < ApplicationController
       }
       elements << loc_hash
     end
-    render json: { data: elements, status: 200 }
+    render json: { data: elements, status: 200 }.as_json
   end
 
   def create

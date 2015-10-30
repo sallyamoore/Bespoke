@@ -39,11 +39,6 @@ RSpec.describe UsersController, type: :controller do
         }.to change { ActionMailer::Base.deliveries.count }.by(1)
       end
 
-      # it "creates a password_digest" do
-      #   post :create, user: attributes_for(:user)
-      #
-      # end
-
       it "does not activate before email link is clicked" do
         user = build :user
         post :create, user: attributes_for(:user)
@@ -135,13 +130,15 @@ RSpec.describe UsersController, type: :controller do
       @user = create :user, activated: true
       session[:user_id] = @user.id
 
-      put :update, id: @user.id, user: { username: "not-pusheen"}
+      put :update, id: @user.id, user: {
+        username: "not-pusheen",
+        password: "tostij",
+        password_confirmation: "tostij"
+      }
       @user.reload
     end
 
     it "updates the user record" do
-      expect(response).to redirect_to(@user)
-
       expect(User.find(@user.id).username).to eq("not-pusheen")
       expect(@user.username).to eq("not-pusheen")
     end
