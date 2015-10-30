@@ -157,13 +157,16 @@ div.leaflet-control-attribution, div.leaflet-compact-attribution {
   position: absolute;
   background-color: rgba(255, 255, 255, .6);
   border-radius: 40px;
-  top: 10%;
-  right: .4em;
+  top: 12%;
+  right: .5em;
   height: 40px;
   width: 40px;
-  padding: .4em;
   text-align: center;
   z-index: 99;
+}
+
+.fa-arrow-circle-down {
+  line-height: inherit;
 }
 
 #directions {
