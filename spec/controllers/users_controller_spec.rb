@@ -156,6 +156,14 @@ RSpec.describe UsersController, type: :controller do
       expect(subject).to redirect_to(root_path)
       expect(flash[:error]).to_not be nil
     end
+
+    it "will not update a user with invalid information" do
+      @user = create :user, activated: true
+      put :update, id: @user.id, user: { email: "get_me_a_sandwich"}
+
+      expect(subject).to render_template(:edit)
+      expect(flash[:error]).to_not be nil
+    end
   end
 
   describe "DELETE #destroy" do

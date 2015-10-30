@@ -28,10 +28,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    if !@user
-      flash[:error] = MESSAGES[:login_required]
-      redirect_to root_path
-    elsif @user.id != session[:user_id]
+    if @user.id != session[:user_id]
       flash[:error] = MESSAGES[:wrong_login]
       redirect_to root_path
     else

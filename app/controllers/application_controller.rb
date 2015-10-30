@@ -26,6 +26,10 @@ class ApplicationController < ActionController::Base
 
   def get_user_by_id
     @user = User.find(params[:id])
+    if !@user
+      flash[:error] = MESSAGES[:login_required]
+      redirect_to root_path
+    end
   end
 
   def set_locale

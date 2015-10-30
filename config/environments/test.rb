@@ -31,7 +31,9 @@ Rails.application.configure do
   # ActionMailer::Base.deliveries array.
 
   config.action_mailer.raise_delivery_errors = true
-  # config.action_mailer.delivery_method = :test
+
+  # To test actual delivery via Mandrill test mode, comment out this line:
+  config.action_mailer.delivery_method = :test
   host = 'example.com'
   config.action_mailer.smtp_settings = {
     address: ENV.fetch("SMTP_ADDRESS"),
