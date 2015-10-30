@@ -40,7 +40,7 @@ https://trello.com/b/snyEH1jG/capstone
 * Authorization by third-party applications (Google, Github, Facebook)
 
 ## Author
-#### Sally Moore 
-Email: bspoked.bike@gmail.com
-Twitter: http://twitter.com/sallysuru
-GitHub: https://github.com/sallyamoore
+#### Sally Moore
+* Email: bspoked.bike@gmail.com
+* Twitter: http://twitter.com/sallysuru
+* GitHub: https://github.com/sallyamoore
