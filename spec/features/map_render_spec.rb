@@ -1,31 +1,31 @@
 require 'rails_helper'
 
 RSpec.describe "javascripts/map-render.js" do
-  # NOTE: Marking passing tests with 'it' to avoid too many API calls.
+  # NOTE: Marking passing tests with 'x' to avoid too many API calls.
   before :all do
     visit root_path
   end
 
-  xdescribe 'map renders on page', :js => true do
+  describe 'map renders on page', :js => true do
     it "displays the map div" do
       page.has_selector?("#map")
     end
   end
 
-  xdescribe 'shows login overlay', :js => true do
+  describe 'shows login overlay', :js => true do
     it "displays the login div" do
       page.has_selector?(".login")
       page.has_selector?(".guest-user")
     end
   end
 
-  xdescribe 'populates bike node icons (.css-icon) from overpass api', :js => true do
+  describe 'populates bike node icons (.css-icon) from overpass api', :js => true do
     it "shows bike nodes in map view" do
       page.has_selector?(:root_path, ".css-icon")
     end
   end
 
-  xdescribe "register with email" do
+  describe "register with email" do
     before :all do
       visit root_path
       within('.register') do
@@ -38,7 +38,7 @@ RSpec.describe "javascripts/map-render.js" do
     end
   end
 
-  xdescribe "guest user", :js => true do
+  describe "guest user", :js => true do
     before :each do
       visit root_path
       within('.register') do
@@ -54,23 +54,19 @@ RSpec.describe "javascripts/map-render.js" do
       expect(page).to_not have_selector '.logout'
     end
 
-    it "displays 'login or register' button" do
-      expect(page).to have_content 'Login or Register'
-    end
-
-    context "clicks 'login or register' button" do
+    context "clicks 'user' icon" do
       it "shows login overlay" do
-        click_link 'Login or Register'
+        find('.fa-user').click
         expect(page).to have_selector '.login'
       end
     end
   end
 
-  xdescribe "user login process", :type => :feature do
+  describe "user login process", :type => :feature do
     before :each do
-      @user = create :user
+      @user = create :user, activated: true
       within(".login") do
-        fill_in 'Username', :with => @user.username
+        fill_in 'session_username', :with => @user.username
         fill_in 'Password', :with => @user.password
       end
       click_button 'Log In'
