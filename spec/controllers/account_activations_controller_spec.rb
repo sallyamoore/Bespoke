@@ -20,7 +20,7 @@ RSpec.describe AccountActivationsController, type: :controller do
 
   it "Activates user with valid token and valid email" do
     get :edit, id: @user.activation_token, email: @user.email
-    expect(session[:user_id])
+    expect(session[:user_id]).to eq(@user.id)
     expect(@user.activated?)
   end
 end

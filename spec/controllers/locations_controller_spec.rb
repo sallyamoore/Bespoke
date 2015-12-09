@@ -15,10 +15,11 @@ RSpec.describe LocationsController, type: :controller do
 
   describe "POST #create" do
     it "creates a Location" do
-      @user = create :user
+      @user = create :user, activated: true
       session[:user_id] = @user.id
+
       expect {
-        post :create, location: attributes_for(:location)
+        post :create, attributes_for(:location)
       }.to change(Location, :count).by(1)
       expect(Location.count).to eq 1
     end
