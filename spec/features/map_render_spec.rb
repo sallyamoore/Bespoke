@@ -62,7 +62,7 @@ RSpec.describe "javascripts/map-render.js" do
     end
   end
 
-  describe "user login process", :type => :feature do
+  xdescribe "user login process", :type => :feature do
     before :each do
       @user = create :user, activated: true
       within(".login") do
