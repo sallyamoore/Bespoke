@@ -106,16 +106,20 @@ div.alert.alert-danger, div.alert.node-saved {
   margin: 0 .2em;
 }
 
-.logout {
+.menu {
   display: none;
   position: absolute;
+  text-decoration: none;
   background-color: rgba(255, 255, 255, .7);
   top: 0;
   right: 0;
-  padding: .5em .5em 0 .5em;
+  padding: .5em 0;
   font-weight: bold;
   z-index: 100;
-  border-radius: 10px;
+}
+
+.menu-bars, .my-account, .my-location, .find-location {
+  color: #1269D2;
 }
 
 .location-search {

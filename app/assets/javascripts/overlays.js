@@ -23,6 +23,11 @@ $(document).ready(function() {
     $(".directions-icon").toggleClass("fa-flip-vertical");
     $("#directions").slideToggle();
   });
+
+  $(".menu").click( function() {
+    event.preventDefault();
+    $("#menu-list").slideToggle();
+  });
 });
 
 function changeOverlay() {
@@ -31,6 +36,7 @@ function changeOverlay() {
   $("div.login").slideToggle();
   $("div.nav-bar").slideToggle();
   $("div.logout").slideToggle();
+  $("div.menu").slideToggle();
   $("div.login-or-register").slideToggle();
 
   logged_in_user = false;
