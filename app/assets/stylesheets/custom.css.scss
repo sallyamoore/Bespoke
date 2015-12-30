@@ -115,10 +115,14 @@ div.alert.alert-danger, div.alert.node-saved {
   right: 0;
   padding: .5em 0;
   font-weight: bold;
-  z-index: 100;
+  z-index: 102;
 }
 
-.menu-bars, .my-account, .my-location, .find-location {
+.close-menu {
+  background-color: black;
+}
+
+.menu-bars, .fa-close, .my-account, .my-location, .find-location {
   color: #1269D2;
 }
 
@@ -141,6 +145,22 @@ div.alert.alert-danger, div.alert.node-saved {
   bottom: 0;
   z-index: 1000;
   text-align: center;
+}
+
+#menu-list {
+  display: none;
+  // background-color: black;
+  color: white;
+  display: none;
+  padding: 2.2em;
+  position: absolute;
+  max-width: 300px;
+  min-width: 200px;
+  z-index: 100;
+  background: rgba(0, 0, 0, 1);
+  top: 0;
+  right: 0;
+  bottom: 70px;
 }
 
 div.leaflet-control-attribution, div.leaflet-compact-attribution {

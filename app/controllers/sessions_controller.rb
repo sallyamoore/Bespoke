@@ -12,8 +12,6 @@ class SessionsController < ApplicationController
     end
   end
 
-  def menu; end
-
   def destroy
     reset_session
     redirect_to root_path

@@ -18,9 +18,7 @@ Rails.application.routes.draw do
   get "auth/facebook/callback" => 'sessions#create'
 
   get "auth/:provider" => 'sessions#create', as: 'provider_login'
-  # get    "/login",  to: 'sessions#new'
   post   "/login",  to: 'sessions#create', as: 'login'
   delete "/logout", to: 'sessions#destroy'
-  get "/menu", to: 'sessions#menu', as: 'menu'
 
 end

@@ -25,7 +25,8 @@ $(document).ready(function() {
   });
 
   $(".menu").click( function() {
-    event.preventDefault();
+    $(".menu-bars").toggleClass("fa-bars fa-3x").toggleClass("fa-close fa-3x");
+    $(".menu").toggleClass("close-menu");
     $("#menu-list").slideToggle();
   });
 });
@@ -35,7 +36,7 @@ function changeOverlay() {
   $(".location-search").slideUp();
   $("div.login").slideToggle();
   $("div.nav-bar").slideToggle();
-  $("div.logout").slideToggle();
+  // $("div.logout").slideToggle();
   $("div.menu").slideToggle();
   $("div.login-or-register").slideToggle();
 

@@ -37,21 +37,7 @@
       <p>or <%= link_to "Continue without logging in", root_path, class: "guest-user" %></p>
     </div>
   </div>
-
-<% else %>
-
-  <!-- <div class="logout">
-    <p><%= @user.username %>
-      <%= link_to "Logout", logout_path, method: :delete, class: 'btn btn-default' %>
-    </p>
-  </div> -->
 <% end %>
-
-<div class="menu">
-  <%= link_to menu_path do %>
-    <span class="menu-bars col-xs-4 fa fa-bars fa-3x" aria-hidden="true" data-toggle="tooltip" title="more options"></span>
-  <% end %>
-</div>
 
 <div class="nav-bar">
   <footer>
@@ -87,18 +73,29 @@
   </form>
 </div>
 
+<div class="menu">
+    <span class="menu-bars col-xs-4 fa fa-bars fa-3x" aria-hidden="true" data-toggle="tooltip" title="more options"></span>
+</div>
+
+<div id="menu-list">
+  <% if session[:user_id] %>
+    <p><%= @user.username %></p>
+    <p>
+      <%= link_to "Logout", logout_path, method: :delete %>
+    </p>
+  <% end %>
+  <p>About</p>
+  <p>Bike touring info</p>
+</div>
+
 <div class="save-location">
   <span class="fa fa-user-plus fa-2x"></span>
 </div>
 
 <div class="directions-icon">
-  <span class="fa fa-arrow-circle-down fa-2x" title="Show directions"></span>
+  <span class="fa fa-arrow-circle-down fa-2x" data-toggle="tooltip" title="Show directions"></span>
 </div>
 
 <div id="directions">
   <div id="instructions"></div>
-</div>
-
-<div id="menu-list">
-
 </div>
