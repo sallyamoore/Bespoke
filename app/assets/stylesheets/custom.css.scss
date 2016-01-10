@@ -110,7 +110,6 @@ div.alert.alert-danger, div.alert.node-saved {
   display: none;
   position: absolute;
   text-decoration: none;
-  background-color: rgba(255, 255, 255, .7);
   top: 0;
   right: 0;
   padding: .5em 0;
@@ -118,11 +117,11 @@ div.alert.alert-danger, div.alert.node-saved {
   z-index: 102;
 }
 
-.close-menu {
-  background-color: black;
+.menu-bars, .fa-close {
+  color: #0854AE;
 }
 
-.menu-bars, .fa-close, .my-account, .my-location, .find-location {
+.my-account, .my-location, .find-location {
   color: #1269D2;
 }
 

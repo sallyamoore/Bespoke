@@ -36,7 +36,6 @@ function changeOverlay() {
   $(".location-search").slideUp();
   $("div.login").slideToggle();
   $("div.nav-bar").slideToggle();
-  // $("div.logout").slideToggle();
   $("div.menu").slideToggle();
   $("div.login-or-register").slideToggle();
 
