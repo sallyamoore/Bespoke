@@ -148,18 +148,17 @@ div.alert.alert-danger, div.alert.node-saved {
 
 #menu-list {
   display: none;
-  // background-color: black;
   color: white;
-  display: none;
   padding: 2.2em;
   position: absolute;
-  max-width: 300px;
-  min-width: 200px;
+  width: 200px;
   z-index: 100;
   background: rgba(0, 0, 0, 1);
   top: 0;
-  right: 0;
+  right: -200px;
   bottom: 70px;
+  transform: translateX(-100%);
+  -webkit-transform: translateX(-100%);
 }
 
 div.leaflet-control-attribution, div.leaflet-compact-attribution {
@@ -212,4 +211,33 @@ div.leaflet-control-attribution, div.leaflet-compact-attribution {
   bottom:0;
   width:100%;
   height: 100%;
+}
+
+/* ------- ANIMATIONS ------- */
+.slide-left {
+  animation: slide-left 0.5s forwards;
+  -webkit-animation: slide-left 0.5s forwards;
+}
+
+.slide-right {
+  animation: slide-right 0.5s forwards;
+  -webkit-animation: slide-right 0.5s forwards;
+}
+
+@keyframes slide-left {
+  100% { transform: translateX(0%); }
+}
+
+@-webkit-keyframes slide-left {
+  100% { -webkit-transform: translateX(0%); }
+}
+
+@keyframes slide-right {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-100%); }
+}
+
+@-webkit-keyframes slide-right {
+  0% { -webkit-transform: translateX(0%); }
+  100% { -webkit-transform: translateX(-100%); }
 }

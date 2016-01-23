@@ -27,7 +27,12 @@ $(document).ready(function() {
   $(".menu").click( function() {
     $(".menu-bars").toggleClass("fa-bars fa-3x").toggleClass("fa-close fa-3x");
     $(".menu").toggleClass("close-menu");
-    $("#menu-list").slideToggle();
+
+    var visible = $("#menu-list").hasClass('slide-right');
+    $("#menu-list")
+      .css("display", "block")
+      .toggleClass('slide-left', visible)
+      .toggleClass('slide-right', !visible);
   });
 });
 
@@ -38,6 +43,15 @@ function changeOverlay() {
   $("div.nav-bar").slideToggle();
   $("div.menu").slideToggle();
   $("div.login-or-register").slideToggle();
+
+  if ($("#menu-list").hasClass('slide-right')) {
+    $("#menu-list").addClass('slide-left');
+    $("#menu-list").removeClass('slide-right');
+  }
+
+  if ($(".menu-bars").hasClass('fa-close')) {
+    $(".menu-bars").toggleClass("fa-bars fa-3x").toggleClass("fa-close fa-3x");
+  }
 
   logged_in_user = false;
 }
