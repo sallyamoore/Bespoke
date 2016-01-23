@@ -1,0 +1,28 @@
+.location-submit {
+  margin-bottom: 5px;
+}
+
+.my-account, .my-location, .find-location, .login-or-register {
+  color: #1269D2;
+}
+
+.location-search {
+  display: none;
+  position: absolute;
+  background-color: rgba(0, 0, 0, .7);
+  color: white;
+  bottom: 70px;
+  width: 100%;
+  z-index: 100;
+}
+
+.nav-bar {
+  display: none;
+  position: absolute;
+  background-color: rgba(255, 255, 255, .7);
+  padding: 1em;
+  width: 100%;
+  bottom: 0;
+  z-index: 1000;
+  text-align: center;
+}

@@ -1,4 +1,4 @@
-<div class="jumbotron title">
+<div class="jumbotron title" id="jumbo">
   <div class="container">
     <%= link_to root_path, method: :get, class: 'title' do %>
       <h1><i class="fa fa-bicycle"></i> bspoked <i class="fa fa-bicycle"></i></h1>
@@ -30,7 +30,7 @@
         <th>Type</th>
         <th>Latitude</th>
         <th>Longitude</th>
-        <th>Delete Location</th>
+        <th>Delete</th>
       </tr>
 
       <% @user.locations.each do |location| %>
