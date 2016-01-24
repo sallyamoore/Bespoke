@@ -11,17 +11,46 @@ RSpec.describe LocationsController, type: :controller do
       get :index
       expect(response).to render_template(:index)
     end
+
+    it "finds a user when logged in" do
+      user = create :user, activated: true
+      session[:user_id] = user.id
+
+      get :index
+      expect { assigns(:user).to eq(user) }
+      expect(User.find(user.id).username).to eq(user.username)
+    end
   end
 
   describe "POST #create" do
-    it "creates a Location" do
-      @user = create :user, activated: true
-      session[:user_id] = @user.id
+    context "logged in user" do
+      before :each do
+        @user = create :user, activated: true
+        session[:user_id] = @user.id
+      end
 
-      expect {
+      it "creates a Location" do
+        expect {
+          post :create, attributes_for(:location)
+        }.to change(Location, :count).by(1)
+        expect(Location.count).to eq 1
+      end
+
+      it "associates the location with the logged in user" do
         post :create, attributes_for(:location)
-      }.to change(Location, :count).by(1)
-      expect(Location.count).to eq 1
+        user_locations = User.find(@user.id).locations
+        location = Location.first
+        expect(user_locations.first).to eq(location)
+      end
+    end
+
+    context "user not logged in" do
+      it "creates a Location" do
+        expect {
+          post :create, attributes_for(:location)
+        }.to change(Location, :count).by(1)
+        expect(Location.count).to eq 1
+      end
     end
   end
 

@@ -8,26 +8,25 @@ class LocationsController < ApplicationController
   end
 
   def retrieve_nodes
-    sw_lat = params[:swLat]
-    sw_lng = params[:swLng]
-    ne_lat = params[:neLat]
-    ne_lng = params[:neLng]
-    locations = Location.where( 'latitude >= ' + sw_lat +
-      ' AND latitude <= '  + ne_lat +
-      ' AND longitude >= ' + sw_lng +
-      ' AND longitude <= ' + ne_lng )
+    locations = Location.where(
+      ' latitude      >= ' + params[:swLat] +
+      ' AND latitude  <= ' + params[:neLat] +
+      ' AND longitude >= ' + params[:swLng] +
+      ' AND longitude <= ' + params[:neLng]
+    )
 
-    elements = []
-    locations.each do |location|
-      loc_hash =
-      {
-        id: location.node_id,
-        tags: { rcn_ref: location.node_number },
-        lat: location.latitude,
-        lon: location.longitude,
-      }
-      elements << loc_hash
-    end
+    elements = get_nodes_in_view(locations)
+    # elements = []
+    # locations.each do |location|
+    #   loc_hash =
+    #   {
+    #     id: location.node_id,
+    #     tags: { rcn_ref: location.node_number },
+    #     lat: location.latitude,
+    #     lon: location.longitude,
+    #   }
+    #   elements << loc_hash
+    # end
     render json: { data: elements, status: 200 }.as_json
   end
 
@@ -72,6 +71,23 @@ class LocationsController < ApplicationController
     unless object.users.include?(User.find(session[:user_id]))
       redirect_to user_path(session[:user_id]), flash: { error: MESSAGES[:wrong_login] }
     end
+  end
+
+  def get_nodes_in_view(locations)
+    elements_array = []
+
+    locations.each do |location|
+      loc_hash =
+      {
+        id: location.node_id,
+        tags: { rcn_ref: location.node_number },
+        lat: location.latitude,
+        lon: location.longitude,
+      }
+      elements_array << loc_hash
+    end
+
+    return elements_array
   end
 
 end
