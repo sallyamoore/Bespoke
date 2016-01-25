@@ -16,17 +16,6 @@ class LocationsController < ApplicationController
     )
 
     elements = get_nodes_in_view(locations)
-    # elements = []
-    # locations.each do |location|
-    #   loc_hash =
-    #   {
-    #     id: location.node_id,
-    #     tags: { rcn_ref: location.node_number },
-    #     lat: location.latitude,
-    #     lon: location.longitude,
-    #   }
-    #   elements << loc_hash
-    # end
     render json: { data: elements, status: 200 }.as_json
   end
 
@@ -56,6 +45,9 @@ class LocationsController < ApplicationController
 
     redirect_to user_path(session[:user_id]), flash: { alert: "Location deleted." }
   end
+
+  def about; end
+  def touring_info; end
 
   private
 
