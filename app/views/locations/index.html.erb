@@ -80,12 +80,10 @@
 <div id="menu-list" class="slide-left">
   <% if session[:user_id] %>
     <p><%= @user.username %></p>
-    <p>
-      <%= link_to "Logout", logout_path, method: :delete %>
-    </p>
+    <p><%= link_to "Logout", logout_path, method: :delete %></p>
   <% end %>
-  <p>About</p>
-  <p>Bike touring info</p>
+  <p><%= link_to "About", about_path %></p>
+  <p><%= link_to "Bike touring info", touring_path %></p>
 </div>
 
 <div class="save-location">
