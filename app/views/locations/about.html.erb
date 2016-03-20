@@ -1,24 +1,13 @@
-<div class="container-fluid">
-  <h1>about bspoked</h1>
-</div>
+<%= render 'shared/title_jumbotron' %>
 
 <div id="aboutCarousel" class="carousel slide" data-ride="carousel">
-  <!-- Indicators -->
-  <!-- TODO: fix/update or remove -->
-  <ol class="carousel-indicators">
-    <li data-target="#aboutCarousel" data-slide-to="0" class="active"></li>
-    <li data-target="#aboutCarousel" data-slide-to="1"></li>
-    <li data-target="#aboutCarousel" data-slide-to="2"></li>
-    <li data-target="#aboutCarousel" data-slide-to="3"></li>
-  </ol>
-
   <!-- Wrapper for slides -->
   <div class="carousel-inner" role="listbox">
     <div class="item active">
       <%=image_tag("about-bspoked/about-bspoked1.png", alt: "about bspoked slide", class: "carousel-img")%>
     </div>
 
-    <% (2..22).to_a.each do |num| %>
+    <% @picture_range.each do |num| %>
       <div class="item">
         <%=image_tag("about-bspoked/about-bspoked#{num}.png", alt: "about bspoked slide", class: "carousel-img")%>
       </div>

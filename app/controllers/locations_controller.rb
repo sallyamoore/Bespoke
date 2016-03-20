@@ -46,7 +46,12 @@ class LocationsController < ApplicationController
     redirect_to user_path(session[:user_id]), flash: { alert: "Location deleted." }
   end
 
-  def about; end
+  def about
+    dir = './app/assets/images/about-bspoked'
+    picture_count = Dir[File.join(dir, '**', '*')].count { |file| File.file?(file) }
+    @picture_range = (2..picture_count).to_a
+  end
+
   def touring_info; end
 
   private
