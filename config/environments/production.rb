@@ -88,7 +88,6 @@ Rails.application.configure do
     password: ENV.fetch("SMTP_KEY"),
     port: "587",
     user_name: ENV.fetch("SMTP_USERNAME"),
-    from: 'postmaster@bspoked.bike'
   }
   config.action_mailer.default_url_options = { host: 'bspoked.bike' }
 end
