@@ -79,10 +79,10 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
 
-  # Mandrill settings for email.
+  # SparkPost settings for email.
   config.action_mailer.smtp_settings = {
     address: ENV.fetch("SMTP_ADDRESS"),
-    authentication: :plain,
+    authentication: :login,
     domain: 'bspoked.bike',
     enable_starttls_auto: true,
     password: ENV.fetch("SMTP_KEY"),

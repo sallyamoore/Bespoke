@@ -32,12 +32,12 @@ Rails.application.configure do
 
   config.action_mailer.raise_delivery_errors = true
 
-  # To test actual delivery via Mandrill test mode, comment out this line:
+  # Comment out this line to actually send email:
   config.action_mailer.delivery_method = :test
   host = 'example.com'
   config.action_mailer.smtp_settings = {
     address: ENV.fetch("SMTP_ADDRESS"),
-    authentication: :plain,
+    authentication: :login,
     domain: ENV.fetch("SMTP_DOMAIN"),
     enable_starttls_auto: true,
     password: ENV.fetch("SMTP_TEST_KEY"),
