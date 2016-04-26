@@ -87,7 +87,8 @@ Rails.application.configure do
     enable_starttls_auto: true,
     password: ENV.fetch("SMTP_KEY"),
     port: "587",
-    user_name: ENV.fetch("SMTP_USERNAME")
+    user_name: ENV.fetch("SMTP_USERNAME"),
+    from: 'postmaster@bspoked.bike'
   }
   config.action_mailer.default_url_options = { host: 'bspoked.bike' }
 end
