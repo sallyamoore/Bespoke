@@ -26,9 +26,6 @@ In a simple, mobile-optimized interface ideal for bike travelers, this app will 
 - Once nearby nodes are shown, a user will be able to click on a node to view directions to it.
 - Will initially be created as an English-language app with the potential for internationalization
 
-### Link to Trello board:
-https://trello.com/b/snyEH1jG/capstone
-
 ## Requirements:
 * Ruby version ~2.2.2
 * Postgres database
